@@ -1,2 +1,16 @@
 general:
-  build_dir: GiTinder/app/
+    build_dir: GiTinder/app/
+
+general:
+    artifacts:
+        - GiTinder/app/build/outputs/apk/
+
+dependencies:
+    override:
+        - chmod +x gradlew
+        - ./gradlew dependencies
+
+test:
+    override:
+        - ./gradlew :app:test
+
