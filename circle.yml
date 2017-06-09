@@ -18,12 +18,6 @@ dependencies:
 
 test:
     override:
-        - emulator -avd circleci-android21 -no-audio -no-window:
-            background: true
-            parallel: true
-        - circle-android wait-for-boot
         - ./gradlew :app:test
         - ./gradlew assemble
         - cp -r app/build/outputs/ $CIRCLE_ARTIFACTS
-        - adb install app/build/outputs/apk/app-debug.apk
-        - adb install app/build/outputs/apk/app-release-unsigned.apk
