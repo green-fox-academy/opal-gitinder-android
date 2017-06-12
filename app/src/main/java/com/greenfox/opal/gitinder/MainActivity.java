@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://p2pchat-garlyle.herokuapp.com/")
+                .baseUrl("http://gitinder.herokuapp.com/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         service = retrofit.create(ApiService.class);
