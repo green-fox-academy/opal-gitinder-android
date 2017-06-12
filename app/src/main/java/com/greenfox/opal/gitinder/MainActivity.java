@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     ApiService service;
     Retrofit retrofit;
-    LoginRequest testLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,17 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         service = retrofit.create(ApiService.class);
-        testLogin = new LoginRequest("Bond", "abcd1234");
+    }
 
+    public void sendMessage(View view) {
+        EditText editText = (EditText) findViewById(R.id.editText);
+        String message = editText.getText().toString();
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText(message);
+    }
+
+    public void onLogin(String username, String token) {
+        LoginRequest testLogin = new LoginRequest(username, token);
         service.login(testLogin).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
@@ -48,12 +56,5 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("FAIL! =( ");
             }
         });
-    }
-
-    public void sendMessage(View view) {
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(message);
     }
 }
