@@ -20,6 +20,9 @@ android {
     lintOptions {
         abortOnError false
     }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
     packagingOptions {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
@@ -36,7 +39,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
-    compile 'com.wu-man:android-oauth-client:0.4.5'
+    compile 'com.wu-man:android-oauth-client:0.4.5@aar'
     testCompile "org.robolectric:robolectric:3.3.2"
     testCompile 'junit:junit:4.12'
 }
