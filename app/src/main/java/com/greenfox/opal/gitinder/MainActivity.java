@@ -1,13 +1,18 @@
 package com.greenfox.opal.gitinder;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.OnError;
 import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.service.OnTokenAcquired;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +35,20 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         service = retrofit.create(ApiService.class);
+
+        AccountManager am = AccountManager.get(this);
+        Account[] accounts = am.getAccountsByType("com.github.auth.login");
+        Account myAccount = null;
+        Bundle options = new Bundle();
+
+        am.getAuthToken(
+                myAccount,
+                "Manage your tasks",
+                options,
+                this,
+                new OnTokenAcquired(),
+                new Handler((Handler.Callback) new OnError()) {
+                });
     }
 
     public void sendMessage(View view) {
