@@ -2,6 +2,7 @@ package com.greenfox.opal.gitinder;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 //                .build();
 //        service = retrofit.create(ApiService.class);
         service = new MockServer();
+        onLogin("Bond", "abcd1234");
     }
 
     public void sendMessage(View view) {
@@ -47,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
                 if (response.body().getStatus().equals("ok")) {
-                    System.out.println(response.body().getToken());
+                    Log.i("login", response.body().getToken());
                 } else {
-                    System.out.println(response.body().getMessage());
+                    Log.e("login", response.body().getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<StatusResponse> call, Throwable t) {
-                System.out.println("FAIL! =( ");
+                Log.e("login", "FAIL! =(");
             }
         });
     }
