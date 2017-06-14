@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">GiTinder</string>
+  <string name="dialog_title">Login with Github</string>
+  <string name="dialog_message">In order to use GiTinder you need to login using your Github Account.
+    Click Login if you want to proceed.</string>
+  <string name="dialog_button_exit">Exit</string>
+  <string name="dialog_button_login">Login</string>
 </resources>
