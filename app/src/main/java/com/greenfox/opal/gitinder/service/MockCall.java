@@ -6,7 +6,7 @@ import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public abstract class MockCall implements Call {
+public abstract class MockCall<T> implements Call {
     @Override
     public Response execute() throws IOException {
         return null;
