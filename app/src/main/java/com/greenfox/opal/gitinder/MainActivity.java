@@ -1,11 +1,8 @@
 package com.greenfox.opal.gitinder;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -13,10 +10,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.OnError;
 import com.greenfox.opal.gitinder.model.StatusResponse;
-import com.greenfox.opal.gitinder.service.OnTokenAcquired;
+import com.wuman.android.auth.AuthorizationDialogController;
+import com.wuman.android.auth.AuthorizationFlow;
+import com.wuman.android.auth.DialogFragmentController;
+import com.wuman.android.auth.OAuthManager;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,19 +46,41 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         service = retrofit.create(ApiService.class);
 
-        AccountManager am = AccountManager.get(this);
-        Account[] accounts = am.getAccountsByType("com.github.auth.login");
-        Account myAccount = null;
-        Bundle options = new Bundle();
+        AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
+                BearerToken.authorizationHeaderAccessMethod(),
+                AndroidHttp.newCompatibleTransport(),
+                new JacksonFactory(),
+                new GenericUrl("https://socialservice.com/oauth2/access_token"),
+                new ClientParametersAuthentication(System.getenv("CLIENT_ID"), System.getenv("CLIENT_SECRET")),
+                System.getenv("CLIENT_ID"),
+                "https://socialservice.com/oauth2/authorize");
 
-        am.getAuthToken(
-                myAccount,
-                "Manage your tasks",
-                options,
-                this,
-                new OnTokenAcquired(),
-                new Handler((Handler.Callback) new OnError()) {
-                });
+        AuthorizationFlow flow = builder.build();
+
+        AuthorizationDialogController controller =
+                new DialogFragmentController(getFragmentManager()) {
+                    @Override
+                    public String getRedirectUri() throws IOException {
+                        return "http://gitinder.herokuapp/callback";
+                    }
+
+                    @Override
+                    public boolean isJavascriptEnabledForWebView() {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean disableWebViewCache() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean removePreviousCookie() {
+                        return false;
+                    }
+                };
+
+        OAuthManager oAuthManager = new OAuthManager(flow, controller);
 
         checkLogin();
     }
