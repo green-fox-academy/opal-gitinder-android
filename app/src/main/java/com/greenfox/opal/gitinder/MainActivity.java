@@ -8,14 +8,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.response.StatusResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -4,19 +4,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.StatusResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.io.IOException;
-
-import retrofit2.Call;
 
 import static org.junit.Assert.assertEquals;
 

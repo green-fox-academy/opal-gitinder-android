@@ -2,7 +2,9 @@ package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.response.ErrorResponse;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.response.StatusResponse;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,12 +23,12 @@ public class MockServer implements ApiService {
                         message += " username";
                     }
                     if (loginRequest.getAccessToken().isEmpty()) {
-                        message += "accessToken";
+                        message += " accessToken";
                     }
                     message += "!";
-                    response = new StatusResponse("error", message);
+                    response = new ErrorResponse("error", message);
                 } else {
-                    response = new StatusResponse("ok", "abc123");
+                    response = new LoginResponse("ok", "abc123");
                 }
                 callback.onResponse(null, Response.success(response));
             }
