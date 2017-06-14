@@ -1,5 +1,6 @@
-package com.greenfox.opal.gitinder;
+package com.greenfox.opal.gitinder.service;
 
+import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.StatusResponse;
 
@@ -13,7 +14,7 @@ import retrofit2.http.Body;
 
 public class MockServer implements ApiService {
     @Override
-    public Call<StatusResponse> login(@Body LoginRequest loginRequest) {
+    public Call<StatusResponse> login(@Body final LoginRequest loginRequest) {
         if (loginRequest.getUsername().equals("Bond") && loginRequest.getAccessToken().equals("abcd1234")) {
             return new Call<StatusResponse>() {
                 @Override
@@ -24,7 +25,9 @@ public class MockServer implements ApiService {
 
                 @Override
                 public void enqueue(Callback<StatusResponse> callback) {
-
+                    // ezt használd
+                    loginRequest.getUsername();
+                    callback.onResponse(null, Response.success(new StatusResponse("ok", "abc123")));
                 }
 
                 @Override

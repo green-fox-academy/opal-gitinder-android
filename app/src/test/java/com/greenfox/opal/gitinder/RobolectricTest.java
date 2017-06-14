@@ -6,9 +6,8 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;

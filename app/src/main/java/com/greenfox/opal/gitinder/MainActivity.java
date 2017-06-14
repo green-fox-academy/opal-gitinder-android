@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,11 +26,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://gitinder.herokuapp.com/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        service = retrofit.create(ApiService.class);
+//        retrofit = new Retrofit.Builder()
+//                .baseUrl("http://gitinder.herokuapp.com/")
+//                .addConverterFactory(JacksonConverterFactory.create())
+//                .build();
+//        service = retrofit.create(ApiService.class);
+        service = new MockServer();
     }
 
     public void sendMessage(View view) {
