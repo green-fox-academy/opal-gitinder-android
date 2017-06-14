@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.response.LoginResponse;
 import com.greenfox.opal.gitinder.response.StatusResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         service.login(testLogin).enqueue(new Callback<StatusResponse>() {
             @Override
             public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                if (response.body().getStatus().equals("ok")) {
+                if (response.body() instanceof LoginResponse) {
                     Log.i("login", response.body().getToken());
                 } else {
                     Log.e("login", response.body().getMessage());
