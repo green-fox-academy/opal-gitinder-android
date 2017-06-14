@@ -3,12 +3,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.greenfox.opal.gitinder">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission
       android:maxSdkVersion="22"
       android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
       android:allowBackup="true"
