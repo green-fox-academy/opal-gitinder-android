@@ -15,57 +15,29 @@ import retrofit2.http.Body;
 public class MockServer implements ApiService {
     @Override
     public Call<StatusResponse> login(@Body final LoginRequest loginRequest) {
-        if (loginRequest.getUsername().equals("Bond") && loginRequest.getAccessToken().equals("abcd1234")) {
-            return new Call<StatusResponse>() {
-                @Override
-                public Response<StatusResponse> execute() throws IOException {
-                    StatusResponse response = new StatusResponse("ok", "abc123");
-                    return Response.success(response);
-                }
-
-                @Override
-                public void enqueue(Callback<StatusResponse> callback) {
-                    // ezt használd
-                    loginRequest.getUsername();
-                    callback.onResponse(null, Response.success(new StatusResponse("ok", "abc123")));
-                }
-
-                @Override
-                public boolean isExecuted() {
-                    return false;
-                }
-
-                @Override
-                public void cancel() {
-
-                }
-
-                @Override
-                public boolean isCanceled() {
-                    return false;
-                }
-
-                @Override
-                public Call<StatusResponse> clone() {
-                    return null;
-                }
-
-                @Override
-                public Request request() {
-                    return null;
-                }
-            };
-        }
         return new Call<StatusResponse>() {
             @Override
             public Response<StatusResponse> execute() throws IOException {
-                StatusResponse response = new StatusResponse("error", "Missing parameter(s): username!");
-                return Response.success(response);
+                return null;
             }
 
             @Override
             public void enqueue(Callback<StatusResponse> callback) {
-
+                StatusResponse response;
+                if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
+                    String message = "Missing parameter(s):";
+                    if (loginRequest.getUsername().isEmpty()) {
+                        message += " username";
+                    }
+                    if (loginRequest.getAccessToken().isEmpty()) {
+                        message += "accessToken";
+                    }
+                    message += "!";
+                    response = new StatusResponse("error", message);
+                } else {
+                    response = new StatusResponse("ok", "abc123");
+                }
+                callback.onResponse(null, Response.success(response));
             }
 
             @Override

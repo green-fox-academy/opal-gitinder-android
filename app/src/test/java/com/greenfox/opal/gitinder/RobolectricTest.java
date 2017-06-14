@@ -35,20 +35,4 @@ public class RobolectricTest {
         button.performClick();
         assertEquals(result.getText().toString(), edit.getText().toString());
     }
-
-    @Test
-    public void loginTest() throws IOException {
-        MockServer server = new MockServer();
-        Call<StatusResponse> response = server.login(new LoginRequest("Bond", "abcd1234"));
-        assertEquals(response.execute().body().getStatus(), "ok");
-        assertEquals(response.execute().body().getToken(), "abc123");
-    }
-
-    @Test
-    public void loginFailTest() throws IOException {
-        MockServer server = new MockServer();
-        Call<StatusResponse> response = server.login(new LoginRequest("NemBond", "1234abcd"));
-        assertEquals(response.execute().body().getStatus(), "error");
-        assertEquals(response.execute().body().getMessage(), "Missing parameter(s): username!");
-    }
 }
