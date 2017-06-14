@@ -35,13 +35,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.wu-man:android-oauth-client:0.4.5@aar'
+    compile 'com.wu-man:android-oauth-client:0.4.5@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
-    compile 'com.wu-man:android-oauth-client:0.4.5@aar'
-    testCompile "org.robolectric:robolectric:3.3.2"
-    testCompile 'junit:junit:4.12'
     compile 'org.apache.ant:ant:1.8.0'
     compile 'classworlds:classworlds:1.1-alpha-2'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+    testCompile 'junit:junit:4.12'
 }
