@@ -25,6 +25,5 @@ public class RobolectricTest {
 
         button.performClick();
         assertEquals(result.getText().toString(), edit.getText().toString());
-
     }
 }
