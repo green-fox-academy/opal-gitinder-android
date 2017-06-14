@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
                 new JacksonFactory(),
-                new GenericUrl("https://socialservice.com/oauth2/access_token"),
+                new GenericUrl("https://github.com/login/oauth/access_token"),
                 new ClientParametersAuthentication(System.getenv("CLIENT_ID"), System.getenv("CLIENT_SECRET")),
                 System.getenv("CLIENT_ID"),
-                "https://socialservice.com/oauth2/authorize");
+                "http://github.com/login/oauth/authorize");
 
         AuthorizationFlow flow = builder.build();
 
