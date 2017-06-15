@@ -1,7 +1,11 @@
 package com.greenfox.opal.gitinder;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
         service = retrofit.create(ApiService.class);
+
+        checkLogin();
     }
 
     public void sendMessage(View view) {
@@ -37,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(message);
+    }
+
+    public void checkLogin() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String clientID = preferences.getString("ClientID", null);
+
+        if (TextUtils.isEmpty(clientID)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void onLogin(String username, String token) {
