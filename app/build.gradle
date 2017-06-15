@@ -13,8 +13,14 @@ android {
     }
     buildTypes {
         release {
+            resValue "string", "CLIENT_ID", System.getenv("CLIENT_ID")
+            resValue "string", "CLIENT_SECRET", System.getenv("CLIENT_SECRET")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            resValue "string", "CLIENT_ID", System.getenv("CLIENT_ID")
+            resValue "string", "CLIENT_SECRET", System.getenv("CLIENT_SECRET")
         }
     }
     lintOptions {
