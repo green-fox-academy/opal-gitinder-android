@@ -22,7 +22,8 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.StatusResponse;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
@@ -44,17 +45,26 @@ public class MainActivity extends AppCompatActivity {
 
     ApiService service;
     Retrofit retrofit;
+    boolean connectToBackend = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        retrofit = new Retrofit.Builder()
+        if (connectToBackend) {
+            retrofit = new Retrofit.Builder()
                 .baseUrl("http://gitinder.herokuapp.com/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
-        service = retrofit.create(ApiService.class);
+
+            service = retrofit.create(ApiService.class);
+        } else {
+           service = new MockServer();
+        }
+
+        onLogin("Bond", "abcd1234");
+
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
@@ -69,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
                                         request.getHeaders().setAccept("application/json");
                                       }
                                     });
-      AuthorizationFlow flow = builder.build();
+        AuthorizationFlow flow = builder.build();
 
-      AuthorizationDialogController controller =
+        AuthorizationDialogController controller =
                 new DialogFragmentController(getFragmentManager()) {
                     @Override
                     public String getRedirectUri() throws IOException {
@@ -94,19 +104,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
-      OAuthManager oAuthManager = new OAuthManager(flow, controller);
-      oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
-        @Override
-        public void run(OAuthFuture<Credential> future) {
-          try {
-            Log.d("success", future.getResult().getAccessToken());
-          } catch (IOException e) {
-            e.printStackTrace();
+        OAuthManager oAuthManager = new OAuthManager(flow, controller);
+        oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
+            @Override
+            public void run(OAuthFuture<Credential> future) {
+            try {
+              Log.d("success", future.getResult().getAccessToken());
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
           }
-        }
-      }, null);
+        }, null);
 
-      checkLogin();
+        checkLogin();
     }
 
     public void sendMessage(View view) {
@@ -116,31 +126,31 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(message);
     }
 
-  public void checkLogin() {
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    String clientID = preferences.getString("ClientID", null);
+    public void checkLogin() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String clientID = preferences.getString("ClientID", null);
 
-    if (TextUtils.isEmpty(clientID)) {
-      Intent intent = new Intent(this, LoginActivity.class);
-      startActivity(intent);
+        if (TextUtils.isEmpty(clientID)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
-  }
 
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<StatusResponse>() {
+        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getStatus().equals("ok")) {
-                    System.out.println(response.body().getToken());
+                    Log.d("login", response.body().getToken());
                 } else {
-                    System.out.println(response.body().getMessage());
+                    Log.d("login", response.body().getMessage());
                 }
             }
 
             @Override
-            public void onFailure(Call<StatusResponse> call, Throwable t) {
-                System.out.println("FAIL! =( ");
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("login", "FAIL! =(");
             }
         });
     }
