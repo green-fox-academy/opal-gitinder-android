@@ -73,52 +73,52 @@
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_marginBottom="12dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
                             android:text="Sloth"
                             android:textColor="#FFFFFF"
                             android:textSize="32sp"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                            tools:layout_constraintBottom_creator="1"
-                            android:layout_marginLeft="16dp"
                             app:layout_constraintLeft_toLeftOf="@+id/imageView"
-                            android:layout_marginStart="16dp" />
+                            tools:layout_constraintBottom_creator="1" />
 
                         <TextView
                             android:id="@+id/textView4"
                             android:layout_width="336dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
                             android:layout_marginLeft="23dp"
                             android:layout_marginRight="24dp"
+                            android:layout_marginStart="23dp"
                             android:layout_marginTop="24dp"
                             android:text="Interested in Java, js, C++, Python, HTML, CSS, sleeping"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             app:layout_constraintLeft_toLeftOf="@+id/imageView"
                             app:layout_constraintRight_toRightOf="@+id/imageView"
                             app:layout_constraintTop_toBottomOf="@+id/imageView"
-                            tools:layout_constraintTop_creator="1"
-                            android:layout_marginStart="23dp"
-                            android:layout_marginEnd="24dp" />
+                            tools:layout_constraintTop_creator="1" />
 
                         <Button
                             android:id="@+id/button1"
                             style="?android:attr/borderlessButtonStyle"
-                            android:textColor="#ff4500"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="23dp"
                             android:text="@string/button_like"
+                            android:textColor="#ff4500"
                             app:layout_constraintTop_toBottomOf="@+id/textView4"
                             tools:layout_editor_absoluteX="16dp" />
 
                         <Button
                             android:id="@+id/button2"
                             style="?android:attr/borderlessButtonStyle"
-                            android:textColor="#ff0000"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="24dp"
                             android:text="@string/button_nope"
+                            android:textColor="#ff0000"
                             app:layout_constraintLeft_toRightOf="@+id/button1"
                             app:layout_constraintTop_toBottomOf="@+id/textView4"
                             tools:layout_constraintLeft_creator="1" />
