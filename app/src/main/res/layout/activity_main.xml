@@ -58,15 +58,13 @@
 
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="0dp"
-                            android:layout_height="275dp"
-                            android:layout_marginEnd="14dp"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginTop="0dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="250dp"
+                            android:background="@android:color/holo_red_dark"
+                            android:cropToPadding="false"
+                            android:scaleType="centerCrop"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/sloth"
-                            tools:layout_constraintLeft_creator="1"
-                            tools:layout_constraintRight_creator="1"
                             tools:layout_constraintTop_creator="1"
                             tools:layout_editor_absoluteX="0dp" />
 
@@ -75,13 +73,12 @@
                             android:layout_width="0dp"
                             android:layout_height="40dp"
                             android:layout_marginBottom="12dp"
-                            android:layout_marginStart="2dp"
                             android:text="Sloth"
                             android:textSize="32sp"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView"
                             tools:layout_constraintBottom_creator="1"
-                            tools:layout_constraintLeft_creator="1"
-                            tools:layout_editor_absoluteX="16dp" />
+                            android:layout_marginLeft="16dp"
+                            app:layout_constraintLeft_toLeftOf="@+id/imageView" />
 
                         <TextView
                             android:id="@+id/textView4"
@@ -95,19 +92,18 @@
                             app:layout_constraintLeft_toLeftOf="@+id/imageView"
                             app:layout_constraintRight_toRightOf="@+id/imageView"
                             app:layout_constraintTop_toBottomOf="@+id/imageView"
-                            tools:layout_constraintTop_creator="1" />
+                            tools:layout_constraintTop_creator="1"
+                            android:layout_marginStart="23dp"
+                            android:layout_marginEnd="24dp" />
 
                         <Button
                             android:id="@+id/button1"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
                             android:layout_marginTop="23dp"
                             android:text="@string/button_like"
                             app:layout_constraintTop_toBottomOf="@+id/textView4"
-                            tools:layout_constraintBottom_creator="1"
-                            tools:layout_constraintLeft_creator="1"
                             tools:layout_editor_absoluteX="16dp" />
 
                         <Button
@@ -115,13 +111,12 @@
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="24dp"
+                            android:layout_marginLeft="15dp"
                             android:layout_marginStart="15dp"
                             android:layout_marginTop="24dp"
                             android:text="@string/button_nope"
                             app:layout_constraintLeft_toRightOf="@+id/button1"
                             app:layout_constraintTop_toBottomOf="@+id/textView4"
-                            tools:layout_constraintBaseline_creator="1"
                             tools:layout_constraintLeft_creator="1" />
 
                     </android.support.constraint.ConstraintLayout>
