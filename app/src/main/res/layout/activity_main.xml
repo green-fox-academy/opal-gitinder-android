@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.greenfox.opal.gitinder.MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="356dp"
+        android:layout_height="301dp"
+        app:srcCompat="@drawable/sloth"
+        tools:layout_editor_absoluteY="57dp"
+        tools:layout_editor_absoluteX="14dp" />
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="0dp"
@@ -50,7 +58,8 @@
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:weightSum="1">
 
                 </LinearLayout>
 
