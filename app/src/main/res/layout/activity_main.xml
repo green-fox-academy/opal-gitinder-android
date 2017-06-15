@@ -6,38 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.greenfox.opal.gitinder.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="356dp"
-        android:layout_height="301dp"
-        app:srcCompat="@drawable/sloth"
-        tools:layout_editor_absoluteY="57dp"
-        tools:layout_editor_absoluteX="14dp" />
-
-    <EditText
-        android:id="@+id/editText"
+    <TabHost
+        android:id="@+id/tabHost"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Text"
-        android:textCursorDrawable="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_editor_absoluteY="447dp" />
-
-    <TabHost
-        android:layout_width="384dp"
-        android:layout_height="508dp"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="-2dp">
+        tools:layout_constraintTop_creator="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,40 +27,79 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+            </TabWidget>
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:id="@+id/tab1"
+            <LinearLayout
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="275dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sloth"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
+
+                <TextView
+                    android:id="@+id/textView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:weightSum="1">
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="23dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginStart="2dp"
+                    android:text="Sloth"
+                    android:textSize="32sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintLeft_toLeftOf="@+id/imageView"
+                    tools:layout_constraintBottom_creator="1"
+                    tools:layout_constraintLeft_creator="1" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                </LinearLayout>
-
-            </FrameLayout>
+                <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="TextView"
+                app:layout_constraintLeft_toLeftOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:layout_constraintLeft_creator="1"
+                tools:layout_constraintTop_creator="1" />
         </LinearLayout>
-    </TabHost>
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/tab2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tab3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout></TabHost>
+
+    </android.support.constraint.ConstraintLayout>
