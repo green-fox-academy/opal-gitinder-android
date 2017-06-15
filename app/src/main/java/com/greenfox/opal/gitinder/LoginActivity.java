@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         .setNegativeButton(R.string.dialog_button_exit, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            finish();
+            finishAffinity();
           }
         });
     AlertDialog alert = a_builder.create();

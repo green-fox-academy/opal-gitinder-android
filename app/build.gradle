@@ -41,4 +41,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
     testCompile 'org.robolectric:robolectric:3.3.2'
     testCompile 'junit:junit:4.12'
+    compile 'org.apache.ant:ant:1.8.0'
+    compile 'classworlds:classworlds:1.1-alpha-2'
 }
