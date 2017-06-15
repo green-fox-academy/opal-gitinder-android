@@ -8,9 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.ErrorResponse;
 import com.greenfox.opal.gitinder.response.LoginResponse;
-import com.greenfox.opal.gitinder.response.StatusResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
@@ -51,21 +49,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<StatusResponse>() {
+        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
-                if (response.body() instanceof LoginResponse) {
-                    LoginResponse loginResponse = (LoginResponse)response.body();
-                    Log.i("login", loginResponse.getToken());
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body().getStatus().equals("ok")) {
+                    Log.d("login", response.body().getToken());
                 } else {
-                    ErrorResponse errorResponse = (ErrorResponse)response.body();
-                    Log.e("login", errorResponse.getMessage());
+                    Log.d("login", response.body().getMessage());
                 }
             }
 
             @Override
-            public void onFailure(Call<StatusResponse> call, Throwable t) {
-                Log.e("login", "FAIL! =(");
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("login", "FAIL! =(");
             }
         });
     }
