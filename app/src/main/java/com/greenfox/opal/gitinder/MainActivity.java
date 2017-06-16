@@ -29,6 +29,9 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
+import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,18 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     ApiService service;
     Retrofit retrofit;
+    boolean connectToBackend = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://gitinder.herokuapp.com/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-        service = retrofit.create(ApiService.class);
-
+      
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
@@ -104,7 +102,18 @@ public class MainActivity extends AppCompatActivity {
           }
         }
       }, null);
-
+      
+        if (connectToBackend) {
+            retrofit = new Retrofit.Builder()
+                .baseUrl("http://gitinder.herokuapp.com/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+            service = retrofit.create(ApiService.class);
+        } else {
+            service = new MockServer();
+        }
+        onLogin("Bond", "abcd1234");
+        onLogin("", "");
         checkLogin();
     }
 
@@ -125,22 +134,22 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
+  
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<StatusResponse>() {
+        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getStatus().equals("ok")) {
-                    System.out.println(response.body().getToken());
+                    Log.d("login", response.body().getToken());
                 } else {
-                    System.out.println(response.body().getMessage());
+                    Log.d("login", response.body().getMessage());
                 }
             }
-
+    
             @Override
-            public void onFailure(Call<StatusResponse> call, Throwable t) {
-                System.out.println("FAIL! =( ");
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("login", "FAIL! =(");
             }
         });
     }
