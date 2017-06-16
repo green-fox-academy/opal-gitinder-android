@@ -59,7 +59,10 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   public void authentication() {
-    OAuthManager oAuthManager = new OAuthManager(buildAuthorizationFlow(), createGitHubLoginDialog());
+    AuthorizationFlow flow = buildAuthorizationFlow();
+    AuthorizationDialogController controller = createGitHubLoginDialog();
+
+    OAuthManager oAuthManager = new OAuthManager(flow, controller);
     oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
       @Override
       public void run(OAuthFuture<Credential> future) {
