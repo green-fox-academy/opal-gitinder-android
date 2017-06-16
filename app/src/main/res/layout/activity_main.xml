@@ -30,7 +30,7 @@
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/tabColor"></TabWidget>
+                android:background="@color/tabColor" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -58,15 +58,16 @@
 
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="250dp"
+                            android:layout_width="366dp"
+                            android:layout_height="295dp"
                             android:background="@android:color/holo_red_dark"
                             android:cropToPadding="false"
                             android:scaleType="centerCrop"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/sloth"
                             tools:layout_constraintTop_creator="1"
-                            tools:layout_editor_absoluteX="0dp" />
+                            tools:layout_editor_absoluteX="0dp"
+                            android:layout_marginTop="-4dp" />
 
                         <TextView
                             android:id="@+id/textView"

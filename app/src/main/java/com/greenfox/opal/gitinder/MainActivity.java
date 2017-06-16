@@ -1,9 +1,11 @@
 package com.greenfox.opal.gitinder;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
         //Tab 1
@@ -37,5 +39,13 @@ public class MainActivity extends AppCompatActivity {
         spec.setContent(R.id.tab3);
         spec.setIndicator("SETTINGS");
         host.addTab(spec);
+
+        //change tab color when selected
+        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#000000"));
+        }
+        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
+        tv.setTextColor(Color.parseColor("#ff5719"));
     }
 }
