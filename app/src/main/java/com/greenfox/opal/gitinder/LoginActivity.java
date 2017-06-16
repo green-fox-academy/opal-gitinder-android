@@ -72,6 +72,26 @@ public class LoginActivity extends AppCompatActivity {
     }, null);
   }
 
+  public AuthorizationFlow buildAuthorizationFlow() {
+    AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
+        BearerToken.authorizationHeaderAccessMethod(),
+        AndroidHttp.newCompatibleTransport(),
+        new JacksonFactory(),
+        new GenericUrl("https://github.com/login/oauth/access_token"),
+        new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
+        getResources().getString(R.string.CLIENT_ID),
+        "http://github.com/login/oauth/authorize");
+    builder.setRequestInitializer(new HttpRequestInitializer() {
+      @Override
+      public void initialize(HttpRequest request) throws IOException {
+        request.getHeaders().setAccept("application/json");
+      }
+    });
+
+    AuthorizationFlow flow = builder.build();
+    return flow;
+  }
+
   public AuthorizationDialogController createGitHubLoginDialog() {
     AuthorizationDialogController controller =
         new DialogFragmentController(getFragmentManager()) {
@@ -97,25 +117,5 @@ public class LoginActivity extends AppCompatActivity {
         };
 
     return controller;
-  }
-
-  public AuthorizationFlow buildAuthorizationFlow() {
-    AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
-        BearerToken.authorizationHeaderAccessMethod(),
-        AndroidHttp.newCompatibleTransport(),
-        new JacksonFactory(),
-        new GenericUrl("https://github.com/login/oauth/access_token"),
-        new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
-        getResources().getString(R.string.CLIENT_ID),
-        "http://github.com/login/oauth/authorize");
-    builder.setRequestInitializer(new HttpRequestInitializer() {
-      @Override
-      public void initialize(HttpRequest request) throws IOException {
-        request.getHeaders().setAccept("application/json");
-      }
-    });
-
-    AuthorizationFlow flow = builder.build();
-    return flow;
   }
 }
