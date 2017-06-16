@@ -1,31 +1,18 @@
 package com.greenfox.opal.gitinder;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.os.Bundle;
-import android.os.Handler;
-=======
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
->>>>>>> dori-mainlayout
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
-=======
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import android.util.Log;
 
-import android.view.View;
-import android.widget.EditText;
->>>>>>> 71d579f8dae10845abd68d9ac0c8c62ecda23ba7
 import android.widget.TextView;
 
 import com.google.api.client.auth.oauth2.BearerToken;
@@ -71,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
 
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
@@ -138,9 +124,6 @@ public class MainActivity extends AppCompatActivity {
         }, null);
 
         checkLogin();
-    }
-=======
->>>>>>> dori-mainlayout
 
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();

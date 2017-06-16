@@ -1,14 +1,10 @@
 <resources>
-<<<<<<< HEAD
     <string name="app_name">GiTinder</string>
     <string name="button_like">LIKE</string>
     <string name="button_nope">NOPE</string>
-=======
-  <string name="app_name">GiTinder</string>
-  <string name="dialog_title">Login with Github</string>
-  <string name="dialog_message">In order to use GiTinder you need to login using your Github Account.
-    Click Login if you want to proceed.</string>
-  <string name="dialog_button_exit">Exit</string>
-  <string name="dialog_button_login">Login</string>
->>>>>>> 71d579f8dae10845abd68d9ac0c8c62ecda23ba7
+    <string name="dialog_title">Login with Github</string>
+    <string name="dialog_message">In order to use GiTinder you need to login using your Github Account.
+      Click Login if you want to proceed.</string>
+    <string name="dialog_button_exit">Exit</string>
+    <string name="dialog_button_login">Login</string>
 </resources>
