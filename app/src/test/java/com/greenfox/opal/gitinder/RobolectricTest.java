@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 public class RobolectricTest {
     @Test
     public void wildButtonTest() throws Exception {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
         assertEquals(4, 2 + 2);
     }
 }
