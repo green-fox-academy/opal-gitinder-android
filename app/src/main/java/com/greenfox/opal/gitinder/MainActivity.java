@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             service = new MockServer();
         }
         onLogin("Bond", "abcd1234");
+        onLogin("", "");
     }
 
     public void sendMessage(View view) {
