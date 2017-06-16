@@ -1,16 +1,18 @@
 package com.greenfox.opal.gitinder;
 
+import android.os.Bundle;
+import android.graphics.Color;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TabHost;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import android.util.Log;
 
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.api.client.auth.oauth2.BearerToken;
@@ -50,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.mipmap.gitinder_logo);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_main);
 
         if (connectToBackend) {
@@ -117,13 +124,35 @@ public class MainActivity extends AppCompatActivity {
         checkLogin();
         onLogin("Bond", "abcd1234");
         onLogin("", "");
-    }
 
-    public void sendMessage(View view) {
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(message);
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec("SWIPING");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("SWIPING");
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec("MATCHES");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("MATCHES");
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec("SETTINGS");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("SETTINGS");
+        host.addTab(spec);
+
+        //change tab color when selected
+        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#000000"));
+        }
+        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
+        tv.setTextColor(Color.parseColor("#ff5719"));
     }
 
     public void checkLogin() {

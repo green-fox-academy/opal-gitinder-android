@@ -13,12 +13,12 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    new Handler().postDelayed(new Runnable() {
+    new Handler().post(new Runnable() {
       @Override
       public void run() {
         loginAlert();
       }
-    }, 0);
+    });
   }
 
   public void loginAlert() {
