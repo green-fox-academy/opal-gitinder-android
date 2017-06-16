@@ -15,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class RobolectricTest {
+
     @Test
     public void wildButtonTest() throws Exception {
         MainActivity activity = Robolectric.setupActivity(MainActivity.class);
