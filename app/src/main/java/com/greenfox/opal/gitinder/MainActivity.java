@@ -1,6 +1,7 @@
 package com.greenfox.opal.gitinder;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.os.Bundle;
@@ -12,12 +13,42 @@ import android.support.v7.app.ActionBar;
 >>>>>>> dori-mainlayout
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
+=======
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+
+import android.util.Log;
+
+import android.view.View;
+import android.widget.EditText;
+>>>>>>> 71d579f8dae10845abd68d9ac0c8c62ecda23ba7
 import android.widget.TextView;
 
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.OnError;
-import com.greenfox.opal.gitinder.model.StatusResponse;
-import com.greenfox.opal.gitinder.service.OnTokenAcquired;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
+
+import com.wuman.android.auth.AuthorizationDialogController;
+import com.wuman.android.auth.AuthorizationFlow;
+import com.wuman.android.auth.DialogFragmentController;
+import com.wuman.android.auth.OAuthManager;
+
+import com.wuman.android.auth.OAuthManager.OAuthCallback;
+import com.wuman.android.auth.OAuthManager.OAuthFuture;
+import java.io.IOException;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     ApiService service;
     Retrofit retrofit;
+    boolean connectToBackend = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +73,71 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 <<<<<<< HEAD
 
-        retrofit = new Retrofit.Builder()
+        if (connectToBackend) {
+            retrofit = new Retrofit.Builder()
                 .baseUrl("http://gitinder.herokuapp.com/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
-        service = retrofit.create(ApiService.class);
 
-        AccountManager am = AccountManager.get(this);
-        Account[] accounts = am.getAccountsByType("com.github.auth.login");
-        Account myAccount = null;
-        Bundle options = new Bundle();
+            service = retrofit.create(ApiService.class);
+        } else {
+           service = new MockServer();
+        }
 
-        am.getAuthToken(
-                myAccount,
-                "Manage your tasks",
-                options,
-                this,
-                new OnTokenAcquired(),
-                new Handler((Handler.Callback) new OnError()) {
-                });
+        onLogin("Bond", "abcd1234");
+
+        AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
+                BearerToken.authorizationHeaderAccessMethod(),
+                AndroidHttp.newCompatibleTransport(),
+                new JacksonFactory(),
+                new GenericUrl("https://github.com/login/oauth/access_token"),
+                new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
+            getResources().getString(R.string.CLIENT_ID),
+                "http://github.com/login/oauth/authorize");
+            builder.setRequestInitializer(new HttpRequestInitializer() {
+                                      @Override
+                                      public void initialize(HttpRequest request) throws IOException {
+                                        request.getHeaders().setAccept("application/json");
+                                      }
+                                    });
+        AuthorizationFlow flow = builder.build();
+
+        AuthorizationDialogController controller =
+                new DialogFragmentController(getFragmentManager()) {
+                    @Override
+                    public String getRedirectUri() throws IOException {
+                        return "http://gitinder.herokuapp.com/callback";
+                    }
+
+                    @Override
+                    public boolean isJavascriptEnabledForWebView() {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean disableWebViewCache() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean removePreviousCookie() {
+                        return false;
+                    }
+                };
+
+        OAuthManager oAuthManager = new OAuthManager(flow, controller);
+        oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
+            @Override
+            public void run(OAuthFuture<Credential> future) {
+            try {
+              Log.d("success", future.getResult().getAccessToken());
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        }, null);
+
+        checkLogin();
     }
 =======
 >>>>>>> dori-mainlayout
@@ -94,21 +172,31 @@ public class MainActivity extends AppCompatActivity {
         tv.setTextColor(Color.parseColor("#ff5719"));
     }
 
+    public void checkLogin() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String clientID = preferences.getString("ClientID", null);
+
+        if (TextUtils.isEmpty(clientID)) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<StatusResponse>() {
+        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getStatus().equals("ok")) {
-                    System.out.println(response.body().getToken());
+                    Log.d("login", response.body().getToken());
                 } else {
-                    System.out.println(response.body().getMessage());
+                    Log.d("login", response.body().getMessage());
                 }
             }
 
             @Override
-            public void onFailure(Call<StatusResponse> call, Throwable t) {
-                System.out.println("FAIL! =( ");
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.d("login", "FAIL! =(");
             }
         });
     }
