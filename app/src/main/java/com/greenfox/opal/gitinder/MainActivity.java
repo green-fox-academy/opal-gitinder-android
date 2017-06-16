@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
            service = new MockServer();
         }
 
-        onLogin("Bond", "abcd1234");
-
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
@@ -117,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         }, null);
 
         checkLogin();
+        onLogin("Bond", "abcd1234");
+        onLogin("", "");
     }
 
     public void sendMessage(View view) {
