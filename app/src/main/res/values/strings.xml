@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GiTinder</string>
+    <string name="button_like">LIKE</string>
+    <string name="button_nope">NOPE</string>
 </resources>
