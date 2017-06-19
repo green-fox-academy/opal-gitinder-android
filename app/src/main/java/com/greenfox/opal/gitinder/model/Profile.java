@@ -9,6 +9,13 @@ public class Profile {
     public Profile() {
     }
 
+    public Profile(String login, String avatarUrl, String repos, String languages) {
+        this.login = login;
+        this.avatarUrl = avatarUrl;
+        this.repos = repos;
+        this.languages = languages;
+    }
+
     public String getLogin() {
         return login;
     }

@@ -1,7 +1,6 @@
 package com.greenfox.opal.gitinder;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.BaseResponse;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 import com.greenfox.opal.gitinder.response.ProfileListResponse;
 
