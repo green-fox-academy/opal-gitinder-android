@@ -2,4 +2,7 @@
     <string name="app_name">GiTinder</string>
     <string name="button_like">LIKE</string>
     <string name="button_nope">NOPE</string>
+    <string name="tab1_title">SWIPING</string>
+    <string name="tab2_title">MATCHES</string>
+    <string name="tab3_title">SETTINGS</string>
 </resources>
