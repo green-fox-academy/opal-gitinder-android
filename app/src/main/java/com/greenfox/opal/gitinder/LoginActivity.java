@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
   public void authentication() {
     AuthorizationFlow flow = buildAuthorizationFlow();
-    AuthorizationDialogController controller = createGitHubLoginDialog();
+    AuthorizationDialogController controller = createGitHubControllerHandler();
 
     OAuthManager oAuthManager = new OAuthManager(flow, controller);
     oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
     return flow;
   }
 
-  public AuthorizationDialogController createGitHubLoginDialog() {
+  public AuthorizationDialogController createGitHubControllerHandler() {
     AuthorizationDialogController controller =
         new DialogFragmentController(getFragmentManager()) {
           @Override
