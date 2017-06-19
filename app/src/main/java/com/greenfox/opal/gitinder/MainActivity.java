@@ -32,6 +32,8 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 
 
 import retrofit2.Call;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+      
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
                 AndroidHttp.newCompatibleTransport(),
@@ -113,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         }
         onLogin("Bond", "abcd1234");
         onLogin("", "");
-
         checkLogin();
     }
 
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
+  
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
         service.login(testLogin).enqueue(new Callback<LoginResponse>() {
@@ -145,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("login", response.body().getMessage());
                 }
             }
-
+    
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.d("login", "FAIL! =(");
