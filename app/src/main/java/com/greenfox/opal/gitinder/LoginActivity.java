@@ -1,5 +1,7 @@
 package com.greenfox.opal.gitinder;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -9,8 +11,9 @@ import javax.inject.Inject;
 
 public class LoginActivity extends AppCompatActivity {
 
-  @Inject
-  ObjectManager objectManager;
+  SharedPreferences preferences;
+  SharedPreferences.Editor editor;
+  @Inject ObjectManager objectManager;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -18,5 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     setContentView(R.layout.activity_login);
 
     MyApp.app().basicComponent().inject(this);
+    preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    editor = preferences.edit();
   }
 }
