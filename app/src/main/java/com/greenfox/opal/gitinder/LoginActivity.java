@@ -28,16 +28,12 @@ public class LoginActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
-
-    new Handler().post(new Runnable() {
-      @Override
-      public void run() {
-        loginAlert();
-      }
-    });
   }
 
-  public void loginAlert() {
+  @Override
+  protected void onResume() {
+    super.onResume();
+
     AlertDialog.Builder a_builder = new AlertDialog.Builder(LoginActivity.this);
     a_builder.setMessage(R.string.dialog_message)
         .setCancelable(false)
