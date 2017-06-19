@@ -1,6 +1,7 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.Intent;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -14,13 +15,17 @@ import static org.robolectric.Shadows.shadowOf;
 @Config(constants = BuildConfig.class)
 public class RobolectricTest {
 
-  MainActivity mainActivity = Robolectric.setupActivity(MainActivity.class);
-  LoginActivity loginActivity = Robolectric.setupActivity(LoginActivity.class);
+  private MainActivity mainActivity;
+  private LoginActivity loginActivity;
+
+  @Before
+  public void setup() {
+    mainActivity = Robolectric.setupActivity(MainActivity.class);
+    loginActivity = Robolectric.setupActivity(LoginActivity.class);
+  }
 
   @Test
   public void checkLoginNoUser() {
-    mainActivity.checkLogin();
-
     Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
     assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
   }
