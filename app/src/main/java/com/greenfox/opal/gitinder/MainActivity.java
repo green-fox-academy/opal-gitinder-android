@@ -36,7 +36,6 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -134,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             service = new MockServer();
         }
         onListRequest("abcd1234", 0);
+        onListRequest("", 0);
         onLogin("Bond", "abcd1234");
         onLogin("", "");
 

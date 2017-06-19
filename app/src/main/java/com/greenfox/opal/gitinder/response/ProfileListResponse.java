@@ -2,7 +2,6 @@ package com.greenfox.opal.gitinder.response;
 
 import com.greenfox.opal.gitinder.model.Profile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileListResponse extends BaseResponse {
