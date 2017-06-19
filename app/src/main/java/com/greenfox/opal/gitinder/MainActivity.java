@@ -24,7 +24,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
-
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -51,19 +50,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (connectToBackend) {
-            retrofit = new Retrofit.Builder()
-                .baseUrl("http://gitinder.herokuapp.com/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
-
-            service = retrofit.create(ApiService.class);
-        } else {
-           service = new MockServer();
-        }
-
-        onLogin("Bond", "abcd1234");
 
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
@@ -115,6 +101,18 @@ public class MainActivity extends AppCompatActivity {
             }
           }
         }, null);
+
+        if (connectToBackend) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://gitinder.herokuapp.com/")
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+            service = retrofit.create(ApiService.class);
+        } else {
+            service = new MockServer();
+        }
+        onLogin("Bond", "abcd1234");
+        onLogin("", "");
 
         checkLogin();
     }
