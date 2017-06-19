@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
         //change tab color when selected
         for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
             TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#000000"));
+            tv.setTextColor(Color.parseColor(String.valueOf(getResources().getColor(R.color.unselected_tabTextColor))));
         }
         TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(Color.parseColor("#ff5719"));
+        tv.setTextColor(Color.parseColor(String.valueOf(getResources().getColor(R.color.selected_tabTextColor))));
 
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
