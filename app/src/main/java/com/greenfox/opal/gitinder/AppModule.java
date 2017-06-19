@@ -5,11 +5,15 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.greenfox.opal.gitinder.service.ApiService;
+import com.greenfox.opal.gitinder.service.MockServer;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by Nagy Dóra on 2017.06.18..
@@ -18,6 +22,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
     private Context context;
+    boolean connectToBackend = false;
 
     public AppModule(Context context) {
         this.context = context;
@@ -42,5 +47,24 @@ public class AppModule {
     @Singleton @Provides
     public ObjectManager provideObjectManager(SharedPreferences sharedPreferences, Gson gson){
         return new ObjectManager(sharedPreferences, gson);
+    }
+
+    @Singleton @Provides
+    public MockServer provideMockServer() {
+        return new MockServer();
+    }
+
+    @Singleton @Provides
+    public ApiService provideApiService() {
+        if (connectToBackend) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://gitinder.herokuapp.com/")
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
+            ApiService service = retrofit.create(ApiService.class);
+            return service;
+        } else {
+            return provideMockServer();
+        }
     }
 }
