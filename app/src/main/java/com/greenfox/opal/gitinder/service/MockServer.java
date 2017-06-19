@@ -1,6 +1,5 @@
 package com.greenfox.opal.gitinder.service;
 
-import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 
