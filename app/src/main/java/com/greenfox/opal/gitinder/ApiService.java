@@ -1,6 +1,7 @@
 package com.greenfox.opal.gitinder;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.Profile;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 
 import retrofit2.Call;
@@ -14,5 +15,5 @@ public interface ApiService {
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @GET("/profile/{user}")
-    Call<List<Profile>> getProfileInfos(@Path("user") String userID);
+    Call<Profile> getProfileInfos(@Body String userID);
 }
