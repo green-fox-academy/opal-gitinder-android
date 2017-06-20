@@ -59,21 +59,21 @@ public class MainActivity extends AppCompatActivity {
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.tab1_title));
+        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swipingtab_title));
         spec.setContent(R.id.tab1);
-        spec.setIndicator(getResources().getString(R.string.tab1_title));
+        spec.setIndicator(getResources().getString(R.string.swipingtab_title));
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec(getResources().getString(R.string.tab2_title));
+        spec = host.newTabSpec(getResources().getString(R.string.matchestab_title));
         spec.setContent(R.id.tab2);
-        spec.setIndicator(getResources().getString(R.string.tab2_title));
+        spec.setIndicator(getResources().getString(R.string.matchestab_title));
         host.addTab(spec);
 
         //Tab 3
-        spec = host.newTabSpec(getResources().getString(R.string.tab3_title));
+        spec = host.newTabSpec(getResources().getString(R.string.settingstab_title));
         spec.setContent(R.id.tab3);
-        spec.setIndicator(getResources().getString(R.string.tab3_title));
+        spec.setIndicator(getResources().getString(R.string.settingstab_title));
         host.addTab(spec);
 
         //change tab color when selected
