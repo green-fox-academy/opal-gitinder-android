@@ -40,7 +40,7 @@ public class MockServer implements ApiService {
     }
 
     @Override
-    public MockCall<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") final String token, @Path("page") int page) {
+    public MockCall<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") final String token, @Path("page") Integer page) {
         return new MockCall<ProfileListResponse>() {
             @Override
             public void enqueue(Callback callback) {

@@ -16,5 +16,5 @@ public interface ApiService {
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @GET("/available/{page}")
-    Call<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") String token, @Path("page") int page);
+    Call<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") String token, @Path("page") Integer page);
 }
