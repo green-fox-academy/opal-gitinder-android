@@ -49,9 +49,13 @@ public class MockServer implements ApiService {
                     response = new ProfileListResponse("Unauthorized request!");
                 } else {
                     ArrayList<Profile> list = new ArrayList<>();
-                    list.add(new Profile("garlyle", "funny.jpg", "opal-gitinder-android", "Java"));
-                    list.add(new Profile("balintvecsey", "quiet.jpg", "opal-gitinder-android", "Java"));
-                    list.add(new Profile("dorinagy", "smiley.jpg", "opal-gitinder-android", "Java"));
+                    ArrayList<String> repos = new ArrayList<>();
+                    ArrayList<String> languages = new ArrayList<>();
+                    repos.add("opal-gitinder-android");
+                    languages.add("Java");
+                    list.add(new Profile("garlyle", "funny.jpg", repos, languages));
+                    list.add(new Profile("balintvecsey", "quiet.jpg", repos, languages));
+                    list.add(new Profile("dorinagy", "smiley.jpg", repos, languages));
                     response = new ProfileListResponse(list, list.size(), 42);
                 }
                 callback.onResponse(null, Response.success(response));

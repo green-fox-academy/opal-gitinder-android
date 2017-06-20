@@ -1,15 +1,17 @@
 package com.greenfox.opal.gitinder.model;
 
+import java.util.List;
+
 public class Profile {
     String login;
     String avatarUrl;
-    String repos;
-    String languages;
+    List<String> repos;
+    List<String> languages;
 
     public Profile() {
     }
 
-    public Profile(String login, String avatarUrl, String repos, String languages) {
+    public Profile(String login, String avatarUrl, List<String> repos, List<String> languages) {
         this.login = login;
         this.avatarUrl = avatarUrl;
         this.repos = repos;
@@ -24,11 +26,11 @@ public class Profile {
         return avatarUrl;
     }
 
-    public String getRepos() {
+    public List<String> getRepos() {
         return repos;
     }
 
-    public String getLanguages() {
+    public List<String> getLanguages() {
         return languages;
     }
 }
