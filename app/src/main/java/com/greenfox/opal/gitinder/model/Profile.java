@@ -6,13 +6,13 @@ import java.util.List;
  * Created by Bálint on 2017. 06. 19..
  */
 
-public class Profile {
+public class ProfileRequest {
   String login;
   String avatarUrl;
   List<String> repos;
   List<String> languages;
 
-  public Profile() {
+  public ProfileRequest() {
   }
 
   public String getLogin() {
