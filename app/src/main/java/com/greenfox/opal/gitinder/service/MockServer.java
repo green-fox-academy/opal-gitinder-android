@@ -39,21 +39,21 @@ public class MockServer implements ApiService {
         };
     }
 
-    @Override
-    public MockCall<Profile> swiping(@Header(value = "X-GiTinder-token") final String token,
-                                 @Path("username") String username,
-                                 @Path("direction") Enum<Direction> direction) {
-        return new MockCall<Profile>() {
-            @Override
-            public void enqueue(Callback callback) {
-                BaseResponse response;
-                if (token.isEmpty()) {
-                    response = new BaseResponse("error", "token is empty");
-                } else {
-                    response = new BaseResponse("ok", "success");
-                }
-                callback.onResponse(null, Response.success(response));
-            }
-        };
-    }
+	@Override
+	public MockCall<Profile> swiping(@Header(value = "X-GiTinder-token") final String token,
+																	 @Path("username") String username,
+																	 @Path("direction") Enum<Direction> direction) {
+		return new MockCall<Profile>() {
+			@Override
+			public void enqueue(Callback callback) {
+				BaseResponse response;
+				if (token.isEmpty()) {
+					response = new BaseResponse("error", "token is empty");
+				} else {
+					response = new BaseResponse("ok", "success");
+				}
+				callback.onResponse(null, Response.success(response));
+			}
+		};
+	}
 }
