@@ -5,5 +5,5 @@ package com.greenfox.opal.gitinder;
  */
 
 public enum Direction {
-	left, right
+	LEFT, RIGHT
 }
