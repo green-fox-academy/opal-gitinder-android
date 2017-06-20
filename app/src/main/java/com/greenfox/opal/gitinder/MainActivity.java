@@ -1,7 +1,7 @@
 package com.greenfox.opal.gitinder;
 
 import android.os.Bundle;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
@@ -10,9 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-
 import android.util.Log;
-
 import android.widget.TextView;
 
 import com.google.api.client.auth.oauth2.BearerToken;
@@ -35,9 +33,9 @@ import com.wuman.android.auth.OAuthManager;
 
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
+
 import java.io.IOException;
 import java.util.List;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,22 +53,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.mipmap.gitinder_logo);
-        actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
         setContentView(R.layout.activity_main);
 
-        if (connectToBackend) {
-            retrofit = new Retrofit.Builder()
-                .baseUrl("http://gitinder.herokuapp.com/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        host.setup();
 
-            service = retrofit.create(ApiService.class);
-        } else {
-           service = new MockServer();
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
+        spec.setContent(R.id.tab1);
+        spec.setIndicator(getString(R.string.swiping_tab_title));
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
+        spec.setContent(R.id.tab2);
+        spec.setIndicator(getString(R.string.matches_tab_title));
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
+        spec.setContent(R.id.tab3);
+        spec.setIndicator(getString(R.string.settings_tab_title));
+        host.addTab(spec);
+
+        //change tab color when selected
+        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
         }
+        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
+        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor));
 
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
@@ -78,15 +92,17 @@ public class MainActivity extends AppCompatActivity {
                 new JacksonFactory(),
                 new GenericUrl("https://github.com/login/oauth/access_token"),
                 new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
-            getResources().getString(R.string.CLIENT_ID),
+                getResources().getString(R.string.CLIENT_ID),
                 "http://github.com/login/oauth/authorize");
-            builder.setRequestInitializer(new HttpRequestInitializer() {
-                                      @Override
-                                      public void initialize(HttpRequest request) throws IOException {
-                                        request.getHeaders().setAccept("application/json");
-                                      }
-                                    });
+        builder.setRequestInitializer(new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+                request.getHeaders().setAccept("application/json");
+            }
+        });
+
         AuthorizationFlow flow = builder.build();
+
 
         AuthorizationDialogController controller =
                 new DialogFragmentController(getFragmentManager()) {
@@ -115,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
         oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
             @Override
             public void run(OAuthFuture<Credential> future) {
-            try {
-              Log.d("success", future.getResult().getAccessToken());
-            } catch (IOException e) {
-              e.printStackTrace();
+                try {
+                    Log.d("success", future.getResult().getAccessToken());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-          }
         }, null);
 
         if (connectToBackend) {
@@ -137,38 +153,9 @@ public class MainActivity extends AppCompatActivity {
         onListRequest(null, null);
         onLogin("Bond", "abcd1234");
         onLogin("", "");
-
         checkLogin();
-
-        TabHost host = (TabHost) findViewById(R.id.tabHost);
-        host.setup();
-
-        //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec("SWIPING");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("SWIPING");
-        host.addTab(spec);
-
-        //Tab 2
-        spec = host.newTabSpec("MATCHES");
-        spec.setContent(R.id.tab2);
-        spec.setIndicator("MATCHES");
-        host.addTab(spec);
-
-        //Tab 3
-        spec = host.newTabSpec("SETTINGS");
-        spec.setContent(R.id.tab3);
-        spec.setIndicator("SETTINGS");
-        host.addTab(spec);
-
-        //change tab color when selected
-        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
-            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#000000"));
-        }
-        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(Color.parseColor("#ff5719"));
     }
+
 
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
