@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
           }
         }
       }, null);
-      
+
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
                 .baseUrl("http://gitinder.herokuapp.com/")

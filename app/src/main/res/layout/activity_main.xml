@@ -60,4 +60,13 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.greenfox.opal.gitinder.MatchesFragment"
+        android:layout_width="375dp"
+        android:layout_height="285dp"
+        tools:layout="@layout/match"
+        tools:layout_editor_absoluteY="66dp"
+        tools:layout_editor_absoluteX="5dp" />
+
 </android.support.constraint.ConstraintLayout>
