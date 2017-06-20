@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SwipingFragment fragment = new SwipingFragment();
-        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.add(R.id.activity_main_layout, fragment);
         fragmentTransaction.commit();
       
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
