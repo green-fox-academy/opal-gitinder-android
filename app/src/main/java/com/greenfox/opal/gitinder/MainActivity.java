@@ -23,9 +23,6 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.Profile;
-import com.greenfox.opal.gitinder.response.LoginResponse;
-import com.greenfox.opal.gitinder.response.ProfileListResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -33,8 +30,10 @@ import com.wuman.android.auth.OAuthManager;
 
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
-
 import java.io.IOException;
+import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.response.ProfileListResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 import java.util.List;
 
 import retrofit2.Call;
@@ -156,12 +155,12 @@ public class MainActivity extends AppCompatActivity {
         checkLogin();
     }
 
-
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String clientID = preferences.getString("ClientID", null);
 
-        if (TextUtils.isEmpty(clientID)) {
+        String username = preferences.getString("Username", null);
+
+        if (TextUtils.isEmpty(username)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
