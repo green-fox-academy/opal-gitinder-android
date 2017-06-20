@@ -2,11 +2,16 @@ package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.Profile;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 
+import com.greenfox.opal.gitinder.response.ProfileResponse;
+import java.util.ArrayList;
+import java.util.List;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.Header;
 
 public class MockServer implements ApiService {
     @Override
@@ -29,6 +34,27 @@ public class MockServer implements ApiService {
                     response = new LoginResponse(loginRequest.getUsername(), loginRequest.getAccessToken());
                 }
                 callback.onResponse(null, Response.success(response));
+            }
+        };
+    }
+
+    @Override
+    public MockCall<Profile> getProfileInfos(@Header("X-GiTinder-token") final String token) {
+        return new MockCall<Profile>() {
+            @Override
+            public void enqueue(Callback callback) {
+                ProfileResponse profileResponse;
+                if (token.isEmpty()) {
+                    profileResponse = new ProfileResponse("Unauthorized request!");
+                } else {
+                    List<String> repos = new ArrayList<>();
+                    List<String> languages = new ArrayList<>() ;
+                    repos.add("opal-gitinder-android");
+                    languages.add("Java");
+                    Profile profile = new Profile("balintvecsey", "avatar.png", repos, languages);
+                    profileResponse = new ProfileResponse(profile);
+                }
+                callback.onResponse(null, Response.success(profileResponse));
             }
         };
     }
