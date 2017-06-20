@@ -22,7 +22,7 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
@@ -32,8 +32,6 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
-import com.greenfox.opal.gitinder.response.LoginResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
 
 
 import retrofit2.Call;

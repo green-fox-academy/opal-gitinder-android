@@ -1,8 +1,8 @@
-package com.greenfox.opal.gitinder.model;
+package com.greenfox.opal.gitinder.model.response;
 
 import java.util.List;
 
-public class Profile {
+public class Profile extends BaseResponse {
     String login;
     String avatarUrl;
     List<String> repos;
