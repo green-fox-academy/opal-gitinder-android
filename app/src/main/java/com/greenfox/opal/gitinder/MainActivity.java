@@ -1,6 +1,5 @@
 package com.greenfox.opal.gitinder;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -60,21 +59,21 @@ public class MainActivity extends AppCompatActivity {
         host.setup();
 
         //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swipingtab_title));
+        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
         spec.setContent(R.id.tab1);
-        spec.setIndicator(getString(R.string.swipingtab_title));
+        spec.setIndicator(getString(R.string.swiping_tab_title));
         host.addTab(spec);
 
         //Tab 2
-        spec = host.newTabSpec(getResources().getString(R.string.matchestab_title));
+        spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
         spec.setContent(R.id.tab2);
-        spec.setIndicator(getString(R.string.matchestab_title));
+        spec.setIndicator(getString(R.string.matches_tab_title));
         host.addTab(spec);
 
         //Tab 3
-        spec = host.newTabSpec(getResources().getString(R.string.settingstab_title));
+        spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
         spec.setContent(R.id.tab3);
-        spec.setIndicator(getString(R.string.settingstab_title));
+        spec.setIndicator(getString(R.string.settings_tab_title));
         host.addTab(spec);
 
         //change tab color when selected
