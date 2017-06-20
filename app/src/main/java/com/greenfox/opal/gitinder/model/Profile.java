@@ -6,13 +6,20 @@ import java.util.List;
  * Created by Bálint on 2017. 06. 19..
  */
 
-public class ProfileRequest {
+public class Profile {
   String login;
   String avatarUrl;
   List<String> repos;
   List<String> languages;
 
-  public ProfileRequest() {
+  public Profile() {
+  }
+
+  public Profile(String login, String avatarUrl, List<String> repos, List<String> languages) {
+    this.login = login;
+    this.avatarUrl = avatarUrl;
+    this.repos = repos;
+    this.languages = languages;
   }
 
   public String getLogin() {
