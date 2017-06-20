@@ -2,6 +2,7 @@ package com.greenfox.opal.gitinder;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
@@ -79,10 +80,10 @@ public class MainActivity extends AppCompatActivity {
         //change tab color when selected
         for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
             TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor(String.valueOf(getResources().getColor(R.color.unselected_tabTextColor))));
+            tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
         }
         TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(Color.parseColor(String.valueOf(getResources().getColor(R.color.selected_tabTextColor))));
+        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor))));
 
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
