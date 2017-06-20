@@ -9,12 +9,11 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface ApiService {
     @POST("/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @GET("/profile")
-    Call<Profile> getProfileInfos(@Header(value = "userID") String userID);
+    Call<Profile> getProfileInfos(@Header("X-GiTinder-token") String token);
 }
