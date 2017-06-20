@@ -17,5 +17,5 @@ public interface ApiService {
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
     @PUT("/profiles/{username}/{direction}")
-		Call<Profile> swiping(@Header(value = "X-GiTinder-token") String token, @Path("username") String username, @Path("direction") Enum<Direction> direction);
+    Call<Profile> swiping(@Header(value = "X-GiTinder-token") String token, @Path("username") String username, @Path("direction") Enum<Direction> direction);
 }
