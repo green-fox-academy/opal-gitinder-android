@@ -1,7 +1,6 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
+
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.setDisplayShowHomeEnabled(true);
   }
 
   @Override
