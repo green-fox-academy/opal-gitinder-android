@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
         }
         TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor))));
+        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor));
 
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
