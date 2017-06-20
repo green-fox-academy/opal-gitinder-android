@@ -6,59 +6,146 @@
     android:layout_height="match_parent"
     tools:context="com.greenfox.opal.gitinder.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="30sp"
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.033"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change"
-        android:onClick="sendMessage"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.905" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginStart="22dp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Text"
-        android:textCursorDrawable="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/tabColor" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/colorPrimaryDark">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="366dp"
+                            android:layout_height="295dp"
+                            android:cropToPadding="false"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/sloth"
+                            tools:layout_constraintTop_creator="1"
+                            tools:layout_editor_absoluteX="0dp"
+                            android:layout_marginTop="-4dp" />
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:text="Sloth"
+                            android:textColor="#FFFFFF"
+                            android:textSize="32sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+                            tools:layout_constraintBottom_creator="1" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="336dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginLeft="23dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginStart="23dp"
+                            android:layout_marginTop="24dp"
+                            android:text="Interested in Java, js, C++, Python, HTML, CSS, sleeping"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            app:layout_constraintLeft_toLeftOf="@+id/imageView"
+                            app:layout_constraintRight_toRightOf="@+id/imageView"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView"
+                            tools:layout_constraintTop_creator="1" />
+
+                        <Button
+                            android:id="@+id/button1"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="23dp"
+                            android:text="@string/button_like"
+                            android:textColor="#ff4500"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4"
+                            tools:layout_editor_absoluteX="16dp" />
+
+                        <Button
+                            android:id="@+id/button2"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="24dp"
+                            android:text="@string/button_nope"
+                            android:textColor="#ff0000"
+                            app:layout_constraintLeft_toRightOf="@+id/button1"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4"
+                            tools:layout_constraintLeft_creator="1" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                </LinearLayout>
+
+            </FrameLayout>
+        </LinearLayout></TabHost>
 
     <fragment
         android:id="@+id/fragment"
