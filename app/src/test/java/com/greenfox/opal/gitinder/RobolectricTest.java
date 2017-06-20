@@ -4,6 +4,7 @@ import android.content.Intent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -24,7 +25,7 @@ public class RobolectricTest {
   }
 
   @Test
-  public void checkLoginNoUser() {
+  public void checkLoginNoUser() throws Exception {
     Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
     assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
   }

@@ -1,8 +1,9 @@
 package com.greenfox.opal.gitinder;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+
+
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 
@@ -11,7 +12,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.response.LoginResponse;
@@ -58,14 +58,6 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator(getString(R.string.settings_tab_title));
         host.addTab(spec);
 
-        //change tab color when selected
-        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
-            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
-        }
-        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor));
-
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
                     .baseUrl("http://gitinder.herokuapp.com/")
@@ -80,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
       
         checkLogin();
     }
-
 
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
