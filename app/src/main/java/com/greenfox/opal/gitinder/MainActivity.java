@@ -1,5 +1,7 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.greenfox.opal.gitinder.fragment.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
@@ -47,6 +50,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+	      //swiping fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SwipingFragment fragment = new SwipingFragment();
+        fragmentTransaction.add(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
       
         AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
                 BearerToken.authorizationHeaderAccessMethod(),
