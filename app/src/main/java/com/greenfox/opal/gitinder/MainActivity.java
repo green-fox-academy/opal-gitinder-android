@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
         onListRequest("abcd1234", 0);
         onListRequest("", 0);
+        onListRequest(null, 0);
         onLogin("Bond", "abcd1234");
         onLogin("", "");
 

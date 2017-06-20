@@ -45,7 +45,7 @@ public class MockServer implements ApiService {
             @Override
             public void enqueue(Callback callback) {
                 ProfileListResponse response;
-                if (token.isEmpty()) {
+                if (token == null || "".equals(token)) {
                     response = new ProfileListResponse("Unauthorized request!");
                 } else {
                     ArrayList<Profile> list = new ArrayList<>();
