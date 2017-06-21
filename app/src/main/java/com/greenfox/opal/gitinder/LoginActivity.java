@@ -18,9 +18,9 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    SharedPreferences preferences;
     SharedPreferences.Editor editor;
     @Inject ApiService service;
+    @Inject SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
