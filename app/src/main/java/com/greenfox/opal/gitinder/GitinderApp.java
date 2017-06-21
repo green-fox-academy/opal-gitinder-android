@@ -6,8 +6,8 @@ import android.app.Application;
  * Created by Nagy Dóra on 2017.06.18..
  */
 
-public class MyApp extends Application {
-    private static MyApp app;
+public class GitinderApp extends Application {
+    private static GitinderApp app;
     private BasicComponent basicComponent;
 
     @Override
@@ -20,7 +20,7 @@ public class MyApp extends Application {
                 .build();
     }
 
-    public static MyApp app() {
+    public static GitinderApp app() {
         return app;
     }
 

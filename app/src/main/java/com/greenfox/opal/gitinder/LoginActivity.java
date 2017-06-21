@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        MyApp.app().basicComponent().inject(this);
+        GitinderApp.app().basicComponent().inject(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
 
