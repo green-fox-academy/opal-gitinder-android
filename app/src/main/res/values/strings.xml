@@ -15,4 +15,5 @@
   <string name="settings_distance">Maximum distance</string>
   <string name="settings_languages">Preferred languages</string>
   <string name="title_activity_main_tabbed">GiTinder</string>
+  <string name="action_settings">Action Settings</string>
 </resources>
