@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+
 import android.util.Log;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.service.MockServer;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -32,8 +35,6 @@ import com.wuman.android.auth.OAuthManager.OAuthFuture;
 
 import java.io.IOException;
 
-import com.greenfox.opal.gitinder.response.LoginResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -154,10 +155,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String clientID = preferences.getString("ClientID", null);
 
-        String username = preferences.getString("Username", null);
-
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(clientID)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
