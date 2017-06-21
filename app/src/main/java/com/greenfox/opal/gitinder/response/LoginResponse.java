@@ -2,7 +2,7 @@ package com.greenfox.opal.gitinder.response;
 
 public class LoginResponse extends BaseResponse {
     String token;
-
+  
     public LoginResponse(String username, String token) {
         this.status = "ok";
         this.token = token;
