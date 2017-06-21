@@ -12,6 +12,10 @@ public class ObjectManager {
     private SharedPreferences sharedPreferences;
     private Gson gson;
 
+    public ObjectManager(SharedPreferences sharedPreferences) {
+        this.sharedPreferences = sharedPreferences;
+    }
+
     public ObjectManager(SharedPreferences sharedPreferences, Gson gson) {
         this.sharedPreferences = sharedPreferences;
         this.gson = gson;
