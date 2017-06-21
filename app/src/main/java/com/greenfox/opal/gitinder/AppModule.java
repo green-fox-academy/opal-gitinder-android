@@ -22,7 +22,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 @Module
 public class AppModule {
     private Context context;
-    boolean connectToBackend = false;
+    private static final boolean CONNECT_TO_BACKEND = true;
 
     public AppModule(Context context) {
         this.context = context;
@@ -56,7 +56,7 @@ public class AppModule {
 
     @Singleton @Provides
     public ApiService provideApiService() {
-        if (connectToBackend) {
+        if (CONNECT_TO_BACKEND) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://gitinder.herokuapp.com/")
                     .addConverterFactory(JacksonConverterFactory.create())
