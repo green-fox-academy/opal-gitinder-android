@@ -1,9 +1,7 @@
 package com.greenfox.opal.gitinder;
 
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
+import android.content.Intent;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -11,20 +9,24 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class RobolectricTest {
 
-    @Test
-    public void wildButtonTest() throws Exception {
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
+  private MainActivity mainActivity;
+  private LoginActivity loginActivity;
 
-        Button button = (Button)activity.findViewById(R.id.button);
-        TextView result = (TextView)activity.findViewById(R.id.textView);
-        EditText edit = (EditText)activity.findViewById(R.id.editText);
+  @Before
+  public void setup() {
+    mainActivity = Robolectric.setupActivity(MainActivity.class);
+    loginActivity = Robolectric.setupActivity(LoginActivity.class);
+  }
 
-        button.performClick();
-        assertEquals(result.getText().toString(), edit.getText().toString());
-    }
+  @Test
+  public void checkLoginNoUser() throws Exception {
+    Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
+    assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
+  }
 }

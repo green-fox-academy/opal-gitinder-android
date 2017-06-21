@@ -1,7 +1,7 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.DialogInterface;
-import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,15 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    new Handler().post(new Runnable() {
-      @Override
-      public void run() {
-        loginAlert();
-      }
-    });
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.setDisplayShowHomeEnabled(true);
   }
 
-  public void loginAlert() {
+  @Override
+  protected void onResume() {
+    super.onResume();
+
     AlertDialog.Builder a_builder = new AlertDialog.Builder(LoginActivity.this);
     a_builder.setMessage(R.string.dialog_message)
         .setCancelable(false)
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
 
   public void authentication() {
     AuthorizationFlow flow = buildAuthorizationFlow();
-    AuthorizationDialogController controller = createGitHubLoginDialog();
+    AuthorizationDialogController controller = createGitHubControllerHandler();
 
     OAuthManager oAuthManager = new OAuthManager(flow, controller);
     oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
@@ -95,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
     return flow;
   }
 
-  public AuthorizationDialogController createGitHubLoginDialog() {
+  public AuthorizationDialogController createGitHubControllerHandler() {
     AuthorizationDialogController controller =
         new DialogFragmentController(getFragmentManager()) {
           @Override

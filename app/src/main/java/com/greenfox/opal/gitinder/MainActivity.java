@@ -1,20 +1,20 @@
 package com.greenfox.opal.gitinder;
 
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+
+
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TabHost;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-
 import android.util.Log;
 
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
@@ -32,13 +32,38 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+
         setContentView(R.layout.activity_main);
-      
+
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
+        spec.setContent(R.id.tab1);
+        spec.setIndicator(getString(R.string.swiping_tab_title));
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
+        spec.setContent(R.id.tab2);
+        spec.setIndicator(getString(R.string.matches_tab_title));
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
+        spec.setContent(R.id.tab3);
+        spec.setIndicator(getString(R.string.settings_tab_title));
+        host.addTab(spec);
+
+
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
-                .baseUrl("http://gitinder.herokuapp.com/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .build();
+                    .baseUrl("http://gitinder.herokuapp.com/")
+                    .addConverterFactory(JacksonConverterFactory.create())
+                    .build();
             service = retrofit.create(ApiService.class);
         } else {
             service = new MockServer();
@@ -47,13 +72,6 @@ public class MainActivity extends AppCompatActivity {
         onLogin("", "");
       
         checkLogin();
-    }
-
-    public void sendMessage(View view) {
-        EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(message);
     }
 
     public void checkLogin() {
@@ -65,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-  
+
     public void onLogin(String username, String token) {
         LoginRequest testLogin = new LoginRequest(username, token);
         service.login(testLogin).enqueue(new Callback<LoginResponse>() {
@@ -77,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("login", response.body().getMessage());
                 }
             }
-    
+
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.d("login", "FAIL! =(");

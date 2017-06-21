@@ -1,12 +1,9 @@
-package com.greenfox.opal.gitinder.model;
+package com.greenfox.opal.gitinder.model.response;
 
 import java.util.List;
 
-/**
- * Created by Bálint on 2017. 06. 19..
- */
+public class Profile extends BaseResponse {
 
-public class Profile {
   String login;
   String avatarUrl;
   List<String> repos;
@@ -15,7 +12,12 @@ public class Profile {
   public Profile() {
   }
 
-  public Profile(String login, String avatarUrl, List<String> repos, List<String> languages) {
+  public Profile(String message) {
+    super("error", message);
+  }
+
+  public Profile(String login, String avatarUrl, List<String> repos,
+      List<String> languages) {
     this.login = login;
     this.avatarUrl = avatarUrl;
     this.repos = repos;
