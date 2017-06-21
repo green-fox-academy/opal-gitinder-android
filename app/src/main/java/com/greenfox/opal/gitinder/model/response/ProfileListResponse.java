@@ -1,6 +1,6 @@
-package com.greenfox.opal.gitinder.response;
+package com.greenfox.opal.gitinder.model.response;
 
-import com.greenfox.opal.gitinder.model.Profile;
+import com.greenfox.opal.gitinder.model.response.Profile;
 
 import java.util.List;
 

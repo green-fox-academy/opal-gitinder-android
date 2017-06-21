@@ -1,4 +1,4 @@
-package com.greenfox.opal.gitinder.model;
+package com.greenfox.opal.gitinder.model.response;
 
 import java.util.List;
 

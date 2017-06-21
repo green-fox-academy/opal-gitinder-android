@@ -2,9 +2,9 @@ package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.Profile;
-import com.greenfox.opal.gitinder.response.LoginResponse;
-import com.greenfox.opal.gitinder.response.ProfileListResponse;
+import com.greenfox.opal.gitinder.model.response.Profile;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import java.util.ArrayList;
 
