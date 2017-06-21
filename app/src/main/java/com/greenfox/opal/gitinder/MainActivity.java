@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        ProfileAdapter adapter = new ProfileAdapter(this);
+        View fragment = findViewById(R.id.matchesFragment);
+        ListView listView = (ListView)fragment.findViewById(R.id.matchList);
+        listView.setAdapter(adapter);
+
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
@@ -72,12 +77,7 @@ public class MainActivity extends AppCompatActivity {
         onLogin("Bond", "abcd1234");
         onLogin("", "");
       
-        checkLogin();
-
-        ProfileAdapter adapter = new ProfileAdapter(this);
-        View fragment = findViewById(R.id.matchesFragment);
-        ListView listView = (ListView)fragment.findViewById(R.id.matchList);
-        listView.setAdapter(adapter);
+        //checkLogin();
 
         ArrayList<String> repos = new ArrayList<>();
         repos.add("opal-gitinder-android");
