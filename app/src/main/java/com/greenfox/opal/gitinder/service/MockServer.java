@@ -5,8 +5,10 @@ import com.greenfox.opal.gitinder.model.Profile;
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.BaseResponse;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+
+import com.greenfox.opal.gitinder.model.response.BaseResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
+
 
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         spec.setContent(R.id.tab3);
         spec.setIndicator(getString(R.string.settings_tab_title));
         host.addTab(spec);
+
 
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()

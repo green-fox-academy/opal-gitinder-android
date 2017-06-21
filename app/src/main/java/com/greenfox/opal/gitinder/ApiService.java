@@ -3,7 +3,7 @@ package com.greenfox.opal.gitinder;
 import com.greenfox.opal.gitinder.model.Profile;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
