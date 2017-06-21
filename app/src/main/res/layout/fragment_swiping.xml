@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/swiping_fragment_layout"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              tools:context="com.greenfox.opal.gitinder.MainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp">
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/colorPrimaryDark"
-        tools:context="com.greenfox.opal.gitinder.MainActivity">
+        android:layout_marginTop="70dp"
+        android:background="@color/colorPrimaryDark">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="295dp"
-            android:layout_marginTop="-4dp"
+            android:layout_marginTop="0dp"
             android:cropToPadding="false"
             android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/sloth"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_editor_absoluteX="0dp"/>
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1"/>
 
         <TextView
             android:id="@+id/textView"
@@ -50,18 +47,21 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="336dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginStart="23dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="27dp"
             android:text="Interested in Java, js, C++, Python, HTML, CSS, sleeping"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintHorizontal_bias="0.529"
             app:layout_constraintLeft_toLeftOf="@+id/imageView"
             app:layout_constraintRight_toRightOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="1"/>
 
         <Button
@@ -69,11 +69,13 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="27dp"
             android:text="@string/button_like"
             android:textColor="#ff4500"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4"
-            tools:layout_editor_absoluteX="16dp"/>
+            tools:layout_constraintLeft_creator="1"/>
 
         <Button
             android:id="@+id/button2"
@@ -82,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="27dp"
             android:text="@string/button_nope"
             android:textColor="#ff0000"
             app:layout_constraintLeft_toRightOf="@+id/button1"
