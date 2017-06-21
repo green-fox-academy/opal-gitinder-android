@@ -1,29 +1,30 @@
 package com.greenfox.opal.gitinder;
 
-import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-
-import android.support.v7.app.AppCompatActivity;
-import android.widget.TabHost;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+
+import android.support.v4.view.ViewPager;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+
 public class MainActivity extends AppCompatActivity {
 
+  SectionsPagerAdapter mSectionsPagerAdapter;
+  ViewPager mViewPager;
   ApiService service;
   Retrofit retrofit;
   boolean connectToBackend = false;
@@ -36,26 +37,12 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
 
-    TabHost host = (TabHost) findViewById(R.id.tabHost);
-    host.setup();
+    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    mViewPager = (ViewPager) findViewById(R.id.container);
+    setupViewPager(mViewPager);
 
-    //Tab 1
-    TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
-    spec.setContent(R.id.tab1);
-    spec.setIndicator(getString(R.string.swiping_tab_title));
-    host.addTab(spec);
-
-    //Tab 2
-    spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
-    spec.setContent(R.id.tab2);
-    spec.setIndicator(getString(R.string.matches_tab_title));
-    host.addTab(spec);
-
-    //Tab 3
-    spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
-    spec.setContent(R.id.tab3);
-    spec.setIndicator(getString(R.string.settings_tab_title));
-    host.addTab(spec);
+    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+    tabLayout.setupWithViewPager(mViewPager);
 
     if (connectToBackend) {
       retrofit = new Retrofit.Builder()
@@ -70,6 +57,14 @@ public class MainActivity extends AppCompatActivity {
     onLogin("", "");
 
     checkLogin();
+  }
+
+  public void setupViewPager(ViewPager viewPager) {
+    SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    adapter.addFragment(new SwipingFragment(), "Swiping");
+    adapter.addFragment(new MatchesFragment(), "Matches");
+    adapter.addFragment(new SettingsFragment(), "Settings");
+    viewPager.setAdapter(adapter);
   }
 
   public void checkLogin() {
