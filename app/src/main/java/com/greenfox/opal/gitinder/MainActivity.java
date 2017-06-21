@@ -2,6 +2,7 @@ package com.greenfox.opal.gitinder;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 
@@ -13,8 +14,7 @@ import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.service.ApiService;
-
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import retrofit2.Call;
@@ -69,16 +69,15 @@ public class MainActivity extends AppCompatActivity {
         }
         onLogin("Bond", "abcd1234");
         onLogin("", "");
+      
         checkLogin();
     }
 
-
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String clientID = preferences.getString("ClientID", null);
 
-        String username = preferences.getString("Username", null);
-
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(clientID)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }

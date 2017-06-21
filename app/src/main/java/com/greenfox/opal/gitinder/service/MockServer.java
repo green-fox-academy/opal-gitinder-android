@@ -1,7 +1,7 @@
 package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
