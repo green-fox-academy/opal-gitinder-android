@@ -6,11 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.greenfox.opal.gitinder.R;
-
-/**
- * Created by Bálint on 2017. 06. 21..
- */
 
 public class SwipingFragment extends Fragment {
 
