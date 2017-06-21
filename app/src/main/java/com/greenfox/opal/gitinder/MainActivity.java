@@ -1,9 +1,13 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TabHost;
 
 import android.content.Intent;
@@ -24,6 +28,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.MockServer;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
@@ -34,6 +39,7 @@ import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 import retrofit2.Call;
@@ -56,100 +62,115 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        TabHost host = (TabHost) findViewById(R.id.tabHost);
-        host.setup();
+//        TabHost host = (TabHost) findViewById(R.id.tabHost);
+//        host.setup();
+//
+//        //Tab 1
+//        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
+//        spec.setContent(R.id.tab1);
+//        spec.setIndicator(getString(R.string.swiping_tab_title));
+//        host.addTab(spec);
+//
+//        //Tab 2
+//        spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
+//        spec.setContent(R.id.tab2);
+//        spec.setIndicator(getString(R.string.matches_tab_title));
+//        host.addTab(spec);
+//
+//        //Tab 3
+//        spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
+//        spec.setContent(R.id.tab3);
+//        spec.setIndicator(getString(R.string.settings_tab_title));
+//        host.addTab(spec);
+//
+//        //change tab color when selected
+//        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
+//            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+//            tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
+//        }
+//        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
+//        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor));
+//
+//        AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
+//                BearerToken.authorizationHeaderAccessMethod(),
+//                AndroidHttp.newCompatibleTransport(),
+//                new JacksonFactory(),
+//                new GenericUrl("https://github.com/login/oauth/access_token"),
+//                new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
+//                getResources().getString(R.string.CLIENT_ID),
+//                "http://github.com/login/oauth/authorize");
+//        builder.setRequestInitializer(new HttpRequestInitializer() {
+//            @Override
+//            public void initialize(HttpRequest request) throws IOException {
+//                request.getHeaders().setAccept("application/json");
+//            }
+//        });
+//
+//        AuthorizationFlow flow = builder.build();
+//
+//
+//        AuthorizationDialogController controller =
+//                new DialogFragmentController(getFragmentManager()) {
+//                    @Override
+//                    public String getRedirectUri() throws IOException {
+//                        return "http://gitinder.herokuapp.com/callback";
+//                    }
+//
+//                    @Override
+//                    public boolean isJavascriptEnabledForWebView() {
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean disableWebViewCache() {
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean removePreviousCookie() {
+//                        return false;
+//                    }
+//                };
+//
+//        OAuthManager oAuthManager = new OAuthManager(flow, controller);
+//        oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
+//            @Override
+//            public void run(OAuthFuture<Credential> future) {
+//                try {
+//                    Log.d("success", future.getResult().getAccessToken());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, null);
+//
+//        if (connectToBackend) {
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl("http://gitinder.herokuapp.com/")
+//                    .addConverterFactory(JacksonConverterFactory.create())
+//                    .build();
+//            service = retrofit.create(ApiService.class);
+//        } else {
+//            service = new MockServer();
+//        }
+//        onLogin("Bond", "abcd1234");
+//        onLogin("", "");
+//        checkLogin();
 
-        //Tab 1
-        TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
-        spec.setContent(R.id.tab1);
-        spec.setIndicator(getString(R.string.swiping_tab_title));
-        host.addTab(spec);
+        ProfileAdapter adapter = new ProfileAdapter(this);
+        View fragment = findViewById(R.id.matchesFragment);
+        ListView listView = (ListView)fragment.findViewById(R.id.matchList);
+        listView.setAdapter(adapter);
 
-        //Tab 2
-        spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
-        spec.setContent(R.id.tab2);
-        spec.setIndicator(getString(R.string.matches_tab_title));
-        host.addTab(spec);
+        ArrayList<String> repos = new ArrayList<>();
+        repos.add("opal-gitinder-android");
+        ArrayList<String> languages = new ArrayList<>();
+        languages.add("Java");
 
-        //Tab 3
-        spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
-        spec.setContent(R.id.tab3);
-        spec.setIndicator(getString(R.string.settings_tab_title));
-        host.addTab(spec);
+        adapter.add(new Profile("Garlyle", "", repos, languages));
+        adapter.add(new Profile("balintvecsey", "", repos, languages));
+        adapter.add(new Profile("dorinagy", "", repos, languages));
 
-        //change tab color when selected
-        for (int i = 0; i < host.getTabWidget().getChildCount(); i++) {
-            TextView tv = (TextView) host.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(ContextCompat.getColor(this, R.color.unselected_tabTextColor));
-        }
-        TextView tv = (TextView) host.getCurrentTabView().findViewById(android.R.id.title); //for Selected Tab
-        tv.setTextColor(ContextCompat.getColor(this, R.color.selected_tabTextColor));
-
-        AuthorizationFlow.Builder builder = new AuthorizationFlow.Builder(
-                BearerToken.authorizationHeaderAccessMethod(),
-                AndroidHttp.newCompatibleTransport(),
-                new JacksonFactory(),
-                new GenericUrl("https://github.com/login/oauth/access_token"),
-                new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
-                getResources().getString(R.string.CLIENT_ID),
-                "http://github.com/login/oauth/authorize");
-        builder.setRequestInitializer(new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest request) throws IOException {
-                request.getHeaders().setAccept("application/json");
-            }
-        });
-
-        AuthorizationFlow flow = builder.build();
-
-
-        AuthorizationDialogController controller =
-                new DialogFragmentController(getFragmentManager()) {
-                    @Override
-                    public String getRedirectUri() throws IOException {
-                        return "http://gitinder.herokuapp.com/callback";
-                    }
-
-                    @Override
-                    public boolean isJavascriptEnabledForWebView() {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean disableWebViewCache() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean removePreviousCookie() {
-                        return false;
-                    }
-                };
-
-        OAuthManager oAuthManager = new OAuthManager(flow, controller);
-        oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
-            @Override
-            public void run(OAuthFuture<Credential> future) {
-                try {
-                    Log.d("success", future.getResult().getAccessToken());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, null);
-
-        if (connectToBackend) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("http://gitinder.herokuapp.com/")
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .build();
-            service = retrofit.create(ApiService.class);
-        } else {
-            service = new MockServer();
-        }
-        onLogin("Bond", "abcd1234");
-        onLogin("", "");
-        checkLogin();
     }
 
 

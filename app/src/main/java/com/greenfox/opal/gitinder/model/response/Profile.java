@@ -11,6 +11,13 @@ public class Profile extends BaseResponse {
     public Profile() {
     }
 
+    public Profile(String login, String avatarUrl, List<String> repos, List<String> languages) {
+        this.login = login;
+        this.avatarUrl = avatarUrl;
+        this.repos = repos;
+        this.languages = languages;
+    }
+
     public String getLogin() {
         return login;
     }
