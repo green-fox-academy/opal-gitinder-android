@@ -19,7 +19,6 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.greenfox.opal.gitinder.service.ApiService;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -28,10 +27,6 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
-import com.greenfox.opal.gitinder.service.MockServer;
-
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     @Override
