@@ -3,16 +3,17 @@ package com.greenfox.opal.gitinder.service;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.response.LoginResponse;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
 
 public class MockServer implements ApiService {
     @Override
-    public MockCall<LoginResponse> login(@Body final LoginRequest loginRequest) {
+    public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
         return new MockCall<LoginResponse>() {
             @Override
-            public void enqueue(Callback callback) {
+            public void enqueue(Callback<LoginResponse> callback) {
                 LoginResponse response;
                 if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
                     String message = "Missing parameter(s):";

@@ -6,9 +6,9 @@ import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public abstract class MockCall<T> implements Call {
+public abstract class MockCall<T> implements Call<T> {
     @Override
-    public Response execute() throws IOException {
+    public Response<T> execute() throws IOException {
         return null;
     }
 
@@ -28,7 +28,7 @@ public abstract class MockCall<T> implements Call {
     }
 
     @Override
-    public Call clone() {
+    public Call<T> clone() {
         return null;
     }
 
