@@ -1,4 +1,4 @@
-package com.greenfox.opal.gitinder.response;
+package com.greenfox.opal.gitinder.model.response;
 
 public class LoginResponse extends BaseResponse {
     String token;
