@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         onLogin("Bond", "abcd1234");
         onLogin("", "");
       
-        //checkLogin();
+        checkLogin();
 
         ArrayList<String> repos = new ArrayList<>();
         repos.add("opal-gitinder-android");
