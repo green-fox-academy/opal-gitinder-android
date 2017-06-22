@@ -14,7 +14,11 @@ import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Profile;
+import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
+  
   ApiService service;
   Retrofit retrofit;
   boolean connectToBackend = false;
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
     onLogin("Bond", "abcd1234");
     onLogin("", "");
-
+    
     checkLogin();
   }
 
