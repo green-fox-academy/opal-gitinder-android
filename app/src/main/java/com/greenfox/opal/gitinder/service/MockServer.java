@@ -8,6 +8,7 @@ import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import java.util.ArrayList;
 
+import java.util.List;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -57,6 +58,26 @@ public class MockServer implements ApiService {
                     list.add(new Profile("balintvecsey", "quiet.jpg", repos, languages));
                     list.add(new Profile("dorinagy", "smiley.jpg", repos, languages));
                     response = new ProfileListResponse(list, list.size(), 42);
+                }
+                callback.onResponse(null, Response.success(response));
+            }
+        };
+    }
+
+    @Override
+    public MockCall<Profile> getProfileInfos(@Header("X-GiTinder-token") final String token) {
+        return new MockCall<Profile>() {
+            @Override
+            public void enqueue(Callback<Profile> callback) {
+                Profile response;
+                if (token == null || "".equals(token)) {
+                    response = new Profile("Unauthorized request!");
+                } else {
+                    List<String> repos = new ArrayList<>();
+                    List<String> languages = new ArrayList<>();
+                    repos.add("opal-gitinder-android");
+                    languages.add("Java");
+                    response = new Profile("happysloth", "happysloth.png", repos, languages);
                 }
                 callback.onResponse(null, Response.success(response));
             }
