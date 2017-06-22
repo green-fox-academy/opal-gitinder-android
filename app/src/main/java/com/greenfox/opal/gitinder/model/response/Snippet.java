@@ -1,6 +1,6 @@
-package com.greenfox.opal.gitinder.model;
+package com.greenfox.opal.gitinder.model.response;
 
-public class Snippet {
+public class Snippet extends BaseResponse {
     String language;
     String code;
 
