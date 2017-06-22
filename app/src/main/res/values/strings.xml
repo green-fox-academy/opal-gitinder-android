@@ -10,4 +10,9 @@
   <string name="swiping_tab_title">SWIPING</string>
   <string name="matches_tab_title">MATCHES</string>
   <string name="settings_tab_title">SETTINGS</string>
+  <string name="settings_notifications">Enable Notifications</string>
+  <string name="settings_background_sync">Enable Background Sync</string>
+  <string name="settings_distance">Maximum distance</string>
+  <string name="settings_languages">Preferred languages</string>
+  <string name="action_settings">Action Settings</string>
 </resources>
