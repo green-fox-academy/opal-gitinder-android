@@ -27,6 +27,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+  private static final String TAG = "MainActivity";
   SectionsPagerAdapter mSectionsPagerAdapter;
   ViewPager mViewPager;
   ApiService service;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    Log.d(TAG, "starting MainActivity");
 
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
@@ -60,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     onLogin("Bond", "abcd1234");
     onLogin("", "");
 
-    checkLogin();
+    //checkLogin();
   }
 
   public void setupViewPager(ViewPager viewPager) {
