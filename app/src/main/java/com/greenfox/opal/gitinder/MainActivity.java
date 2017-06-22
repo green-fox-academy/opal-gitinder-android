@@ -8,34 +8,33 @@ import android.widget.TabHost;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
+
+import javax.inject.Inject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-  ApiService service;
-  Retrofit retrofit;
-  boolean connectToBackend = false;
+  @Inject SharedPreferences preferences;
+  @Inject ApiService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        GitinderApp.app().basicComponent().inject(this);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-
-        setContentView(R.layout.activity_main);
 
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
@@ -58,15 +57,6 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator(getString(R.string.settings_tab_title));
         host.addTab(spec);
 
-        if (connectToBackend) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl("http://gitinder.herokuapp.com/")
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .build();
-            service = retrofit.create(ApiService.class);
-        } else {
-            service = new MockServer();
-        }
         onLogin("Bond", "abcd1234");
         onLogin("", "");
       
@@ -74,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkLogin() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String clientID = preferences.getString("ClientID", null);
 
         if (TextUtils.isEmpty(clientID)) {

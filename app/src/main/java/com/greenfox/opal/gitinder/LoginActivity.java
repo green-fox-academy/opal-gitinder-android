@@ -46,11 +46,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        GitinderApp.app().basicComponent().inject(this);
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
 
-        GitinderApp.app().basicComponent().inject(this);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
 
         onLogin("Bond", "abcd1234");

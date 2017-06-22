@@ -23,7 +23,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class AppModule {
     private Context context;
     private static final boolean CONNECT_TO_BACKEND = true;
-    private static final String SERVER_URL = "http://gitinder.herokuapp.com/";
+    private static final String SERVER_URL = "http://gitinder.herokuapp.com";
 
     public AppModule(Context context) {
         this.context = context;
