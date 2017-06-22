@@ -38,9 +38,9 @@ public class MatchesFragment extends Fragment {
 
     repos.add("opal-gitinder-android");
     languages.add("Java");
-    profiles.add(new Profile("Garlyle", "", repos, languages));
-    profiles.add(new Profile("balintvecsey", "", repos, languages));
-    profiles.add(new Profile("dorinagy", "", repos, languages));
+    profiles.add(new Profile("Garlyle", "thinker", repos, languages));
+    profiles.add(new Profile("balintvecsey", "creepy", repos, languages));
+    profiles.add(new Profile("dorinagy", "hungry", repos, languages));
     return profiles;
   }
 }

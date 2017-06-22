@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="135dp"
-        app:srcCompat="@mipmap/gitinder_logo"
+        android:src="@drawable/sloth"
         tools:layout_editor_absoluteY="16dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent" />
