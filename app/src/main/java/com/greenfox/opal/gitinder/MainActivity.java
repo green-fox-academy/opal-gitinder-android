@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SwipingFragment swipingFragment = new SwipingFragment();
-        fragmentTransaction.add(R.id.tab1, swipingFragment);
+        fragmentTransaction.add(R.id.swiping_container, swipingFragment);
         fragmentTransaction.commit();
 
         TabHost host = (TabHost) findViewById(R.id.tabHost);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
-        spec.setContent(R.id.tab1);
+        spec.setContent(R.id.swiping_container);
         spec.setIndicator(getString(R.string.swiping_tab_title));
         host.addTab(spec);
 
