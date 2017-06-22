@@ -22,7 +22,6 @@ import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.MockServer;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
-import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import java.util.List;
 import retrofit2.Call;
@@ -34,7 +33,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "MainActivity";
-  SectionsPagerAdapter mSectionsPagerAdapter;
   ViewPager mViewPager;
   ApiService service;
   Retrofit retrofit;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
 
-    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
     mViewPager = (ViewPager) findViewById(R.id.container);
     setupViewPager(mViewPager);
 
@@ -72,27 +69,6 @@ public class MainActivity extends AppCompatActivity {
     onLogin("", "");
 
     checkLogin();
-
-    ArrayList<String> repos = new ArrayList<>();
-    repos.add("opal-gitinder-android");
-    ArrayList<String> languages = new ArrayList<>();
-    languages.add("Java");
-
-//    ProfileAdapter adapter = new ProfileAdapter(this);
-//    View fragment = findViewById(R.id.matchesFragment);
-//    ListView listView = (ListView)fragment.findViewById(R.id.matchList);
-//    listView.setAdapter(adapter);
-
-//    adapter.add(new Profile("Garlyle", "", repos, languages));
-//    adapter.add(new Profile("balintvecsey", "", repos, languages));
-//    adapter.add(new Profile("dorinagy", "", repos, languages));
-
-//    swiping fragment
-//    FragmentManager fragmentManager = getFragmentManager();
-//    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//    SwipingFragment swipingFragment = new SwipingFragment();
-//    fragmentTransaction.add(R.id.swiping_container, swipingFragment);
-//    fragmentTransaction.commit();
   }
 
   public void setupViewPager(ViewPager viewPager) {
