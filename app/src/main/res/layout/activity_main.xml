@@ -38,30 +38,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                </LinearLayout>
+                </FrameLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/tab2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                </LinearLayout>
+                </FrameLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/tab3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                </LinearLayout>
+                </FrameLayout>
 
             </FrameLayout>
         </LinearLayout></TabHost>
