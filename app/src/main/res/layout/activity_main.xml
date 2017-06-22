@@ -39,7 +39,7 @@
                 android:layout_height="match_parent">
 
                 <FrameLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/swiping_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
