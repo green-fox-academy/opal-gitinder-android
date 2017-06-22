@@ -8,16 +8,18 @@ import java.util.List;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-  private static final List<Fragment> mFragmentList = new ArrayList<>();
-  private static final List<String> mFragmentTitleList = new ArrayList<>();
+  private List<Fragment> mFragmentList;
+  private List<String> mFragmentTitleList;
+
+  public SectionsPagerAdapter(FragmentManager fm) {
+    super(fm);
+    mFragmentList = new ArrayList<>();
+    mFragmentTitleList = new ArrayList<>();
+  }
 
   public void addFragment(Fragment fragment, String title) {
     mFragmentList.add(fragment);
     mFragmentTitleList.add(title);
-  }
-
-  public SectionsPagerAdapter(FragmentManager fm) {
-    super(fm);
   }
 
   @Override
