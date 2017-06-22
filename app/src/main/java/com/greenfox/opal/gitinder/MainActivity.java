@@ -11,10 +11,13 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
+
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.MockServer;
@@ -83,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
 //    adapter.add(new Profile("Garlyle", "", repos, languages));
 //    adapter.add(new Profile("balintvecsey", "", repos, languages));
 //    adapter.add(new Profile("dorinagy", "", repos, languages));
+
+//    swiping fragment
+//    FragmentManager fragmentManager = getFragmentManager();
+//    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//    SwipingFragment swipingFragment = new SwipingFragment();
+//    fragmentTransaction.add(R.id.swiping_container, swipingFragment);
+//    fragmentTransaction.commit();
   }
 
   public void setupViewPager(ViewPager viewPager) {
