@@ -4,7 +4,7 @@ import com.greenfox.opal.gitinder.model.response.Profile;
 
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.Direction;
-import com.greenfox.opal.gitinder.model.LoginRequest
+import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
@@ -68,10 +68,10 @@ public class MockServer implements ApiService {
 	}
 
 	@Override
-	public MockCall<Profile> swiping(@Header(value = "X-GiTinder-token") final String token,
+	public MockCall<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") final String token,
 	                                 @Path("username") String username,
 	                                 @Path("direction") Enum<Direction> direction) {
-		return new MockCall<Profile>() {
+		return new MockCall<SwipingResponse>() {
 			@Override
 			public void enqueue(Callback callback) {
 				BaseResponse response;
