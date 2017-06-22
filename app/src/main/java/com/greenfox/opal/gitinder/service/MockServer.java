@@ -19,7 +19,7 @@ public class MockServer implements ApiService {
     public MockCall<LoginResponse> login(@Body final LoginRequest loginRequest) {
         return new MockCall<LoginResponse>() {
             @Override
-            public void enqueue(Callback callback) {
+            public void enqueue(Callback<LoginResponse> callback) {
                 LoginResponse response;
                 if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
                     String message = "Missing parameter(s):";
@@ -43,7 +43,7 @@ public class MockServer implements ApiService {
     public MockCall<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") final String token, @Path("page") Integer page) {
         return new MockCall<ProfileListResponse>() {
             @Override
-            public void enqueue(Callback callback) {
+            public void enqueue(Callback<ProfileListResponse> callback) {
                 ProfileListResponse response;
                 if (token == null || "".equals(token)) {
                     response = new ProfileListResponse("Unauthorized request!");
