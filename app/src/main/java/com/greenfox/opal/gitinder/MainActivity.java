@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 	      //swiping fragment
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SwipingFragment fragment = new SwipingFragment();
-        fragmentTransaction.add(R.id.activity_main_layout, fragment);
+        SwipingFragment swipingFragment = new SwipingFragment();
+        fragmentTransaction.add(R.id.tab1, swipingFragment);
         fragmentTransaction.commit();
 
         TabHost host = (TabHost) findViewById(R.id.tabHost);
