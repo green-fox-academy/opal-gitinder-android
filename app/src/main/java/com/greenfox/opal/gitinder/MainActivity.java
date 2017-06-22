@@ -16,8 +16,11 @@ import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.MockServer;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +65,20 @@ public class MainActivity extends AppCompatActivity {
     onLogin("", "");
 
     checkLogin();
+
+    ArrayList<String> repos = new ArrayList<>();
+    repos.add("opal-gitinder-android");
+    ArrayList<String> languages = new ArrayList<>();
+    languages.add("Java");
+
+//    ProfileAdapter adapter = new ProfileAdapter(this);
+//    View fragment = findViewById(R.id.matchesFragment);
+//    ListView listView = (ListView)fragment.findViewById(R.id.matchList);
+//    listView.setAdapter(adapter);
+
+//    adapter.add(new Profile("Garlyle", "", repos, languages));
+//    adapter.add(new Profile("balintvecsey", "", repos, languages));
+//    adapter.add(new Profile("dorinagy", "", repos, languages));
   }
 
   public void setupViewPager(ViewPager viewPager) {
