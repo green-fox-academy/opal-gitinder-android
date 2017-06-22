@@ -7,6 +7,7 @@ import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +72,9 @@ public class MockServer implements ApiService {
 			public void enqueue(Callback callback) {
 				BaseResponse response;
 				if (token.isEmpty()) {
-					response = new BaseResponse("error", "token is empty");
+					response = new SwipingResponse();
 				} else {
-					response = new BaseResponse("ok", "success");
+					response = new SwipingResponse(true);
 				}
 				callback.onResponse(null, Response.success(response));
 			}
