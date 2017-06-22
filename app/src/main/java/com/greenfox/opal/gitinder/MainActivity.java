@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
   public void setupViewPager(ViewPager viewPager) {
     SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(new SwipingFragment(), "Swiping");
-    adapter.addFragment(new MatchesFragment(), "Matches");
-    adapter.addFragment(new SettingsFragment(), "Settings");
+    adapter.addFragment(new SwipingFragment(), getString(R.string.swiping_tab_title));
+    adapter.addFragment(new MatchesFragment(), getString(R.string.matches_tab_title));
+    adapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
     viewPager.setAdapter(adapter);
   }
 
