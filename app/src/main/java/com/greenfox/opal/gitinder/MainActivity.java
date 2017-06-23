@@ -32,7 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-  
+
     ApiService service;
     Retrofit retrofit;
     boolean connectToBackend = false;
@@ -81,7 +81,37 @@ public class MainActivity extends AppCompatActivity {
                     .build();
             service = retrofit.create(ApiService.class);
         } else {
-          Log.d("login", response.body().getMessage());
+            service = new MockServer();
+        }
+        onListRequest("abcd1234", 0);
+        onListRequest("", 0);
+        onListRequest(null, null);
+        onLogin("Bond", "abcd1234");
+        onLogin("", "");
+
+        checkLogin();
+    }
+
+  public void checkLogin() {
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+    String username = preferences.getString("Username", null);
+
+    if (TextUtils.isEmpty(username)) {
+      Intent intent = new Intent(this, LoginActivity.class);
+      startActivity(intent);
+    }
+  }
+
+  public void onLogin(String username, String token) {
+    LoginRequest testLogin = new LoginRequest(username, token);
+    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+      @Override
+      public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+        if (response.body().getStatus().equals("ok")) {
+          Log.d("dev", response.body().getToken());
+        } else {
+          Log.d("dev", response.body().getMessage());
         }
       }
 
