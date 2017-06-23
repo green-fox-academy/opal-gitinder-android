@@ -12,7 +12,11 @@ import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Profile;
+import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,18 +69,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             service = new MockServer();
         }
+        onListRequest("abcd1234", 0);
+        onListRequest("", 0);
+        onListRequest(null, null);
         onLogin("Bond", "abcd1234");
         onLogin("", "");
       
-//        checkLogin();
+        checkLogin();
 
     }
 
     public void checkLogin() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String clientID = preferences.getString("ClientID", null);
 
-        if (TextUtils.isEmpty(clientID)) {
+        String username = preferences.getString("Username", null);
+
+        if (TextUtils.isEmpty(username)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
@@ -88,15 +96,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getStatus().equals("ok")) {
-                    Log.d("login", response.body().getToken());
+                    Log.d("dev", response.body().getToken());
                 } else {
-                    Log.d("login", response.body().getMessage());
+                    Log.d("dev", response.body().getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 Log.d("login", "FAIL! =(");
+            }
+        });
+    }
+
+    public void onListRequest(String token, Integer page) {
+        service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
+            @Override
+            public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
+                if (response.body().getStatus() != null) {
+                    Log.d("dev", response.body().getMessage());
+                } else {
+                    List<Profile> members = response.body().getProfiles();
+                    for(Profile p : members) {
+                        Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileListResponse> call, Throwable t) {
+                Log.d("dev", "FAIL! =(");
             }
         });
     }

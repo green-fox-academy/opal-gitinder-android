@@ -3,6 +3,7 @@ package com.greenfox.opal.gitinder.model.response;
 import java.util.List;
 
 public class Profile extends BaseResponse {
+
     String login;
     String avatarUrl;
     List<String> repos;
@@ -11,7 +12,12 @@ public class Profile extends BaseResponse {
     public Profile() {
     }
 
-    public Profile(String login, String avatarUrl, List<String> repos, List<String> languages) {
+    public Profile(String message) {
+        super("error", message);
+    }
+
+    public Profile(String login, String avatarUrl, List<String> repos,
+        List<String> languages) {
         this.login = login;
         this.avatarUrl = avatarUrl;
         this.repos = repos;
