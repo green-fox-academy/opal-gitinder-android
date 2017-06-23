@@ -6,7 +6,7 @@ package com.greenfox.opal.gitinder.model.response;
 
 public class SwipingResponse extends BaseResponse {
 
-	private boolean match_status;
+	private boolean matchStatus;
 
 	public SwipingResponse() {
 		super("error", "Unauthorized request!");
@@ -14,10 +14,10 @@ public class SwipingResponse extends BaseResponse {
 
 	public SwipingResponse(boolean match_status) {
 		super("ok", "success");
-		this.match_status = match_status;
+		this.matchStatus = matchStatus;
 	}
 
 	public boolean isMatch_status() {
-		return match_status;
+		return matchStatus;
 	}
 }

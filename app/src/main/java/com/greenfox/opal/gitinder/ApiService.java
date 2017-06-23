@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 public interface ApiService {
   @POST("/login")
   Call<LoginResponse> login(@Body LoginRequest loginRequest);
-  
+
   @GET("/profile")
   Call<Profile> getProfileInfos(@Header("X-GiTinder-token") String token);
 
@@ -25,6 +25,6 @@ public interface ApiService {
   Call<ProfileListResponse> getListOfTinders(@Header("X-GiTinder-token") String token, @Path("page") Integer page);
 
   @PUT("/profiles/{username}/{direction}")
-	Call<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") String token, @Path("username") String username, @Path("direction") Enum<Direction> direction);
+  Call<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") String token, @Path("username") String username, @Path("direction") Enum<Direction> direction);
 
 }
