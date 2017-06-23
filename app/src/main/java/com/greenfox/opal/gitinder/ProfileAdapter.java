@@ -1,7 +1,6 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -31,8 +30,9 @@ public class ProfileAdapter extends ArrayAdapter<Profile> {
     TextView languages = (TextView) convertView.findViewById(R.id.textLanguages);
     languages.setText(current.getLanguages().toString());
 
-    CircleImageView avatar = (CircleImageView)convertView.findViewById(R.id.imageView);
-    int id = getContext().getResources().getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+    CircleImageView avatar = (CircleImageView) convertView.findViewById(R.id.imageView);
+    int id = getContext().getResources()
+        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
     avatar.setImageResource(id);
 
     return convertView;
