@@ -1,11 +1,15 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.Credential;
@@ -14,6 +18,8 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -22,7 +28,18 @@ import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginActivity extends AppCompatActivity {
+
+  //@Inject ApiService apiService
+  //@Inject SharedPreferences preferences;
+  ApiService service;
+  SharedPreferences preferences;
+  SharedPreferences.Editor editor;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
 
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
+
+    onLogin("Bond", "abcd1234");
+    onLogin("", "");
   }
 
   @Override
@@ -119,5 +139,35 @@ public class LoginActivity extends AppCompatActivity {
         };
 
     return controller;
+  }
+
+  public void onLogin(String username, String token) {
+    LoginRequest testLogin = new LoginRequest(username, token);
+    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+      @Override
+      public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+        if (response.body().getStatus().equals("ok")) {
+          Log.d("dev", response.body().getToken());
+
+          saveLoginData();
+          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+          startActivity(intent);
+        } else {
+          Log.d("dev", response.body().getMessage());
+        }
+      }
+
+      @Override
+      public void onFailure(Call<LoginResponse> call, Throwable t) {
+        Toast.makeText(LoginActivity.this, "login error", Toast.LENGTH_SHORT).show();
+        Log.d("login", "FAIL! =(");
+      }
+    });
+  }
+
+  protected void saveLoginData() {
+
+//    editor.putString("Username", username);
+//    editor.apply();
   }
 }
