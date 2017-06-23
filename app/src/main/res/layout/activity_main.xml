@@ -60,7 +60,6 @@
                             android:id="@+id/imageView"
                             android:layout_width="366dp"
                             android:layout_height="295dp"
-                            android:background="@android:color/holo_red_dark"
                             android:cropToPadding="false"
                             android:scaleType="centerCrop"
                             app:layout_constraintTop_toTopOf="parent"

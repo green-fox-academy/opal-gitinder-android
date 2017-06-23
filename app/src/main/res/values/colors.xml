@@ -6,5 +6,7 @@
     <color name="colorActionBar">#ff4500</color>
     <color name="textviewColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
-    <color name="tabColor">#ddc7c5c5</color>
+    <color name="tabColor">#68dddde0</color>
+    <color name="unselected_tabTextColor">#000000</color>
+    <color name="selected_tabTextColor">#ff5719</color>
 </resources>
