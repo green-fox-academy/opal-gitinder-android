@@ -3,8 +3,6 @@ package com.greenfox.opal.gitinder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.TabHost;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +12,7 @@ import android.util.Log;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
-import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.MockServer;
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
 
         setContentView(R.layout.activity_main);
-
-        ProfileAdapter adapter = new ProfileAdapter(this);
-        View fragment = findViewById(R.id.matchesFragment);
-        ListView listView = (ListView)fragment.findViewById(R.id.matchList);
-        listView.setAdapter(adapter);
 
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
@@ -77,16 +68,8 @@ public class MainActivity extends AppCompatActivity {
         onLogin("Bond", "abcd1234");
         onLogin("", "");
       
-        checkLogin();
+//        checkLogin();
 
-        ArrayList<String> repos = new ArrayList<>();
-        repos.add("opal-gitinder-android");
-        ArrayList<String> languages = new ArrayList<>();
-        languages.add("Java");
-
-        adapter.add(new Profile("Garlyle", "", repos, languages));
-        adapter.add(new Profile("balintvecsey", "", repos, languages));
-        adapter.add(new Profile("dorinagy", "", repos, languages));
     }
 
     public void checkLogin() {
