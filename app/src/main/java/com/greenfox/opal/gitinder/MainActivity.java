@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
   ViewPager mViewPager;
   ApiService service;
   Retrofit retrofit;
+  SectionsPagerAdapter sectionsPagerAdapter;
   boolean connectToBackend = false;
 
   @Override
@@ -72,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void setupViewPager(ViewPager viewPager) {
-    SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    adapter.addFragment(new SwipingFragment(), getString(R.string.swiping_tab_title));
-    adapter.addFragment(new MatchesFragment(), getString(R.string.matches_tab_title));
-    adapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
-    viewPager.setAdapter(adapter);
+    sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    sectionsPagerAdapter.addFragment(new SwipingFragment(), getString(R.string.swiping_tab_title));
+    sectionsPagerAdapter.addFragment(new MatchesFragment(), getString(R.string.matches_tab_title));
+    sectionsPagerAdapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
+    viewPager.setAdapter(sectionsPagerAdapter);
   }
 
   public void checkLogin() {

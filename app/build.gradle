@@ -38,6 +38,8 @@ android {
     packagingOptions {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
+        exclude 'licenses/javolution.license.TXT'
+        exclude 'org/apache/maven/project/pom-4.0.0.xml'
     }
 }
 
@@ -61,4 +63,7 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     testCompile 'org.robolectric:robolectric:3.3.2'
     testCompile 'junit:junit:4.12'
+    compile 'org.robolectric:robolectric-annotations:3.3.2'
+    compile 'org.robolectric:shadows-core:3.3.2'
+    compile 'org.robolectric:robolectric:3.3.2'
 }
