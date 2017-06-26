@@ -4,8 +4,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-    >
+              android:orientation="vertical">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,21 +13,22 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/round_corner">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="295dp"
-            android:layout_marginTop="0dp"
-            android:cropToPadding="false"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/sloth"
             android:scaleType="centerCrop"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/sloth"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1"
-            tools:layout_constraintTop_creator="1"/>
+            app:riv_corner_radius="10dip"
+            app:riv_mutate_background="true"
+            app:layout_constraintHorizontal_bias="0.0"/>
+
 
         <TextView
             android:id="@+id/textview_name"
