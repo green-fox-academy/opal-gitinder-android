@@ -14,6 +14,7 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -21,8 +22,13 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+
+  Retrofit githubRetrofit;
+  GithubApiService service;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,12 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog alert = a_builder.create();
     alert.setTitle(R.string.dialog_title);
     alert.show();
+
+    githubRetrofit = new Retrofit.Builder()
+        .baseUrl("https://api.github.com")
+        .addConverterFactory(JacksonConverterFactory.create())
+        .build();
+    service = githubRetrofit.create(GithubApiService.class);
   }
 
   public void authentication() {
@@ -67,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
       public void run(OAuthFuture<Credential> future) {
         try {
           Log.d("success", future.getResult().getAccessToken());
+          finish();
         } catch (IOException e) {
           e.printStackTrace();
         }
