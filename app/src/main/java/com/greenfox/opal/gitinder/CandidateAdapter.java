@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.model.response.Profile;
@@ -20,12 +21,12 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
   public View getView(int position, View convertView, ViewGroup parent) {
     Profile current = getItem(position);
     convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidate, parent, false);
-    TextView username = (TextView)convertView.findViewById(R.id.textName);
+    TextView username = (TextView)convertView.findViewById(R.id.textview_name);
     username.setText(current.getLogin());
-    TextView languages = (TextView)convertView.findViewById(R.id.textLanguages);
+    TextView languages = (TextView)convertView.findViewById(R.id.textview_language);
     languages.setText(current.getLanguages().toString());
-//    ImageView avatar = (ImageView)convertView.findViewById(R.id.imageView);
-//    avatar.setImageURI();
+    ImageView avatar = (ImageView)convertView.findViewById(R.id.imageView);
+    //avatar.setImageURI();
 
     return convertView;
   }
