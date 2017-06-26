@@ -6,7 +6,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 
@@ -89,58 +88,60 @@ public class MainActivity extends AppCompatActivity {
         onListRequest(null, null);
         onLogin("Bond", "abcd1234");
         onLogin("", "");
-      
+
         checkLogin();
     }
 
-    public void checkLogin() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+  public void checkLogin() {
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String username = preferences.getString("Username", null);
+    String username = preferences.getString("Username", null);
 
-        if (TextUtils.isEmpty(username)) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+    if (TextUtils.isEmpty(username)) {
+      Intent intent = new Intent(this, LoginActivity.class);
+      startActivity(intent);
+    }
+  }
+
+  public void onLogin(String username, String token) {
+    LoginRequest testLogin = new LoginRequest(username, token);
+    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+      @Override
+      public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+        if (response.body().getStatus().equals("ok")) {
+          Log.d("dev", response.body().getToken());
+        } else {
+          Log.d("dev", response.body().getMessage());
         }
-    }
+      }
 
-    public void onLogin(String username, String token) {
-        LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.body().getStatus().equals("ok")) {
-                    Log.d("dev", response.body().getToken());
-                } else {
-                    Log.d("dev", response.body().getMessage());
-                }
-            }
+      @Override
+      public void onFailure(Call<LoginResponse> call, Throwable t) {
+        Log.d("login", "FAIL! =(");
+      }
+    });
+  }
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.d("login", "FAIL! =(");
-            }
-        });
-    }
+  public void onListRequest(String token, Integer page) {
+    service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
+      @Override
+      public void onResponse(Call<ProfileListResponse> call,
+          Response<ProfileListResponse> response) {
+        if (response.body().getStatus() != null) {
+          Log.d("dev", response.body().getMessage());
+        } else {
+          List<Profile> members = response.body().getProfiles();
+          for (Profile p : members) {
+            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
+                .getLanguages());
+          }
+        }
+      }
 
-    public void onListRequest(String token, Integer page) {
-        service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
-            @Override
-            public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
-                if (response.body().getStatus() != null) {
-                    Log.d("dev", response.body().getMessage());
-                } else {
-                    List<Profile> members = response.body().getProfiles();
-                    for(Profile p : members) {
-                        Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProfileListResponse> call, Throwable t) {
-                Log.d("dev", "FAIL! =(");
-            }
-        });
-    }
+      @Override
+      public void onFailure(Call<ProfileListResponse> call, Throwable t) {
+        Log.d("dev", "FAIL! =(");
+      }
+    });
+  }
 }
