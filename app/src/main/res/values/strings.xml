@@ -10,6 +10,8 @@
   <string name="swiping_tab_title">Swiping</string>
   <string name="matches_tab_title">Matches</string>
   <string name="settings_tab_title">Settings</string>
+  <string name="button_message">Messages</string>
+  <string name="button_profile">Profile</string>
   <string name="settings_notifications">Enable Notifications</string>
   <string name="settings_background_sync">Enable Background Sync</string>
   <string name="settings_distance">Maximum distance</string>

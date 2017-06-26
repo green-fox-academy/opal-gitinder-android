@@ -1,5 +1,15 @@
 package com.greenfox.opal.gitinder;
 
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TabHost;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
