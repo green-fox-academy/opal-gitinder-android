@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void checkLogin() {
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     String username = preferences.getString("Username", null);
 
     if (TextUtils.isEmpty(username)) {
