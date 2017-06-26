@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import com.greenfox.opal.gitinder.ProfileAdapter;
+import com.greenfox.opal.gitinder.service.ProfileAdapter;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import java.util.ArrayList;

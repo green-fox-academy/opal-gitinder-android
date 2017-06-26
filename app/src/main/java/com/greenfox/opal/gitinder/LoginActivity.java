@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
       public void run(OAuthFuture<Credential> future) {
         try {
           Log.d("success", future.getResult().getAccessToken());
+          finish();
         } catch (IOException e) {
           e.printStackTrace();
         }
