@@ -2,11 +2,12 @@
 <resources>
     <color name="colorPrimary">#ff5719</color>
     <color name="colorPrimaryDark">#68dddde0</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4500</color>
     <color name="colorActionBar">#ff4500</color>
     <color name="textviewColor">#FFFFFF</color>
     <color name="textColor">#000000</color>
     <color name="tabColor">#68dddde0</color>
     <color name="unselected_tabTextColor">#000000</color>
     <color name="selected_tabTextColor">#ff5719</color>
+    <color name="settings_languages">#808080</color>
 </resources>
