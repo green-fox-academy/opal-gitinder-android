@@ -15,6 +15,7 @@ import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -68,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
     onListRequest(null, null);
     onLogin("Bond", "abcd1234");
     onLogin("", "");
-
+    
     checkLogin();
-  }
+    }
 
   public void setupViewPager(ViewPager viewPager) {
     SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
