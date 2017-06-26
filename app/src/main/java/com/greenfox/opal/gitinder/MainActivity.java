@@ -1,5 +1,8 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
@@ -13,7 +16,9 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.greenfox.opal.gitinder.fragment.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -41,12 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+	      //swiping fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SwipingFragment swipingFragment = new SwipingFragment();
+        fragmentTransaction.add(R.id.swiping_container, swipingFragment);
+        fragmentTransaction.commit();
+
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
-        spec.setContent(R.id.tab1);
+        spec.setContent(R.id.swiping_container);
         spec.setIndicator(getString(R.string.swiping_tab_title));
         host.addTab(spec);
 
