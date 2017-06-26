@@ -148,8 +148,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
           Log.d("dev", response.body().getToken());
-
-          saveLoginData();
+          saveLoginData(response.body().getToken());
           Intent intent = new Intent(LoginActivity.this, MainActivity.class);
           startActivity(intent);
         } else {
@@ -165,9 +164,9 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData() {
-
-//    editor.putString("Username", username);
-//    editor.apply();
+  protected void saveLoginData(String token) {
+    editor.putString("Token", token);
+    editor.putString("Username", null);
+    editor.apply();
   }
 }

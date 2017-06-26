@@ -3,7 +3,6 @@ package com.greenfox.opal.gitinder;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
 
@@ -13,8 +12,6 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.greenfox.opal.gitinder.model.LoginRequest;
-import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
@@ -75,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
     onListRequest("abcd1234", 0);
     onListRequest("", 0);
     onListRequest(null, null);
-//        onLogin("Bond", "abcd1234");
-//        onLogin("", "");
 
     checkLogin();
   }
@@ -91,25 +86,6 @@ public class MainActivity extends AppCompatActivity {
       startActivity(intent);
     }
   }
-
-//    public void onLogin(String username, String token) {
-//        LoginRequest testLogin = new LoginRequest(username, token);
-//        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
-//            @Override
-//            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-//                if (response.body().getStatus().equals("ok")) {
-//                    Log.d("dev", response.body().getToken());
-//                } else {
-//                    Log.d("dev", response.body().getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginResponse> call, Throwable t) {
-//                Log.d("login", "FAIL! =(");
-//            }
-//        });
-//    }
 
   public void onListRequest(String token, Integer page) {
     service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
