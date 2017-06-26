@@ -141,14 +141,14 @@ public class LoginActivity extends AppCompatActivity {
     return controller;
   }
 
-  public void onLogin(String username, String token) {
+  public void onLogin(final String username, final String token) {
     LoginRequest testLogin = new LoginRequest(username, token);
     service.login(testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
           Log.d("dev", response.body().getToken());
-          saveLoginData(response.body().getToken());
+          saveLoginData(username, token);
           Intent intent = new Intent(LoginActivity.this, MainActivity.class);
           startActivity(intent);
         } else {
@@ -164,9 +164,9 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData(String token) {
+  protected void saveLoginData(String username, String token) {
     editor.putString("Token", token);
-    editor.putString("Username", null);
+    editor.putString("Username", username);
     editor.apply();
   }
 }
