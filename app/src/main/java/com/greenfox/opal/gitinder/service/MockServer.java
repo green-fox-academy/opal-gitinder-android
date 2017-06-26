@@ -1,8 +1,14 @@
 package com.greenfox.opal.gitinder.service;
 
-import com.greenfox.opal.gitinder.model.LoginRequest;
+
 import com.greenfox.opal.gitinder.model.response.Profile;
+
+import com.greenfox.opal.gitinder.Direction;
+
+import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import retrofit2.Call;
@@ -17,6 +23,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
+
   @Override
   public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
     return new MockCall<LoginResponse>() {
@@ -60,7 +67,6 @@ public class MockServer implements ApiService {
           list.add(new Profile("dorinagy", "smiley.jpg", repos, languages));
           response = new ProfileListResponse(list, list.size(), 42);
         }
-        callback.onResponse(null, Response.success(response));
       }
     };
   }
@@ -79,6 +85,25 @@ public class MockServer implements ApiService {
           repos.add("opal-gitinder-android");
           languages.add("Java");
           response = new Profile("happysloth", "happysloth.png", repos, languages);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public MockCall<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") final String token,
+                                           @Path("username") String username,
+                                           @Path("direction") Enum<Direction> direction) {
+    return new MockCall<SwipingResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        BaseResponse response;
+        if (token.isEmpty()) {
+          response = new SwipingResponse();
+        } else {
+          response = new SwipingResponse(true);
+
         }
         callback.onResponse(null, Response.success(response));
       }
