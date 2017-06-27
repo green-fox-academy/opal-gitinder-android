@@ -1,29 +1,20 @@
 package com.greenfox.opal.gitinder.service;
 
-import android.provider.Settings;
-
-import com.google.api.client.util.DateTime;
 import com.greenfox.opal.gitinder.model.response.Profile;
-
 import com.greenfox.opal.gitinder.Direction;
-
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
-import retrofit2.Call;
-
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
