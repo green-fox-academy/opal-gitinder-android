@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.greenfox.opal.gitinder.CandidateAdapter;
+import com.greenfox.opal.gitinder.GitinderApp;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -36,6 +37,7 @@ public class SwipingFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.swiping_fragment, container, false);
 
+    GitinderApp.app().basicComponent().inject(this);
 
     SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view.findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), list);
