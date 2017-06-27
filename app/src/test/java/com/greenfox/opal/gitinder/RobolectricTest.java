@@ -17,6 +17,7 @@ import org.robolectric.shadows.ShadowToast;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -61,12 +62,12 @@ public class RobolectricTest {
   @Test
   public void shouldMakeTextCorrectly() throws Exception {
     Toast toast = Toast.makeText(RuntimeEnvironment.application, "login error", Toast.LENGTH_SHORT);
-    assertThat(toast).isNotNull();
-    assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_SHORT);
+    assertNotNull(toast);
+    assertEquals(toast.getDuration(), Toast.LENGTH_SHORT);
     toast.show();
-    assertThat(ShadowToast.getLatestToast()).isSameAs(toast);
-    assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("login error");
-    assertThat(ShadowToast.showedToast("login error")).isTrue();
+    assertEquals(ShadowToast.getLatestToast(), toast);
+    assertEquals(ShadowToast.getTextOfLatestToast(), "login error");
+    assertTrue(ShadowToast.showedToast("login error"));
   }
 
   @Test
@@ -74,9 +75,9 @@ public class RobolectricTest {
     Toast toast = Toast.makeText(RuntimeEnvironment.application, "login error", Toast.LENGTH_SHORT);
     toast.setText("login error");
     toast.show();
-    assertThat(ShadowToast.getLatestToast()).isSameAs(toast);
-    assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("login error");
-    assertThat(ShadowToast.showedToast("login error")).isTrue();
+    assertEquals(ShadowToast.getLatestToast(), toast);
+    assertEquals(ShadowToast.getTextOfLatestToast(), "login error");
+    assertTrue(ShadowToast.showedToast("login error"));
   }
 
   @Test
@@ -84,9 +85,9 @@ public class RobolectricTest {
     Toast toast = Toast.makeText(RuntimeEnvironment.application, "login error", Toast.LENGTH_SHORT);
     toast.setText(R.string.login_error);
     toast.show();
-    assertThat(ShadowToast.getLatestToast()).isSameAs(toast);
-    assertThat(ShadowToast.getTextOfLatestToast()).isEqualTo("login error");
-    assertThat(ShadowToast.showedToast("login error")).isTrue();
+    assertEquals(ShadowToast.getLatestToast(), toast);
+    assertEquals(ShadowToast.getTextOfLatestToast(), "login error");
+    assertTrue(ShadowToast.showedToast("login error"));
   }
 
   @Test
@@ -95,6 +96,6 @@ public class RobolectricTest {
     toast.setDuration(Toast.LENGTH_SHORT);
     final View view = new TextView(RuntimeEnvironment.application);
     toast.setView(view);
-    assertThat(toast.getView()).isSameAs(view);
+    assertEquals(toast.getView(), view);
   }
 }
