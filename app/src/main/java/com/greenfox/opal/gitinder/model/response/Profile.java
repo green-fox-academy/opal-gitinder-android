@@ -13,30 +13,30 @@ public class Profile extends BaseResponse {
     }
 
     public Profile(String message) {
-    super("error", message);
+        super("error", message);
     }
 
     public Profile(String login, String avatarUrl, List<String> repos,
-      List<String> languages) {
-    this.login = login;
-    this.avatarUrl = avatarUrl;
-    this.repos = repos;
-    this.languages = languages;
+        List<String> languages) {
+        this.login = login;
+        this.avatarUrl = avatarUrl;
+        this.repos = repos;
+        this.languages = languages;
     }
 
     public String getLogin() {
-    return login;
+        return login;
     }
 
     public String getAvatarUrl() {
-    return avatarUrl;
+        return avatarUrl;
     }
 
     public List<String> getRepos() {
-    return repos;
+        return repos;
     }
 
     public List<String> getLanguages() {
-    return languages;
+        return languages;
     }
 }
