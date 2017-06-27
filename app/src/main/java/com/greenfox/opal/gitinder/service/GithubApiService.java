@@ -13,5 +13,5 @@ import retrofit2.http.Header;
 public interface GithubApiService {
 
   @GET("/user")
-  Call<GithubUser> getUser(@Header("X-GiTinder-token") String token);
+  Call<GithubUser> getUser(@Header("Authorization") String accsessToken);
 }

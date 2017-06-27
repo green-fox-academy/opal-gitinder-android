@@ -4,7 +4,7 @@ package com.greenfox.opal.gitinder.model.response;
  * Created by Nagy Dóra on 2017.06.26..
  */
 
-public class GithubUser {
+public class GithubUser extends BaseResponse{
 
   private String login;
 
