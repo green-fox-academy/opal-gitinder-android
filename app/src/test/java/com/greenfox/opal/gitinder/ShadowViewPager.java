@@ -1,4 +1,4 @@
-package org.robolectric.shadows.support.v4;
+package com.greenfox.opal.gitinder;
 
 import static org.robolectric.internal.Shadow.directlyOn;
 
