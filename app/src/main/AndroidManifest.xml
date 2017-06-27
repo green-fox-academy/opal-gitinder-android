@@ -29,5 +29,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
+
+        <receiver android:name=".service.MatchesBroadcast" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

@@ -1,8 +1,10 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.AlarmManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
@@ -20,6 +22,7 @@ import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
+import com.greenfox.opal.gitinder.service.MatchesBroadcast;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import java.util.List;
@@ -72,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
         spec.setIndicator(getString(R.string.settings_tab_title));
         host.addTab(spec);
 
+        Intent intent = new Intent(this, MatchesBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
 
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
@@ -82,13 +89,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             service = new MockServer();
         }
-        onListRequest("abcd1234", 0);
-        onListRequest("", 0);
-        onListRequest(null, null);
-        onLogin("Bond", "abcd1234");
-        onLogin("", "");
 
-        checkLogin();
+//        checkLogin();
 
     }
 
