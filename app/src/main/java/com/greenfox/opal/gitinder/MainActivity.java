@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     ApiService service;
     Retrofit retrofit;
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
     boolean connectToBackend = false;
 
     @Override
@@ -76,9 +78,8 @@ public class MainActivity extends AppCompatActivity {
         host.addTab(spec);
 
         Intent intent = new Intent(this, MatchesBroadcast.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
+        pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
+        alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 
         if (connectToBackend) {
             retrofit = new Retrofit.Builder()
@@ -90,9 +91,20 @@ public class MainActivity extends AppCompatActivity {
             service = new MockServer();
         }
 
-//        checkLogin();
-
+        checkLogin();
     }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
+  }
 
   public void checkLogin() {
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
