@@ -21,7 +21,6 @@ import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import java.util.List;
@@ -31,16 +30,12 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "MainActivity";
   SectionsPagerAdapter mSectionsPagerAdapter;
   ViewPager mViewPager;
-  Retrofit retrofit;
-  boolean connectToBackend = false;
 
   @Inject
   SharedPreferences preferences;
@@ -65,15 +60,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
     tabLayout.setupWithViewPager(mViewPager);
 
-    if (connectToBackend) {
-      retrofit = new Retrofit.Builder()
-          .baseUrl("http://gitinder.herokuapp.com/")
-          .addConverterFactory(JacksonConverterFactory.create())
-          .build();
-      service = retrofit.create(ApiService.class);
-    } else {
-      service = new MockServer();
-    }
     onListRequest("abcd1234", 0);
     onListRequest("", 0);
     onListRequest(null, null);
