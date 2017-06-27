@@ -1,25 +1,15 @@
 package com.greenfox.opal.gitinder;
 
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TabHost;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
@@ -41,6 +31,8 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
