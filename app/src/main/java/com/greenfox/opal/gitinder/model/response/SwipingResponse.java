@@ -1,23 +1,22 @@
 package com.greenfox.opal.gitinder.model.response;
 
-/**
- * Created by Nagy Dóra on 2017.06.22..
- */
-
 public class SwipingResponse extends BaseResponse {
 
-	private boolean matchStatus;
+	private Match match;
 
 	public SwipingResponse() {
-		super("error", "Unauthorized request!");
 	}
 
-	public SwipingResponse(boolean match_status) {
+	public SwipingResponse(String message) {
+		super("error", message);
+	}
+
+	public SwipingResponse(Match match) {
 		super("ok", "success");
-		this.matchStatus = matchStatus;
+		this.match = match;
 	}
 
-	public boolean isMatch_status() {
-		return matchStatus;
+	public Match getMatch() {
+		return match;
 	}
 }
