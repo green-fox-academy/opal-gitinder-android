@@ -1,9 +1,17 @@
 package com.greenfox.opal.gitinder.service;
 
+import android.provider.Settings;
+
+import com.google.api.client.util.DateTime;
 import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,7 +52,10 @@ public class MockServer implements ApiService {
                 if (token.isEmpty()) {
                     response = new MatchesResponse("Unauthorized request!");
                 } else {
-                    response = new MatchesResponse();
+                    ArrayList<Match> matches = new ArrayList<>();
+                    matches.add(new Match("jondoe", new Timestamp(System.currentTimeMillis())));
+                    matches.add(new Match("jondoe2", new Timestamp(System.currentTimeMillis())));
+                    response = new MatchesResponse(matches);
                 }
                 callback.onResponse(null, Response.success(response));
             }

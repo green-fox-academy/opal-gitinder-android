@@ -8,6 +8,10 @@ public class MatchesResponse extends BaseResponse {
     public MatchesResponse() {
     }
 
+    public MatchesResponse(List<Match> list) {
+        matches = list;
+    }
+
     public MatchesResponse(String message) {
         super("error", message);
     }
