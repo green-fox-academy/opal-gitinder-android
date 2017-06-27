@@ -65,5 +65,4 @@
 
             </FrameLayout>
         </LinearLayout></TabHost>
-
 </android.support.constraint.ConstraintLayout>

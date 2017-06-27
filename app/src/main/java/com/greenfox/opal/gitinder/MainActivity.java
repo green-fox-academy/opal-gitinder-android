@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         onLogin("", "");
 
         checkLogin();
+
     }
 
   public void checkLogin() {
