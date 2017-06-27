@@ -45,6 +45,9 @@ public class LoginActivity extends AppCompatActivity {
   @Inject
   SharedPreferences preferences;
 
+  private final String USERNAME = "Username";
+  private final String TOKEN = "Token";
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -57,8 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
     editor = preferences.edit();
 
-    onLogin("Bond", "abcd1234");
-    onLogin("", "");
   }
 
   @Override
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void run(OAuthFuture<Credential> future) {
         try {
+          onLogin("username", future.getResult().getAccessToken());
           Log.d("success", future.getResult().getAccessToken());
         } catch (IOException e) {
           e.printStackTrace();
@@ -155,7 +157,6 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
-          Log.d("dev", response.body().getToken());
           saveLoginData(username, token);
           Intent intent = new Intent(LoginActivity.this, MainActivity.class);
           startActivity(intent);
@@ -173,8 +174,8 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   protected void saveLoginData(String username, String token) {
-    editor.putString("Token", token);
-    editor.putString("Username", username);
+    editor.putString(TOKEN, token);
+    editor.putString(USERNAME, username);
     editor.apply();
   }
 }

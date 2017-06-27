@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity {
     onListRequest("", 0);
     onListRequest(null, null);
 
-    onLogin("Bond", "abcd1234");
-    onLogin("", "");
-
     checkLogin();
   }
 
@@ -91,25 +88,6 @@ public class MainActivity extends AppCompatActivity {
       Intent intent = new Intent(this, LoginActivity.class);
       startActivity(intent);
     }
-  }
-
-  public void onLogin(String username, String token) {
-    LoginRequest testLogin = new LoginRequest(username, token);
-    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
-      @Override
-      public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-        if (response.body().getStatus().equals("ok")) {
-          Log.d("dev", response.body().getToken());
-        } else {
-          Log.d("dev", response.body().getMessage());
-        }
-      }
-
-      @Override
-      public void onFailure(Call<LoginResponse> call, Throwable t) {
-        Log.d("login", "FAIL! =(");
-      }
-    });
   }
 
   public void onListRequest(String token, Integer page) {
