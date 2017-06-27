@@ -7,28 +7,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.greenfox.opal.gitinder.ApiService;
 import com.greenfox.opal.gitinder.CandidateAdapter;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
-import com.greenfox.opal.gitinder.service.MockServer;
+import com.greenfox.opal.gitinder.service.ApiService;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class SwipingFragment extends Fragment {
 
+  @Inject
   ApiService service;
-  Retrofit retrofit;
-  boolean connectToBackend = false;
   CandidateAdapter adapter;
   ArrayList<Profile> list = new ArrayList<>();
 
@@ -38,16 +36,6 @@ public class SwipingFragment extends Fragment {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.swiping_fragment, container, false);
 
-    // Create Service
-    if (connectToBackend) {
-      retrofit = new Retrofit.Builder()
-        .baseUrl("http://gitinder.herokuapp.com/")
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build();
-      service = retrofit.create(ApiService.class);
-    } else {
-      service = new MockServer();
-    }
 
     SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view.findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), list);
