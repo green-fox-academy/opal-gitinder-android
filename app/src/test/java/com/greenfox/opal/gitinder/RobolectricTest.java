@@ -14,7 +14,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowToast;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -42,7 +41,7 @@ public class RobolectricTest {
   @Test
   public void shouldHaveCorrectAppName() throws Exception {
     String appName = mainActivity.getResources().getString(R.string.app_name);
-    assertThat(appName).isEqualTo("GiTinder");
+    assertEquals(appName, "GiTinder");
   }
 
   @Test
@@ -55,8 +54,8 @@ public class RobolectricTest {
   @Test
   public void shouldHaveShortDuration() throws Exception {
     Toast toast = Toast.makeText(RuntimeEnvironment.application, "short toast", Toast.LENGTH_SHORT);
-    assertThat(toast).isNotNull();
-    assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_SHORT);
+    assertNotNull(toast);
+    assertEquals(toast.getDuration(), Toast.LENGTH_SHORT);
   }
 
   @Test
