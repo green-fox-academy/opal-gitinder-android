@@ -15,5 +15,5 @@
   <string name="settings_distance">Maximum distance</string>
   <string name="settings_languages">Preferred languages</string>
   <string name="settings_example_languages">Javascript, Java, Ruby</string>
-    <string name="no_more_profiles">No more profiles available</string>
+    <string name="no_more_profiles">No more profiles available :(</string>
 </resources>
