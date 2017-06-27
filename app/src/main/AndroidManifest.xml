@@ -10,6 +10,7 @@
         android:maxSdkVersion="22" />
 
     <application
+        android:name=".GitinderApp"
         android:allowBackup="true"
         android:icon="@mipmap/gitinder_logo"
         android:label="@string/app_name"
