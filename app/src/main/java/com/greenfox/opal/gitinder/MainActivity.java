@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 
 import android.support.v7.app.AppCompatActivity;
@@ -25,8 +26,9 @@ import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
-
+import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.MockServer;
@@ -34,26 +36,32 @@ import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "MainActivity";
   SectionsPagerAdapter mSectionsPagerAdapter;
   ViewPager mViewPager;
-  ApiService service;
   Retrofit retrofit;
   boolean connectToBackend = false;
+
+  @Inject
+  SharedPreferences preferences;
+  @Inject
+  ApiService service;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     Log.d(TAG, "starting MainActivity");
+
+    GitinderApp.app().basicComponent().inject(this);
 
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
@@ -92,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void checkLogin() {
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
     String username = preferences.getString("Username", null);
 
     if (TextUtils.isEmpty(username)) {
@@ -124,15 +130,13 @@ public class MainActivity extends AppCompatActivity {
   public void onListRequest(String token, Integer page) {
     service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
       @Override
-      public void onResponse(Call<ProfileListResponse> call,
-          Response<ProfileListResponse> response) {
+      public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
-            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
-                .getLanguages());
+            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
           }
         }
       }

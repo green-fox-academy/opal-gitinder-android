@@ -2,6 +2,7 @@ package com.greenfox.opal.gitinder;
 
 import android.content.Intent;
 import org.junit.Before;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -13,6 +14,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, shadows = {ShadowViewPager.class})
+
 public class RobolectricTest {
 
   private MainActivity mainActivity;

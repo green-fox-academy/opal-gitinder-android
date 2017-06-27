@@ -1,5 +1,6 @@
-package com.greenfox.opal.gitinder;
+package com.greenfox.opal.gitinder.service;
 
+import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -26,5 +27,4 @@ public interface ApiService {
 
   @PUT("/profiles/{username}/{direction}")
   Call<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") String token, @Path("username") String username, @Path("direction") Enum<Direction> direction);
-
 }
