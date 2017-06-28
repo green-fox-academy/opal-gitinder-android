@@ -13,8 +13,8 @@ import static org.junit.Assert.assertEquals;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class)
-//@Config(constants = BuildConfig.class, sdk = 21, manifest = "src/main/AndroidManifest.xml", application = android.app.Application.class)
+@Config(constants = BuildConfig.class, shadows = {ShadowViewPager.class})
+
 public class RobolectricTest {
 
   private MainActivity mainActivity;

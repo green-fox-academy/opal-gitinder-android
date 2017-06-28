@@ -36,8 +36,9 @@ android {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
     }
     packagingOptions {
+        pickFirst 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -76,6 +77,10 @@ dependencies {
     //swiping library
     compile 'com.jakewharton:butterknife:5.1.2'
     compile 'com.lorentzos.swipecards:library:1.0.8'
+
+    compile 'com.android.support:design:25.3.1'
     testCompile 'org.robolectric:robolectric:3.3.2'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric-annotations:3.3.2'
+    testCompile 'org.robolectric:robolectric:3.3.2'
 }

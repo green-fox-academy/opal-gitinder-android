@@ -1,6 +1,6 @@
 package com.greenfox.opal.gitinder;
 
-import com.greenfox.opal.gitinder.fragment.SwipingFragment;
+import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 
 import javax.inject.Singleton;
 

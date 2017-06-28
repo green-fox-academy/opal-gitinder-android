@@ -1,4 +1,4 @@
-package com.greenfox.opal.gitinder;
+package com.greenfox.opal.gitinder.service;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 
 import java.util.List;

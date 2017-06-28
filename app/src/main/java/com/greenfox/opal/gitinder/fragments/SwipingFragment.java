@@ -1,18 +1,19 @@
-package com.greenfox.opal.gitinder.fragment;
+package com.greenfox.opal.gitinder.fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.greenfox.opal.gitinder.CandidateAdapter;
 import com.greenfox.opal.gitinder.GitinderApp;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
+import com.greenfox.opal.gitinder.service.CandidateAdapter;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -30,11 +31,13 @@ public class SwipingFragment extends Fragment {
   ApiService service;
   CandidateAdapter adapter;
 
+  private static final String TAG = "SwipingFragment";
+
+  @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.swiping_fragment, container, false);
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    Log.d(TAG, "on Swiping tab");
+    View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
 
