@@ -1,7 +1,6 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
   private static final String TAG = "LoginActivity";
 
   Retrofit githubRetrofit;
-  GithubApiService service;
+  GithubApiService githubService;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         .baseUrl("https://api.github.com")
         .addConverterFactory(JacksonConverterFactory.create())
         .build();
-    service = githubRetrofit.create(GithubApiService.class);
+    githubService = githubRetrofit.create(GithubApiService.class);
   }
 
   public void authentication() {
