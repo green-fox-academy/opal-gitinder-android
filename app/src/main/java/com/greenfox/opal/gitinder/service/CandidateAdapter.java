@@ -23,12 +23,16 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
   public View getView(int position, View convertView, ViewGroup parent) {
     Profile current = getItem(position);
     convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidate, parent, false);
+
     TextView username = (TextView)convertView.findViewById(R.id.textview_name);
     username.setText(current.getLogin());
     TextView languages = (TextView)convertView.findViewById(R.id.textview_language);
     languages.setText(current.getLanguages().toString());
-    ImageView avatar = (ImageView)convertView.findViewById(R.id.imageView);
-    //avatar.setImageURI();
+
+    ImageView avatar = (ImageView) convertView.findViewById(R.id.imageView);
+    int id = getContext().getResources()
+        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+    avatar.setImageResource(id);
 
     return convertView;
   }
