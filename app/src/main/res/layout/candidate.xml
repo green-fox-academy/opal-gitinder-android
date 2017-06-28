@@ -4,19 +4,21 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:weightSum="1">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@drawable/round_corner">
+        android:background="@drawable/round_corner"
+        android:layout_weight="0.05">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
-            android:layout_height="350dp"
+            android:layout_height="320dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginTop="3dp"
@@ -62,8 +64,7 @@
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="14dp"/>
+            />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
