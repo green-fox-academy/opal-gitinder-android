@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     onLogin("Bond", "abcd1234");
     onLogin("", "");
 
-    //checkLogin();
+    checkLogin();
   }
 
   public void checkLogin() {
