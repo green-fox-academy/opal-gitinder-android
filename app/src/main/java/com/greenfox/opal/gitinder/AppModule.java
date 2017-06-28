@@ -15,10 +15,6 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-/**
- * Created by Nagy Dóra on 2017.06.18..
- */
-
 @Module
 public class AppModule {
     private Context context;
