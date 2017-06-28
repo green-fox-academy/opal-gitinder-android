@@ -1,7 +1,6 @@
 package com.greenfox.opal.gitinder;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +26,7 @@ import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.wuman.android.auth.AuthorizationDialogController;
 import com.wuman.android.auth.AuthorizationFlow;
 import com.wuman.android.auth.DialogFragmentController;
@@ -34,27 +34,33 @@ import com.wuman.android.auth.OAuthManager;
 import com.wuman.android.auth.OAuthManager.OAuthCallback;
 import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
+import retrofit2.Retrofit;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
+  SharedPreferences.Editor editor;
+  @Inject ApiService service;
+  @Inject SharedPreferences preferences;
+  private static final String TAG = "LoginActivity";
 
-    SharedPreferences.Editor editor;
-    @Inject ApiService service;
-    @Inject SharedPreferences preferences;
+  Retrofit githubRetrofit;
+  GithubApiService githubService;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_login);
+    Log.d(TAG, "starting LoginActivity");
 
-        GitinderApp.app().basicComponent().inject(this);
+     GitinderApp.app().basicComponent().inject(this);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
+     ActionBar actionBar = getSupportActionBar();
+     actionBar.setDisplayShowHomeEnabled(true);
 
-        editor = preferences.edit();
+     editor = preferences.edit();
 
-        onLogin("Bond", "abcd1234");
-        onLogin("", "");
+      onLogin("Bond", "abcd1234");
+      onLogin("", "");
     }
 
     public void onLogin(String username, String token) {
@@ -98,6 +104,12 @@ public class LoginActivity extends AppCompatActivity {
     AlertDialog alert = a_builder.create();
     alert.setTitle(R.string.dialog_title);
     alert.show();
+
+    githubRetrofit = new Retrofit.Builder()
+        .baseUrl("https://api.github.com")
+        .addConverterFactory(JacksonConverterFactory.create())
+        .build();
+    githubService = githubRetrofit.create(GithubApiService.class);
   }
 
   public void authentication() {
@@ -110,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
       public void run(OAuthFuture<Credential> future) {
         try {
           Log.d("success", future.getResult().getAccessToken());
+          finish();
         } catch (IOException e) {
           e.printStackTrace();
         }
