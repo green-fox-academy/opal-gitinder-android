@@ -29,7 +29,6 @@ public class SwipingFragment extends Fragment {
   @Inject
   ApiService service;
   CandidateAdapter adapter;
-  ArrayList<Profile> list = new ArrayList<>();
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,13 +39,13 @@ public class SwipingFragment extends Fragment {
     GitinderApp.app().basicComponent().inject(this);
 
     SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view.findViewById(R.id.swipeView);
-    adapter = new CandidateAdapter(view.getContext(), list);
+    adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
       @Override
       public void removeFirstObjectInAdapter() {
         Log.d("dev", "REMOVE FIRST");
-        list.remove(0);
+        adapter.remove(adapter.getItem(0));
         adapter.notifyDataSetChanged();
       }
 
@@ -86,7 +85,8 @@ public class SwipingFragment extends Fragment {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
-            list.add(p);
+            adapter.addAll(p);
+            adapter.notifyDataSetChanged();
           }
         }
       }

@@ -13,6 +13,7 @@ import com.greenfox.opal.gitinder.model.response.Profile;
 import java.util.List;
 
 public class CandidateAdapter extends ArrayAdapter<Profile> {
+
   public CandidateAdapter(@NonNull Context context, List<Profile> list) {
     super(context, 0, list);
   }
