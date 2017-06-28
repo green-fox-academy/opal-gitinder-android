@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">GiTinder</string>
-    <string name="dialog_title">Login with Github</string>
-    <string name="dialog_message">In order to use GiTinder you need to login using your Github Account.
+  <string name="app_name">GiTinder</string>
+  <string name="dialog_title">Login with Github</string>
+  <string name="dialog_message">In order to use GiTinder you need to login using your Github Account.
     Click Login if you want to proceed.</string>
-    <string name="dialog_button_exit">Exit</string>
-    <string name="dialog_button_login">Login</string>
-    <string name="button_like">LIKE</string>
-    <string name="button_nope">NOPE</string>
-    <string name="swiping_tab_title">SWIPING</string>
-    <string name="matches_tab_title">MATCHES</string>
-    <string name="settings_tab_title">SETTINGS</string>
-    <string name="login_error">login error</string>
-    <string name="button_message">Messages</string>
-    <string name="button_profile">Profile</string>
-    <string name="settings_notifications">Enable Notifications</string>
-    <string name="settings_background_sync">Enable Background Sync</string>
-    <string name="settings_distance">Maximum distance</string>
-    <string name="settings_languages">Preferred languages</string>
-    <string name="settings_example_languages">Javascript, Java, Ruby</string>
+  <string name="dialog_button_exit">Exit</string>
+  <string name="dialog_button_login">Login</string>
+  <string name="button_like">LIKE</string>
+  <string name="button_nope">NOPE</string>
+  <string name="swiping_tab_title">SWIPING</string>
+  <string name="matches_tab_title">MATCHES</string>
+  <string name="settings_tab_title">SETTINGS</string>
+  <string name="login_error">login error</string>
+  <string name="button_message">Messages</string>
+  <string name="button_profile">Profile</string>
+  <string name="settings_notifications">Enable Notifications</string>
+  <string name="settings_background_sync">Enable Background Sync</string>
+  <string name="settings_distance">Maximum distance</string>
+  <string name="settings_languages">Preferred languages</string>
+  <string name="settings_example_languages">Javascript, Java, Ruby</string>
 </resources>
