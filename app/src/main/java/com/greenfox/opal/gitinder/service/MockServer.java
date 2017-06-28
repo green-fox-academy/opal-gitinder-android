@@ -10,7 +10,6 @@ import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,8 +119,8 @@ public class MockServer implements ApiService {
           response = new MatchesResponse("Unauthorized request!");
         } else {
           ArrayList<Match> matches = new ArrayList<>();
-          matches.add(new Match("jondoe", new Timestamp(System.currentTimeMillis())));
-          matches.add(new Match("jondoe2", new Timestamp(System.currentTimeMillis())));
+          matches.add(new Match("jondoe", System.currentTimeMillis()));
+          matches.add(new Match("jondoe2", System.currentTimeMillis()));
           response = new MatchesResponse(matches);
         }
         callback.onResponse(null, Response.success(response));

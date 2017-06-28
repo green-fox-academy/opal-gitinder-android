@@ -1,14 +1,13 @@
 package com.greenfox.opal.gitinder.model.response;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Match {
     String username;
-    Timestamp matched_at;
+    long matched_at;
     ArrayList<String> messages;
 
-    public Match(String username, Timestamp time) {
+    public Match(String username, long time) {
         this.username = username;
         matched_at = time;
         messages = new ArrayList<>();
@@ -18,7 +17,7 @@ public class Match {
         return username;
     }
 
-    public Timestamp getMatched_at() {
+    public long getMatched_at() {
         return matched_at;
     }
 
