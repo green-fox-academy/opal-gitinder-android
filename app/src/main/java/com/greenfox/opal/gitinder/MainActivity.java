@@ -1,26 +1,27 @@
 package com.greenfox.opal.gitinder;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TabHost;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TabLayout;
+
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.greenfox.opal.gitinder.fragment.SwipingFragment;
+import com.greenfox.opal.gitinder.fragments.MatchesFragment;
+import com.greenfox.opal.gitinder.fragments.SettingsFragment;
+import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
+import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import java.util.List;
 
@@ -32,6 +33,10 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+  private static final String TAG = "MainActivity";
+  SectionsPagerAdapter mSectionsPagerAdapter;
+  ViewPager mViewPager;
+
   @Inject
   SharedPreferences preferences;
   @Inject
@@ -41,48 +46,35 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    Log.d(TAG, "starting MainActivity");
 
     GitinderApp.app().basicComponent().inject(this);
 
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
 
-    //swiping fragment
-    FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    SwipingFragment swipingFragment = new SwipingFragment();
-    fragmentTransaction.add(R.id.swiping_container, swipingFragment);
-    fragmentTransaction.commit();
+    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    mViewPager = (ViewPager) findViewById(R.id.container);
+    setupViewPager(mViewPager);
 
-    TabHost host = (TabHost) findViewById(R.id.tabHost);
-    host.setup();
-
-    //Tab 1
-    TabHost.TabSpec spec = host.newTabSpec(getResources().getString(R.string.swiping_tab_title));
-    spec.setContent(R.id.swiping_container);
-    spec.setIndicator(getString(R.string.swiping_tab_title));
-    host.addTab(spec);
-
-    //Tab 2
-    spec = host.newTabSpec(getResources().getString(R.string.matches_tab_title));
-    spec.setContent(R.id.tab2);
-    spec.setIndicator(getString(R.string.matches_tab_title));
-    host.addTab(spec);
-
-    //Tab 3
-    spec = host.newTabSpec(getResources().getString(R.string.settings_tab_title));
-    spec.setContent(R.id.tab3);
-    spec.setIndicator(getString(R.string.settings_tab_title));
-    host.addTab(spec);
+    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+    tabLayout.setupWithViewPager(mViewPager);
 
     onListRequest("abcd1234", 0);
     onListRequest("", 0);
     onListRequest(null, null);
-
     onLogin("Bond", "abcd1234");
     onLogin("", "");
-
+    
     checkLogin();
+    }
+
+  public void setupViewPager(ViewPager viewPager) {
+    SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+    adapter.addFragment(new SwipingFragment(), getString(R.string.swiping_tab_title));
+    adapter.addFragment(new MatchesFragment(), getString(R.string.matches_tab_title));
+    adapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
+    viewPager.setAdapter(adapter);
   }
 
   public void checkLogin() {

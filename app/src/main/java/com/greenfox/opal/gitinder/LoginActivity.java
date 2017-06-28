@@ -36,25 +36,26 @@ import com.wuman.android.auth.OAuthManager.OAuthFuture;
 import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
+  SharedPreferences.Editor editor;
+  @Inject ApiService service;
+  @Inject SharedPreferences preferences;
+  private static final String TAG = "LoginActivity";
 
-    SharedPreferences.Editor editor;
-    @Inject ApiService service;
-    @Inject SharedPreferences preferences;
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_login);
+    Log.d(TAG, "starting LoginActivity");
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+     GitinderApp.app().basicComponent().inject(this);
 
-        GitinderApp.app().basicComponent().inject(this);
+     ActionBar actionBar = getSupportActionBar();
+     actionBar.setDisplayShowHomeEnabled(true);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
+     editor = preferences.edit();
 
-        editor = preferences.edit();
-
-        onLogin("Bond", "abcd1234");
-        onLogin("", "");
+      onLogin("Bond", "abcd1234");
+      onLogin("", "");
     }
 
     public void onLogin(String username, String token) {
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
       public void run(OAuthFuture<Credential> future) {
         try {
           Log.d("success", future.getResult().getAccessToken());
+          finish();
         } catch (IOException e) {
           e.printStackTrace();
         }
