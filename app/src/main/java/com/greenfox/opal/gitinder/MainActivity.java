@@ -19,6 +19,7 @@ import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
+import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
   private static final String TAG = "MainActivity";
   SectionsPagerAdapter mSectionsPagerAdapter;
-  ViewPager mViewPager;
+  NonSwipeableViewPager mViewPager;
 
   @Inject
   SharedPreferences preferences;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     actionBar.setDisplayShowHomeEnabled(true);
 
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    mViewPager = (ViewPager) findViewById(R.id.container);
+    mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
     setupViewPager(mViewPager);
 
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     onLogin("Bond", "abcd1234");
     onLogin("", "");
     
-    //checkLogin();
+    checkLogin();
     }
 
   public void setupViewPager(ViewPager viewPager) {
