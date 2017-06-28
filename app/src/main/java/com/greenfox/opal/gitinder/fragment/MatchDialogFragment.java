@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TabHost;
 
 import com.greenfox.opal.gitinder.R;
 
@@ -33,7 +34,9 @@ public class MatchDialogFragment extends DialogFragment {
     buttonChat.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-
+        TabHost host = (TabHost)getActivity().findViewById(R.id.tabHost);
+        host.setCurrentTab(1);
+        dismiss();
       }
     });
     return view;
