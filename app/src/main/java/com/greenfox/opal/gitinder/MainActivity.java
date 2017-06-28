@@ -18,11 +18,6 @@ import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
-import com.greenfox.opal.gitinder.model.response.Profile;
-import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
-
-import java.util.List;
-
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -74,14 +69,10 @@ public class MainActivity extends AppCompatActivity {
     spec.setIndicator(getString(R.string.settings_tab_title));
     host.addTab(spec);
 
-//    onListRequest("abcd1234", 0);
-//    onListRequest("", 0);
-//    onListRequest(null, null);
-
     onLogin("Bond", "abcd1234");
     onLogin("", "");
 
-    checkLogin();
+    //checkLogin();
   }
 
   public void checkLogin() {
@@ -111,25 +102,4 @@ public class MainActivity extends AppCompatActivity {
       }
     });
   }
-
-//  public void onListRequest(String token, Integer page) {
-//    service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
-//      @Override
-//      public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
-//        if (response.body().getStatus() != null) {
-//          Log.d("dev", response.body().getMessage());
-//        } else {
-//          List<Profile> members = response.body().getProfiles();
-//          for (Profile p : members) {
-//            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
-//          }
-//        }
-//      }
-//
-//      @Override
-//      public void onFailure(Call<ProfileListResponse> call, Throwable t) {
-//        Log.d("dev", "FAIL! =(");
-//      }
-//    });
-//  }
 }

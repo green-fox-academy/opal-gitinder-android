@@ -67,6 +67,7 @@ public class MockServer implements ApiService {
           list.add(new Profile("dorinagy", "smiley.jpg", repos, languages));
           response = new ProfileListResponse(list, list.size(), 42);
         }
+        callback.onResponse(null, Response.success(response));
       }
     };
   }
