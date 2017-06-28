@@ -73,7 +73,9 @@ public class SwipingFragment extends Fragment {
       }
     });
 
-    onListRequest("header", 0);
+    if (adapter.getCount() <= 3) {
+      onListRequest("header", 0);
+    }
 
     return view;
   }
