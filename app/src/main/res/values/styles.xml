@@ -12,12 +12,18 @@
   </style>
 
   <!-- Base application theme. -->
-  <style name="GiTinderBar"
-         parent="Widget.AppCompat.Light.ActionBar">
+  <style name="GiTinderBar" parent="Widget.AppCompat.Light.ActionBar">
     <item name="android:icon">@mipmap/gitinder_logo</item>
     <item name="icon">@mipmap/gitinder_logo</item>
     <item name="android:background">#F7430C</item>
     <item name="background">@color/colorActionBar</item>
   </style>
+
+  <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+  </style>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
