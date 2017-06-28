@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.response.GithubUser;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
   Retrofit githubRetrofit;
   GithubApiService githubService;
+  String username;
 
 
   @Override
@@ -113,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void run(OAuthFuture<Credential> future) {
         try {
-          onLogin("username", future.getResult().getAccessToken());
-          Log.d("success", future.getResult().getAccessToken());
-          finish();
+          userNameRequest(future.getResult().getAccessToken());
+          onLogin(username, future.getResult().getAccessToken());
+          Log.i("username: ", username);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -168,6 +170,25 @@ public class LoginActivity extends AppCompatActivity {
       };
 
     return controller;
+  }
+
+  public void userNameRequest(String token) {
+    githubService.getUser(token).enqueue(new Callback<GithubUser>() {
+      @Override
+      public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
+        if (response.body().getStatus() != null) {
+          Log.d("dev", response.body().getMessage());
+        } else {
+          Log.d("dev", response.body().getMessage());
+          username = response.body().getLogin();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<GithubUser> call, Throwable t) {
+        Log.d("dev", "FAIL! =(");
+      }
+    });
   }
 
   public void onLogin(final String username, final String token) {
