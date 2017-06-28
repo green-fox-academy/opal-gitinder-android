@@ -14,6 +14,9 @@ import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
+import com.greenfox.opal.gitinder.model.response.LoginResponse;
+
+import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import javax.inject.Inject;
@@ -21,7 +24,7 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity {
 
   SectionsPagerAdapter mSectionsPagerAdapter;
-  ViewPager mViewPager;
+  NonSwipeableViewPager mViewPager;
 
   @Inject
   SharedPreferences preferences;
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     actionBar.setDisplayShowHomeEnabled(true);
 
     mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    mViewPager = (ViewPager) findViewById(R.id.container);
+    mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
     setupViewPager(mViewPager);
 
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);

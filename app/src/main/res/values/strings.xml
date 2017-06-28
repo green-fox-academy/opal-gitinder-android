@@ -18,4 +18,5 @@
   <string name="settings_languages">Preferred languages</string>
   <string name="action_settings">Action Settings</string>
   <string name="settings_example_languages">Javascript, Java, Ruby</string>
+    <string name="no_more_profiles">No more profiles available :(</string>
 </resources>
