@@ -3,6 +3,8 @@ package com.greenfox.opal.gitinder.service;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+import com.greenfox.opal.gitinder.service.MockCall;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
@@ -16,6 +18,9 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ApiService {
+  @GET("/matches")
+  MockCall<MatchesResponse> getMatches(@Header("X-GiTinder-token") String token);
+
   @POST("/login")
   Call<LoginResponse> login(@Body LoginRequest loginRequest);
 

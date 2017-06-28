@@ -1,6 +1,5 @@
 package com.greenfox.opal.gitinder.service;
 
-
 import com.greenfox.opal.gitinder.model.response.Profile;
 
 import com.greenfox.opal.gitinder.Direction;
@@ -8,12 +7,15 @@ import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
+import com.greenfox.opal.gitinder.model.response.Match;
+import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+
+import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import retrofit2.Call;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Callback;
@@ -102,8 +104,26 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new SwipingResponse();
         } else {
-          response = new SwipingResponse(true);
+          response = new SwipingResponse(new Match("Garlyle2", System.currentTimeMillis()));
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
 
+  @Override
+  public MockCall<MatchesResponse> getMatches(@Header("X-GiTinder-token") final String token) {
+    return new MockCall<MatchesResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        MatchesResponse response;
+        if (token.isEmpty()) {
+          response = new MatchesResponse("Unauthorized request!");
+        } else {
+          ArrayList<Match> matches = new ArrayList<>();
+          matches.add(new Match("jondoe", System.currentTimeMillis()));
+          matches.add(new Match("jondoe2", System.currentTimeMillis()));
+          response = new MatchesResponse(matches);
         }
         callback.onResponse(null, Response.success(response));
       }
