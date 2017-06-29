@@ -1,6 +1,8 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -52,15 +54,28 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
     tabLayout.setupWithViewPager(mViewPager);
 
-    cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+    cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-    boolean isConnected = activeNetwork != null &&
-        activeNetwork.isConnectedOrConnecting();
-    Toast toast = Toast.makeText(this, (isConnected)?"Connected":"Not Connected =(", Toast.LENGTH_LONG);
+    boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+    if (isConnected) {
+      Toast toast = Toast.makeText(this, "Connected", Toast.LENGTH_LONG);
+      toast.show();
+    } else {
+      AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+      alertDialog.setTitle("Info");
+      alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
+      alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+      alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          finish();
+        }
+      });
+      alertDialog.show();
+    }
 
     checkLogin();
-    toast.show();
   }
 
   public void setupViewPager(ViewPager viewPager) {
