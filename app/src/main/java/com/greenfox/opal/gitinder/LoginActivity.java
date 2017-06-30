@@ -2,7 +2,6 @@ package com.greenfox.opal.gitinder;
 
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -115,9 +114,8 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void run(OAuthFuture<Credential> future) {
         try {
-          userNameRequest(future.getResult().getAccessToken());
-          onLogin(username, future.getResult().getAccessToken());
-          Log.i("username: ", username);
+          String token = future.getResult().getAccessToken();
+          userNameRequest(token);
         } catch (IOException e) {
           e.printStackTrace();
         }
@@ -172,15 +170,15 @@ public class LoginActivity extends AppCompatActivity {
     return controller;
   }
 
-  public void userNameRequest(String token) {
-    githubService.getUser(token).enqueue(new Callback<GithubUser>() {
+  public void userNameRequest(final String token) {
+    githubService.getUser("token " + token).enqueue(new Callback<GithubUser>() {
       @Override
       public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
-          Log.d("dev", response.body().getMessage());
           username = response.body().getLogin();
+          onLogin(username, token);
         }
       }
 
@@ -193,13 +191,11 @@ public class LoginActivity extends AppCompatActivity {
 
   public void onLogin(final String username, final String token) {
     LoginRequest testLogin = new LoginRequest(username, token);
-    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+      service.login(testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
           saveLoginData(username, token);
-          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-          startActivity(intent);
         } else {
           Log.d("dev", response.body().getMessage());
         }
@@ -217,5 +213,6 @@ public class LoginActivity extends AppCompatActivity {
     editor.putString(TOKEN, token);
     editor.putString(USERNAME, username);
     editor.apply();
+    this.finish();
   }
 }
