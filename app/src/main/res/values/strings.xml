@@ -19,6 +19,6 @@
   <string name="settings_example_languages">Javascript, Java, Ruby</string>
   <string name="match_dialog_title">It\'s a match!</string>
   <string name="match_dialog_message">You can start chatting with your partner, or you can keep swiping.</string>
-  <string name="button_back">KEEP SWIPING</string>
-  <string name="button_chat">START CHATTING</string>
+  <string name="button_back">Keep Swiping</string>
+  <string name="button_chat">Start Chatting</string>
 </resources>
