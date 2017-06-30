@@ -15,6 +15,7 @@ import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.CandidateAdapter;
+import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class SwipingFragment extends Fragment {
   @Inject
   ApiService service;
   CandidateAdapter adapter;
+
+  GithubApiService githubApiService;
 
   private static final String TAG = "SwipingFragment";
 

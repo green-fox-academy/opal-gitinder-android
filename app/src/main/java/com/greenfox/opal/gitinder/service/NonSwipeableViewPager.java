@@ -5,10 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Created by Bálint on 2017. 06. 28..
- */
-
 public class NonSwipeableViewPager extends ViewPager{
 
   private boolean enabled;

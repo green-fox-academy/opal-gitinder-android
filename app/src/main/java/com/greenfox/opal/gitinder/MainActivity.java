@@ -13,6 +13,7 @@ import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
+
 import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
