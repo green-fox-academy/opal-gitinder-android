@@ -52,34 +52,31 @@ public class LoginActivity extends AppCompatActivity {
     setContentView(R.layout.activity_login);
     Log.d(TAG, "starting LoginActivity");
 
-     GitinderApp.app().basicComponent().inject(this);
+    GitinderApp.app().basicComponent().inject(this);
 
-     ActionBar actionBar = getSupportActionBar();
-     actionBar.setDisplayShowHomeEnabled(true);
+    ActionBar actionBar = getSupportActionBar();
+    actionBar.setDisplayShowHomeEnabled(true);
 
-     editor = preferences.edit();
-
-      onLogin("Bond", "abcd1234");
-      onLogin("", "");
-    }
+    editor = preferences.edit();
+  }
 
     public void onLogin(String username, String token) {
-        LoginRequest testLogin = new LoginRequest(username, token);
-        service.login(testLogin).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.body().getStatus().equals("ok")) {
-                    Log.d("login", response.body().getToken());
-                } else {
-                    Log.d("login", response.body().getMessage());
-                }
-            }
+      LoginRequest testLogin = new LoginRequest(username, token);
+      service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+        @Override
+        public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+          if (response.body().getStatus().equals("ok")) {
+            Log.d("login", response.body().getToken());
+          } else {
+            Log.d("login", response.body().getMessage());
+          }
+        }
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.d("login", "FAIL! =(");
-            }
-        });
+        @Override
+        public void onFailure(Call<LoginResponse> call, Throwable t) {
+            Log.d("login", "FAIL! =(");
+        }
+      });
     }
 
   @Override
