@@ -4,10 +4,6 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-/**
- * Created by Nagy Dóra on 2017.06.18..
- */
-
 public class ObjectManager {
     private SharedPreferences sharedPreferences;
     private Gson gson;
