@@ -60,9 +60,9 @@ public class MockServer implements ApiService {
           ArrayList<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          list.add(new Profile("garlyle", "funny.jpg", repos, languages));
-          list.add(new Profile("balintvecsey", "quiet.jpg", repos, languages));
-          list.add(new Profile("dorinagy", "smiley.jpg", repos, languages));
+          list.add(new Profile("garlyle", "thinker", repos, languages));
+          list.add(new Profile("balintvecsey", "creepy", repos, languages));
+          list.add(new Profile("dorinagy", "hungry", repos, languages));
           response = new ProfileListResponse(list, list.size(), 42);
         }
         callback.onResponse(null, Response.success(response));
@@ -101,20 +101,19 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new SwipingResponse();
         } else {
-          response = new SwipingResponse(true);
-
+          response = new SwipingResponse(new Match("Garlyle2", System.currentTimeMillis()));
         }
         callback.onResponse(null, Response.success(response));
       }
     };
   }
 
-    @Override
-    public MockCall<MatchesResponse> getMatches(@Header("X-GiTinder-token") final String token) {
-      return new MockCall<MatchesResponse>() {
-        @Override
-        public void enqueue(Callback callback) {
-          MatchesResponse response;
+  @Override
+  public MockCall<MatchesResponse> getMatches(@Header("X-GiTinder-token") final String token) {
+    return new MockCall<MatchesResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        MatchesResponse response;
         if (token.isEmpty()) {
           response = new MatchesResponse("Unauthorized request!");
         } else {

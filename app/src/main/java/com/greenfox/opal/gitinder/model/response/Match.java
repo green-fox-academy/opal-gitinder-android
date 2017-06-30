@@ -7,6 +7,9 @@ public class Match {
   long matched_at;
   ArrayList<String> messages;
 
+  public Match() {
+  }
+
   public Match(String username, long time) {
     this.username = username;
     matched_at = time;
