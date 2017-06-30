@@ -63,16 +63,14 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
+    Log.d(TAG, "starting LoginActivity");
+
     GitinderApp.app().basicComponent().inject(this);
 
     ActionBar actionBar = getSupportActionBar();
     actionBar.setDisplayShowHomeEnabled(true);
 
     editor = preferences.edit();
-
-    Log.d(TAG, "starting LoginActivity");
-
-    GitinderApp.app().basicComponent().inject(this);
   }
 
   @Override

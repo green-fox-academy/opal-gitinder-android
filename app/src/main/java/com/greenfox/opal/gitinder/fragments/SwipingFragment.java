@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.GitinderApp;
 import com.greenfox.opal.gitinder.R;
@@ -38,7 +39,7 @@ public class SwipingFragment extends Fragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Swiping tab");
     View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
@@ -67,7 +68,11 @@ public class SwipingFragment extends Fragment {
 
       @Override
       public void onAdapterAboutToEmpty(int i) {
+        TextView text = (TextView)container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
+        if (i <= 0) {
+          text.setVisibility(View.VISIBLE);
+        }
       }
 
       @Override
