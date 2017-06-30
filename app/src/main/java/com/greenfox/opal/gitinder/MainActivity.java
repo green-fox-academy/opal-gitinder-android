@@ -35,18 +35,23 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     GitinderApp.app().basicComponent().inject(this);
+  }
 
-    ActionBar actionBar = getSupportActionBar();
-    actionBar.setDisplayShowHomeEnabled(true);
+  @Override
+  protected void onResume() {
+    super.onResume();
 
-    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
-    setupViewPager(mViewPager);
+    if (checkLogin()) {
+      ActionBar actionBar = getSupportActionBar();
+      actionBar.setDisplayShowHomeEnabled(true);
 
-    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-    tabLayout.setupWithViewPager(mViewPager);
+      mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+      mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
+      setupViewPager(mViewPager);
 
-    checkLogin();
+      TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+      tabLayout.setupWithViewPager(mViewPager);
+    }
   }
 
   public void setupViewPager(ViewPager viewPager) {
@@ -57,12 +62,14 @@ public class MainActivity extends AppCompatActivity {
     viewPager.setAdapter(adapter);
   }
 
-  public void checkLogin() {
+  public boolean checkLogin() {
     String username = preferences.getString("Username", null);
 
     if (TextUtils.isEmpty(username)) {
       Intent intent = new Intent(this, LoginActivity.class);
       startActivity(intent);
+      return false;
     }
+    return true;
   }
 }

@@ -194,6 +194,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
           saveLoginData(username, token);
+          editor.putString("X-GiTinder-token", response.body().getToken());
         } else {
           Log.d("dev", response.body().getMessage());
         }
