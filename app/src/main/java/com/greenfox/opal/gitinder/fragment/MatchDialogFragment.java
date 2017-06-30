@@ -34,8 +34,8 @@ public class MatchDialogFragment extends DialogFragment {
     buttonChat.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        TabHost host = (TabHost)getActivity().findViewById(R.id.tabHost);
-        host.setCurrentTab(1);
+        TabHost host = (TabHost)getActivity().findViewById(R.id.tabs);
+        host.setCurrentTab(1);  
         dismiss();
       }
     });
