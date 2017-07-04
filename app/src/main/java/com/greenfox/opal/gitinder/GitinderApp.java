@@ -2,10 +2,6 @@ package com.greenfox.opal.gitinder;
 
 import android.app.Application;
 
-/**
- * Created by Nagy Dóra on 2017.06.18..
- */
-
 public class GitinderApp extends Application {
     private static GitinderApp app;
     private BasicComponent basicComponent;

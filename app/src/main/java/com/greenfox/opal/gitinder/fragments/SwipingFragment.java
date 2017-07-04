@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.GitinderApp;
 import com.greenfox.opal.gitinder.R;
@@ -14,6 +15,7 @@ import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.CandidateAdapter;
+import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -31,11 +33,13 @@ public class SwipingFragment extends Fragment {
   ApiService service;
   CandidateAdapter adapter;
 
+  GithubApiService githubApiService;
+
   private static final String TAG = "SwipingFragment";
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Swiping tab");
     View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
@@ -64,7 +68,11 @@ public class SwipingFragment extends Fragment {
 
       @Override
       public void onAdapterAboutToEmpty(int i) {
+        TextView text = (TextView)container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
+        if (i <= 0) {
+          text.setVisibility(View.VISIBLE);
+        }
       }
 
       @Override

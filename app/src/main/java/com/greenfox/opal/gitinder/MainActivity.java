@@ -8,13 +8,11 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
-import com.greenfox.opal.gitinder.model.response.LoginResponse;
 
 import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
