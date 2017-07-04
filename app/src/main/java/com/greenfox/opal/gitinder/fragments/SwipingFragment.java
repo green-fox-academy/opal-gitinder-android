@@ -41,9 +41,6 @@ public class SwipingFragment extends Fragment {
   CandidateAdapter adapter;
   Button buttonNope;
   Button buttonLike;
-  Profile currentProfile;
-
-  GithubApiService githubApiService;
 
   private static final String TAG = "SwipingFragment";
 
@@ -52,12 +49,11 @@ public class SwipingFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Swiping tab");
-    View view = inflater.inflate(R.layout.fragment_swiping, container, false);
+    final View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
-    currentProfile = adapter.getItem(0);
 
-    SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view
+    final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view
         .findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
@@ -65,20 +61,22 @@ public class SwipingFragment extends Fragment {
       @Override
       public void removeFirstObjectInAdapter() {
         Log.d("dev", "REMOVE FIRST");
-        adapter.remove(currentProfile);
+        adapter.remove(adapter.getItem(0));
         adapter.notifyDataSetChanged();
       }
 
       @Override
       public void onLeftCardExit(Object o) {
         Log.d("dev", Direction.LEFT.toString());
-        onSwipingRequest(preferences.getString("X-GiTinder-token", null), currentProfile.getLogin(), Direction.LEFT);
+        Profile currentProfile = (Profile)o;
+        onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
         Log.d("dev", Direction.RIGHT.toString());
-        onSwipingRequest(preferences.getString("X-GiTinder-token", null), currentProfile.getLogin(), Direction.RIGHT);
+        Profile currentProfile = (Profile)o;
+        onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), currentProfile.getLogin(), Direction.RIGHT);
       }
 
       @Override
@@ -100,25 +98,31 @@ public class SwipingFragment extends Fragment {
       onListRequest("header", 0);
     }
 
-    buttonNope = (Button) getActivity().findViewById(R.id.button_nope);
+    buttonNope = (Button) view.findViewById(R.id.button_nope);
     buttonNope.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        Log.d("dev", Direction.LEFT.toString());
-        onSwipingRequest(preferences.getString("X-GiTinder-token", null), currentProfile.getLogin(), Direction.LEFT);
-        adapter.remove(adapter.getItem(0));
-        adapter.notifyDataSetChanged();
+        if (!adapter.isEmpty()) {
+          Log.d("dev", Direction.LEFT.toString());
+          onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), adapter.getItem(0).getLogin(), Direction.LEFT);
+          adapter.remove(adapter.getItem(0));
+          adapter.notifyDataSetChanged();
+          flingAdapterView.removeAllViewsInLayout();
+        }
       }
     });
 
-    buttonLike = (Button) getActivity().findViewById(R.id.button_like);
+    buttonLike = (Button) view.findViewById(R.id.button_like);
     buttonLike.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        Log.d("dev", Direction.RIGHT.toString());
-        onSwipingRequest(preferences.getString("X-GiTinder-token", null), currentProfile.getLogin(), Direction.RIGHT);
-        adapter.remove(adapter.getItem(0));
-        adapter.notifyDataSetChanged();
+        if (!adapter.isEmpty()) {
+          Log.d("dev", Direction.RIGHT.toString());
+          onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), adapter.getItem(0).getLogin(), Direction.RIGHT);
+          adapter.remove(adapter.getItem(0));
+          adapter.notifyDataSetChanged();
+          flingAdapterView.removeAllViewsInLayout();
+        }
       }
     });
 
