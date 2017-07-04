@@ -34,6 +34,8 @@ import retrofit2.Response;
 
 public class SwipingFragment extends Fragment {
 
+  private static final String TAG = "SwipingFragment";
+
   @Inject
   ApiService service;
   @Inject
@@ -41,8 +43,6 @@ public class SwipingFragment extends Fragment {
   CandidateAdapter adapter;
   Button buttonNope;
   Button buttonLike;
-
-  private static final String TAG = "SwipingFragment";
 
   @Nullable
   @Override
