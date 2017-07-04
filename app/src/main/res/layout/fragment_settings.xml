@@ -24,7 +24,7 @@
     android:textIsSelectable="false"
     android:textSize="18sp" />
   <Switch
-    android:id="@+id/switch_syn"
+    android:id="@+id/switch_sync"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="32dp"
