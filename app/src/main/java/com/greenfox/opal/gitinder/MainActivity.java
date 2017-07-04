@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
   SectionsPagerAdapter mSectionsPagerAdapter;
   NonSwipeableViewPager mViewPager;
-  ConnectivityManager cm;
 
   @Inject
   SharedPreferences preferences;
@@ -54,28 +54,27 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
     tabLayout.setupWithViewPager(mViewPager);
 
-    cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    checkConnection();
+    checkLogin();
+  }
 
+  private void checkConnection() {
+    ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
     boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
-    if (isConnected) {
-      Toast toast = Toast.makeText(this, "Connected", Toast.LENGTH_LONG);
-      toast.show();
-    } else {
+    if (!isConnected) {
       AlertDialog alertDialog = new AlertDialog.Builder(this).create();
       alertDialog.setTitle("Info");
-      alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
+      alertDialog.setMessage("Internet not available, check your internet connectivity and try again");
       alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-      alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+      alertDialog.setButton("Check Settings", new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          finish();
+          startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
         }
       });
       alertDialog.show();
     }
-
-    checkLogin();
   }
 
   public void setupViewPager(ViewPager viewPager) {
