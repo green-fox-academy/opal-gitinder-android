@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.Direction;
@@ -37,6 +39,8 @@ public class SwipingFragment extends Fragment {
   @Inject
   SharedPreferences preferences;
   CandidateAdapter adapter;
+  Button buttonNope;
+  Button buttonLike;
 
   GithubApiService githubApiService;
 
@@ -93,6 +97,28 @@ public class SwipingFragment extends Fragment {
     if (adapter.getCount() <= 3) {
       onListRequest("header", 0);
     }
+
+    buttonNope = (Button) getActivity().findViewById(R.id.button_nope);
+    buttonNope.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Log.d("dev", Direction.LEFT.toString());
+        onSwipingRequest(preferences.getString("X-GiTinder-token", null), "default", Direction.LEFT);
+        adapter.remove(adapter.getItem(0));
+        adapter.notifyDataSetChanged();
+      }
+    });
+
+    buttonLike = (Button) getActivity().findViewById(R.id.button_like);
+    buttonLike.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Log.d("dev", Direction.RIGHT.toString());
+        onSwipingRequest(preferences.getString("X-GiTinder-token", null), "default", Direction.RIGHT);
+        adapter.remove(adapter.getItem(0));
+        adapter.notifyDataSetChanged();
+      }
+    });
 
     return view;
   }
