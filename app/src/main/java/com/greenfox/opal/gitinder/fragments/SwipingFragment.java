@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,10 +32,10 @@ public class SwipingFragment extends Fragment {
 
   @Inject
   ApiService service;
+  @Inject
+  SharedPreferences preferences;
+
   CandidateAdapter adapter;
-
-  GithubApiService githubApiService;
-
   private static final String TAG = "SwipingFragment";
 
   @Nullable
@@ -82,7 +83,7 @@ public class SwipingFragment extends Fragment {
     });
 
     if (adapter.getCount() <= 3) {
-      onListRequest("header", 0);
+      onListRequest(preferences.getString("Backend Response Token", ""), 0);
     }
 
     return view;
