@@ -21,8 +21,11 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
+  private static final String APP_STATE = "AppState";
   SectionsPagerAdapter mSectionsPagerAdapter;
   NonSwipeableViewPager mViewPager;
+  String timestamp;
+  SharedPreferences.Editor editor;
 
   @Inject
   SharedPreferences preferences;
@@ -48,6 +51,27 @@ public class MainActivity extends AppCompatActivity {
 
     checkLogin();
   }
+
+  @Override
+  protected void onPause() {
+    saveOnPause(APP_STATE);
+    super.onPause();
+  }
+
+  @Override
+  protected void onStop() {
+    saveOnPause(APP_STATE);
+    super.onStop();
+  }
+
+  public void saveOnPause(String appState) {
+    GitinderApp.app().basicComponent().inject(this);
+    editor = preferences.edit();
+    timestamp = String.valueOf(System.currentTimeMillis());
+    editor.putString(appState, timestamp);
+    editor.apply();
+  }
+
 
   public void setupViewPager(ViewPager viewPager) {
     SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
