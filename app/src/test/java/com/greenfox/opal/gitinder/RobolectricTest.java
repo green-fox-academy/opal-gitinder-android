@@ -2,6 +2,8 @@ package com.greenfox.opal.gitinder;
 
 import android.content.Intent;
 
+import com.greenfox.opal.gitinder.fragments.SwipingFragment;
+
 import org.junit.Before;
 
 import org.junit.Test;
@@ -43,5 +45,11 @@ public class RobolectricTest {
   public void checkLoginNoUser() throws Exception {
     Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
     assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
+  }
+
+  @Test
+  public void saveStatusOnPause() {
+    mainActivity.onPause();
+    assertEquals(mainActivity.timestamp, mainActivity.preferences.getString("AppState", ""));
   }
 }
