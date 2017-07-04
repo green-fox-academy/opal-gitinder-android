@@ -1,12 +1,17 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
@@ -47,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     tabLayout.setupWithViewPager(mViewPager);
 
     checkLogin();
+
+    newMatchNotification();
   }
 
   public void setupViewPager(ViewPager viewPager) {
@@ -64,5 +71,23 @@ public class MainActivity extends AppCompatActivity {
       Intent intent = new Intent(this, LoginActivity.class);
       startActivity(intent);
     }
+  }
+
+  public void newMatchNotification() {
+    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+    mBuilder.setSmallIcon(R.drawable.gitinder_logo);
+    mBuilder.setContentTitle("You have a new match!");
+    mBuilder.setContentText("Touch to view");
+
+    Intent resultIntent = new Intent(this, MainActivity.class);
+    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+    stackBuilder.addParentStack(MainActivity.class);
+
+    stackBuilder.addNextIntent(resultIntent);
+    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+    mBuilder.setContentIntent(resultPendingIntent);
+
+    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    mNotificationManager.notify(0, mBuilder.build());
   }
 }
