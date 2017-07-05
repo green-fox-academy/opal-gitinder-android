@@ -34,20 +34,19 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
     GitinderApp.app().basicComponent().inject(this);
 
-    ActionBar actionBar = getSupportActionBar();
-    actionBar.setDisplayShowHomeEnabled(true);
+    if(checkLogin()) {
+      ActionBar actionBar = getSupportActionBar();
+      actionBar.setDisplayShowHomeEnabled(true);
 
-    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
-    setupViewPager(mViewPager);
+      mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+      mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
+      setupViewPager(mViewPager);
 
-    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-    tabLayout.setupWithViewPager(mViewPager);
-
-    checkLogin();
+      TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+      tabLayout.setupWithViewPager(mViewPager);
+    }
   }
 
   public void setupViewPager(ViewPager viewPager) {
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     viewPager.setAdapter(adapter);
   }
 
-  public void checkLogin() {
+  public boolean checkLogin() {
     String username = preferences.getString("Username", null);
     String githubAccessToken = preferences.getString("Github Access Token", null);
     String backendResponseToken = preferences.getString("Backend Response Token", null);
@@ -66,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);
       startActivity(intent);
+      return false;
     }
+    return true;
   }
 }
