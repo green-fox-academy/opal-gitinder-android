@@ -16,6 +16,7 @@ import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import retrofit2.Call;
 
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Callback;
@@ -105,7 +106,8 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new SwipingResponse();
         } else {
-          response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis()));
+          ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
+          response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis(), messages));
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -121,10 +123,11 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new MatchesResponse("Unauthorized request!");
         } else {
+          ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
           ArrayList<Match> matches = new ArrayList<>();
-          matches.add(new Match("Garlyle", "thinker", System.currentTimeMillis()));
-          matches.add(new Match("balintvecsey", "creepy", System.currentTimeMillis()));
-          matches.add(new Match("dorinagy", "hungry", System.currentTimeMillis()));
+          matches.add(new Match("Garlyle", "thinker", System.currentTimeMillis(), messages));
+          matches.add(new Match("balintvecsey", "creepy", System.currentTimeMillis(), messages));
+          matches.add(new Match("dorinagy", "hungry", System.currentTimeMillis(), messages));
 
           response = new MatchesResponse(matches);
         }

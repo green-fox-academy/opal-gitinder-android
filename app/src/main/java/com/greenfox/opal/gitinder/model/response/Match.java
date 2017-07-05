@@ -11,11 +11,11 @@ public class Match {
   public Match() {
   }
 
-  public Match(String username, String avatar_url, long time) {
+  public Match(String username, String avatar_url, long time, ArrayList<String> messages) {
     this.username = username;
     this.avatar_url = avatar_url;
     matched_at = time;
-    messages = new ArrayList<>();
+    this.messages = messages;
   }
 
   public String getUsername() {
