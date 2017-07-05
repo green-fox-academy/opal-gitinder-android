@@ -54,21 +54,20 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onPause() {
-    saveOnPause(APP_STATE);
+    saveOnPause();
     super.onPause();
   }
 
   @Override
   protected void onStop() {
-    saveOnPause(APP_STATE);
     super.onStop();
+    saveOnPause();
   }
 
-  public void saveOnPause(String appState) {
-    GitinderApp.app().basicComponent().inject(this);
+  public void saveOnPause() {
     editor = preferences.edit();
     timestamp = String.valueOf(System.currentTimeMillis());
-    editor.putString(appState, timestamp);
+    editor.putString(APP_STATE, timestamp);
     editor.apply();
   }
 
