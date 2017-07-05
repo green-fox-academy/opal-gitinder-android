@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onPause() {
-    saveOnPause();
     super.onPause();
+    saveOnPause();
   }
 
   @Override
