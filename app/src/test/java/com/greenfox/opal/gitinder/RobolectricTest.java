@@ -50,6 +50,6 @@ public class RobolectricTest {
   @Test
   public void saveStatusOnPause() {
     mainActivity.onPause();
-    assertEquals(mainActivity.timestamp, mainActivity.preferences.getString("AppState", ""));
+    assertEquals(mainActivity.timestamp, mainActivity.preferences.getString(mainActivity.APP_STATE, ""));
   }
 }

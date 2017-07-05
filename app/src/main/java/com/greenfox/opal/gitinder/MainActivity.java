@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final String APP_STATE = "AppState";
+  public static final String APP_STATE = "AppState";
   SectionsPagerAdapter mSectionsPagerAdapter;
   NonSwipeableViewPager mViewPager;
   String timestamp;
