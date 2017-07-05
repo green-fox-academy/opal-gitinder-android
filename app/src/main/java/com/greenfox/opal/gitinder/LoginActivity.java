@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
@@ -50,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
   SharedPreferences preferences;
 
   private final String USERNAME = "Username";
-  private final String TOKEN = "Token";
+  private final String GITHUB_ACCESS_TOKEN = "Github Access Token";
+  private final String BACKEND_RESPONSE_TOKEN = "Backend Response Token";
   private static final String TAG = "LoginActivity";
 
   Retrofit githubRetrofit;
@@ -187,13 +189,16 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  public void onLogin(final String username, final String token) {
-    LoginRequest testLogin = new LoginRequest(username, token);
+  public void onLogin(final String username, final String githubAccessToken) {
+    LoginRequest testLogin = new LoginRequest(username, githubAccessToken);
       service.login(testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
-          saveLoginData(username, token);
+          String backendResponseToken = response.body().getToken();
+          saveLoginData(username, githubAccessToken, backendResponseToken);
+          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+          startActivity(intent);
         } else {
           Log.d("dev", response.body().getMessage());
         }
@@ -207,10 +212,10 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData(String username, String token) {
-    editor.putString(TOKEN, token);
+  protected void saveLoginData(String username, String githubAccessToken, String backendResponseToken) {
+    editor.putString(GITHUB_ACCESS_TOKEN, githubAccessToken);
     editor.putString(USERNAME, username);
+    editor.putString(BACKEND_RESPONSE_TOKEN, backendResponseToken);
     editor.apply();
-    this.finish();
   }
 }
