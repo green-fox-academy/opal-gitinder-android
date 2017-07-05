@@ -13,10 +13,15 @@
   <string name="button_message">Messages</string>
   <string name="button_profile">Profile</string>
   <string name="settings_notifications">Enable Notifications</string>
+  <string name="settings_notifications_on">Notifications On</string>
+  <string name="settings_notifications_off">Notifications Off</string>
   <string name="settings_background_sync">Enable Background Sync</string>
+  <string name="settings_background_sync_on">Background Sync On</string>
+  <string name="settings_background_sync_off">Background Sync Off</string>
   <string name="settings_distance">Maximum distance</string>
   <string name="settings_languages">Preferred languages</string>
   <string name="action_settings">Action Settings</string>
   <string name="settings_example_languages">Javascript, Java, Ruby</string>
-    <string name="no_more_profiles">No more profiles available :(</string>
+  <string name="no_more_profiles">No more profiles available :(</string>
+  <string name="switch_state">Switch State</string>
 </resources>

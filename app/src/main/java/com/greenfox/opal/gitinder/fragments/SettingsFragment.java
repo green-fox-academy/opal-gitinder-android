@@ -30,20 +30,20 @@ public class SettingsFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Setting tab");
     final View view = inflater.inflate(R.layout.fragment_settings, container, false);
-    editor = getActivity().getSharedPreferences("SwitchState", Context.MODE_PRIVATE).edit();
+    editor = getActivity().getSharedPreferences(getString(R.string.switch_state), Context.MODE_PRIVATE).edit();
 
     switchNotifications = (Switch) view.findViewById(R.id.switch_notifications);
     switchNotifications.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
         if(switchNotifications.isChecked()) {
-          editor.putBoolean("SwitchNotifications", true);
+          editor.putBoolean(getString(R.string.settings_notifications), true);
           editor.apply();
-          Toast.makeText(getContext(), "Notifications On", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_notifications_on), Toast.LENGTH_SHORT).show();
         } else {
-          editor.putBoolean("SwitchNotifications", false);
+          editor.putBoolean(getString(R.string.settings_notifications), false);
           editor.apply();
-          Toast.makeText(getContext(), "Notifications Off", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_notifications_off), Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -53,20 +53,20 @@ public class SettingsFragment extends Fragment {
       @Override
       public void onClick(View v) {
         if(switchSync.isChecked()) {
-          editor.putBoolean("SwitchSync", true);
+          editor.putBoolean(getString(R.string.settings_background_sync), true);
           editor.apply();
-          Toast.makeText(getContext(), "Background Sync On", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_background_sync_on), Toast.LENGTH_SHORT).show();
         } else {
-          editor.putBoolean("SwitchSync", false);
+          editor.putBoolean(getString(R.string.settings_background_sync), false);
           editor.apply();
-          Toast.makeText(getContext(), "Background Sync Off", Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_background_sync_off), Toast.LENGTH_SHORT).show();
         }
       }
     });
 
-    preferences = getActivity().getSharedPreferences("SwitchState", Context.MODE_PRIVATE);
-    switchNotifications.setChecked(preferences.getBoolean("SwitchNotifications", false));
-    switchSync.setChecked(preferences.getBoolean("SwitchSync", false));
+    preferences = getActivity().getSharedPreferences(getString(R.string.switch_state), Context.MODE_PRIVATE);
+    switchNotifications.setChecked(preferences.getBoolean(getString(R.string.settings_notifications), false));
+    switchSync.setChecked(preferences.getBoolean(getString(R.string.settings_background_sync), false));
     return view;
   }
 }
