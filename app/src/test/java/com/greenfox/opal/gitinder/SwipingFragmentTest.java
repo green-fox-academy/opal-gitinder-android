@@ -1,5 +1,7 @@
 package com.greenfox.opal.gitinder;
 
+import android.widget.Button;
+
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 
 import org.junit.Before;
@@ -25,5 +27,13 @@ public class SwipingFragmentTest {
   @Test
   public void checkIfCandidatesReceived() throws Exception {
     assertTrue(fragment.getListSize() > 0);
+  }
+
+  @Test
+  public void testOKButton() throws Exception {
+    int count = fragment.getListSize();
+    Button button = (Button)fragment.getView().findViewById(R.id.button_like);
+    button.performClick();
+    assertTrue(fragment.getListSize() < count);
   }
 }
