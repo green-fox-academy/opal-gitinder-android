@@ -2,6 +2,7 @@ package com.greenfox.opal.gitinder.service;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ public class MatchesAdapter extends ArrayAdapter<Match> {
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     Match current = getItem(position);
+    convertView = LayoutInflater.from(getContext()).inflate(R.layout.match, parent, false);
 
     TextView username = (TextView) convertView.findViewById(R.id.textName);
     username.setText(current.getUsername());

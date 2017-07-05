@@ -33,8 +33,6 @@ public class SwipingFragment extends Fragment {
   ApiService service;
   CandidateAdapter adapter;
 
-  GithubApiService githubApiService;
-
   private static final String TAG = "SwipingFragment";
 
   @Nullable
