@@ -110,4 +110,8 @@ public class SwipingFragment extends Fragment {
       }
     });
   }
+
+  public int getListSize() {
+    return adapter.getCount();
+  }
 }
