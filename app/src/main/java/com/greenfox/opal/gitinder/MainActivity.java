@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
     if (!isConnected) {
       AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-      alertDialog.setTitle("Info");
-      alertDialog.setMessage("Internet not available, check your internet connectivity and try again");
+      alertDialog.setTitle(getString(R.string.no_connection_title));
+      alertDialog.setMessage(getString(R.string.no_connection_message));
       alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
       alertDialog.setButton("Check Settings", new DialogInterface.OnClickListener() {
         @Override
