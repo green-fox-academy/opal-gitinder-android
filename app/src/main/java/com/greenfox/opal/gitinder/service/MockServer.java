@@ -151,8 +151,20 @@ public class MockServer implements ApiService {
   }
 
   @Override
-  public Call<Settings> modifySettings(@Header(value = "X-GiTinder-token") String token,
+  public Call<Settings> modifySettings(@Header(value = "X-GiTinder-token") final String token,
       @Body Settings settings) {
-    return null;
+    return new MockCall<Settings>() {
+      @Override
+      public void enqueue(Callback<Settings> callback) {
+        Settings response;
+        if(token.isEmpty()) {
+          response = new Settings("Unauthorized request!");
+        } else {
+          List<String> languages = new ArrayList<>(Arrays.asList("Java", "Python", "Javascript"));
+          response = new Settings(true, true, 100, languages);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
   }
 }
