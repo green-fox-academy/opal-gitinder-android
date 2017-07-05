@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
@@ -58,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public boolean checkLogin() {
-    String username = preferences.getString("Username", "abc123");
-    String githubAccessToken = preferences.getString("Github Access Token", "abc123");
-    String backendResponseToken = preferences.getString("Backend Response Token", "abc123");
+    String username = preferences.getString("Username", "");
+    String githubAccessToken = preferences.getString("Github Access Token", "");
+    String backendResponseToken = preferences.getString("Backend Response Token", "");
 
     if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);

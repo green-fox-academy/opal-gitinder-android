@@ -49,23 +49,21 @@ public class MatchesFragment extends Fragment {
     ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
 
-    onMatchesRequest(preferences.getString("Backend Response Token", "abc123"));
-    Log.e("token ", preferences.getString("Backend Response Token", "abc123"));
+    onMatchesRequest(preferences.getString("Backend Response Token", ""));
     return view;
   }
 
   public void onMatchesRequest(String token) {
-    Log.e("matches request ", "success");
     service.getMatches(token).enqueue(new Callback<MatchesResponse>() {
       @Override
       public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
-        Log.e(TAG, "onResponse");
+        Log.d(TAG, "onResponse");
         if (response.body().getStatus() != null) {
-          Log.e("dev", response.body().getMessage());
+          Log.d("dev", response.body().getMessage());
         } else {
           List<Match> members = response.body().getMatches();
           for (Match m : members) {
-            Log.e("dev", m.getUsername() + ":" + m.getMatched_at() + ":" + m.getMessages());
+            Log.d("dev", m.getUsername() + ":" + m.getMatched_at() + ":" + m.getMessages());
             adapter.addAll(m);
             adapter.notifyDataSetChanged();
           }
