@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
@@ -37,24 +38,23 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
     GitinderApp.app().basicComponent().inject(this);
 
-    ActionBar actionBar = getSupportActionBar();
-    actionBar.setDisplayShowHomeEnabled(true);
+    if(checkLogin()) {
+      ActionBar actionBar = getSupportActionBar();
+      actionBar.setDisplayShowHomeEnabled(true);
 
-    Intent intent = new Intent(this, MatchesBroadcast.class);
-    pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
-    alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+      mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+      mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
+      setupViewPager(mViewPager);
 
-    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-    mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
-    setupViewPager(mViewPager);
+      Intent intent = new Intent(this, MatchesBroadcast.class);
+      pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
+      alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-    tabLayout.setupWithViewPager(mViewPager);
-
-    checkLogin();
+      TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+      tabLayout.setupWithViewPager(mViewPager);
+    }
   }
 
   @Override
@@ -77,12 +77,16 @@ public class MainActivity extends AppCompatActivity {
     viewPager.setAdapter(adapter);
   }
 
-  public void checkLogin() {
+  public boolean checkLogin() {
     String username = preferences.getString("Username", null);
+    String githubAccessToken = preferences.getString("Github Access Token", null);
+    String backendResponseToken = preferences.getString("Backend Response Token", null);
 
-    if (TextUtils.isEmpty(username)) {
+    if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);
       startActivity(intent);
+      return false;
     }
+    return true;
   }
 }
