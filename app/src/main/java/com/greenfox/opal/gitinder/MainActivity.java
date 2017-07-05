@@ -60,13 +60,17 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onPause() {
     super.onPause();
-    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
+    if (alarmManager != null) {
+      alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
+    }
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
+    if (alarmManager != null) {
+      alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
+    }
   }
 
   public void setupViewPager(ViewPager viewPager) {
