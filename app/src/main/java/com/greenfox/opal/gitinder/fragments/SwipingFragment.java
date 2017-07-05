@@ -83,6 +83,9 @@ public class SwipingFragment extends Fragment {
       public void onAdapterAboutToEmpty(int i) {
         TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
+        if(i <= 3) {
+          onListRequest(preferences.getString(TOKEN, "abcd1234"), 0);
+        }
         if (i <= 0) {
           text.setVisibility(View.VISIBLE);
         }
@@ -93,10 +96,6 @@ public class SwipingFragment extends Fragment {
 
       }
     });
-
-    if (adapter.getCount() <= 3) {
-      onListRequest("header", 0);
-    }
 
     buttonNope = (Button) view.findViewById(R.id.button_nope);
     buttonNope.setOnClickListener(new OnClickListener() {
