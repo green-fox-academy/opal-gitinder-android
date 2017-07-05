@@ -71,7 +71,7 @@ public class SwipingFragment extends Fragment {
         TextView text = (TextView)container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
         if(i <= 3) {
-          onListRequest(preferences.getString("Backend Response Token", ""), 0);
+          onListRequest(preferences.getString("Backend Response Token", "abc123"), 0);
         }
         if (i <= 0) {
           text.setVisibility(View.VISIBLE);

@@ -49,8 +49,8 @@ public class MatchesFragment extends Fragment {
     ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
 
-    onMatchesRequest(preferences.getString("Backend Response Token", ""));
-    Log.e("token ", preferences.getString("Backend Response Token", ""));
+    onMatchesRequest(preferences.getString("Backend Response Token", "abc123"));
+    Log.e("token ", preferences.getString("Backend Response Token", "abc123"));
     return view;
   }
 
