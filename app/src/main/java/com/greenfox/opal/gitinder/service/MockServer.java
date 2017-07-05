@@ -105,7 +105,7 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new SwipingResponse();
         } else {
-          response = new SwipingResponse(new Match("Garlyle2", System.currentTimeMillis()));
+          response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis()));
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -122,8 +122,10 @@ public class MockServer implements ApiService {
           response = new MatchesResponse("Unauthorized request!");
         } else {
           ArrayList<Match> matches = new ArrayList<>();
-          matches.add(new Match("jondoe", System.currentTimeMillis()));
-          matches.add(new Match("jondoe2", System.currentTimeMillis()));
+          matches.add(new Match("Garlyle", "thinker", System.currentTimeMillis()));
+          matches.add(new Match("balintvecsey", "creepy", System.currentTimeMillis()));
+          matches.add(new Match("dorinagy", "hungry", System.currentTimeMillis()));
+
           response = new MatchesResponse(matches);
         }
         callback.onResponse(null, Response.success(response));
