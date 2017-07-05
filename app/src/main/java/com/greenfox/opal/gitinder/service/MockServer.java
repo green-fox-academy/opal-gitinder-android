@@ -10,6 +10,7 @@ import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 
+import com.greenfox.opal.gitinder.model.response.Settings;
 import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -129,5 +130,16 @@ public class MockServer implements ApiService {
         callback.onResponse(null, Response.success(response));
       }
     };
+  }
+
+  @Override
+  public Call<Settings> loadSettings(@Header(value = "X-GiTinder-token") final String token) {
+    return null;
+  }
+
+  @Override
+  public Call<Settings> modifySettings(@Header(value = "X-GiTinder-token") String token,
+      @Body Settings settings) {
+    return null;
   }
 }
