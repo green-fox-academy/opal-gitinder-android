@@ -19,8 +19,6 @@ public class SettingsFragment extends Fragment {
 
   private static final String TAG = "SettingsFragment";
 
-  Switch switchNotifications;
-  Switch switchSync;
   @Inject
   SharedPreferences preferences;
   SharedPreferences.Editor editor;
@@ -30,9 +28,10 @@ public class SettingsFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Setting tab");
     final View view = inflater.inflate(R.layout.fragment_settings, container, false);
+    final Switch switchNotifications = (Switch) view.findViewById(R.id.switch_notifications);
+    final Switch switchSync = (Switch) view.findViewById(R.id.switch_sync);
     editor = getActivity().getSharedPreferences(getString(R.string.switch_state), Context.MODE_PRIVATE).edit();
 
-    switchNotifications = (Switch) view.findViewById(R.id.switch_notifications);
     switchNotifications.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -48,7 +47,6 @@ public class SettingsFragment extends Fragment {
       }
     });
 
-    switchSync = (Switch) view.findViewById(R.id.switch_sync);
     switchSync.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
