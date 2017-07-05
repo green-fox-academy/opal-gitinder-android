@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
+import java.util.Arrays;
 import retrofit2.Call;
 
 import java.util.List;
@@ -134,7 +135,19 @@ public class MockServer implements ApiService {
 
   @Override
   public Call<Settings> loadSettings(@Header(value = "X-GiTinder-token") final String token) {
-    return null;
+    return new MockCall<Settings>() {
+      @Override
+      public void enqueue(Callback<Settings> callback) {
+        Settings response;
+        if (token.isEmpty()) {
+          response = new Settings("Unauthorized request!");
+        } else {
+          List<String> languages = new ArrayList<>(Arrays.asList("Java", "Python", "Javascript"));
+          response = new Settings(true, true, 100, languages);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
   }
 
   @Override
