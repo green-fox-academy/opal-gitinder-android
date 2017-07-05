@@ -36,4 +36,7 @@ public interface ApiService {
 
   @GET("/settings")
   Call<SettingsResponse> loadSettings(@Header(value = "X-GiTinder-token") String token);
+
+  @PUT("/settings")
+  Call<SettingsResponse> modifySettings(@Header(value = "X-GiTinder-token") String token, @Body SettingsResponse settings);
 }
