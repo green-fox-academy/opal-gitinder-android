@@ -6,10 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
-/**
- * Created by Nagy Dóra on 2017.06.26..
- */
-
 public interface GithubApiService {
 
   @GET("/user")
