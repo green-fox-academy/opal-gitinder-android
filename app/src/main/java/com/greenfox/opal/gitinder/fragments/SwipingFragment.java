@@ -20,7 +20,6 @@ import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.CandidateAdapter;
-import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import retrofit2.Response;
 public class SwipingFragment extends Fragment {
 
   private static final String TAG = "SwipingFragment";
+  private static final String TOKEN = "X-GiTinder-token";
 
   @Inject
   ApiService service;
@@ -69,14 +69,14 @@ public class SwipingFragment extends Fragment {
       public void onLeftCardExit(Object o) {
         Log.d("dev", Direction.LEFT.toString());
         Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), currentProfile.getLogin(), Direction.LEFT);
+        onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
         Log.d("dev", Direction.RIGHT.toString());
         Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), currentProfile.getLogin(), Direction.RIGHT);
+        onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.RIGHT);
       }
 
       @Override
@@ -104,7 +104,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.LEFT.toString());
-          onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), adapter.getItem(0).getLogin(), Direction.LEFT);
+          onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), adapter.getItem(0).getLogin(), Direction.LEFT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
@@ -118,7 +118,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.RIGHT.toString());
-          onSwipingRequest(preferences.getString("X-GiTinder-token", "abcd1234"), adapter.getItem(0).getLogin(), Direction.RIGHT);
+          onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), adapter.getItem(0).getLogin(), Direction.RIGHT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
