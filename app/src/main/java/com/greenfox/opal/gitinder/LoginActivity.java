@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
@@ -196,6 +197,8 @@ public class LoginActivity extends AppCompatActivity {
         if (response.body().getStatus().equals("ok")) {
           String backendResponseToken = response.body().getToken();
           saveLoginData(username, githubAccessToken, backendResponseToken);
+          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+          startActivity(intent);
         } else {
           Log.d("dev", response.body().getMessage());
         }
@@ -214,6 +217,5 @@ public class LoginActivity extends AppCompatActivity {
     editor.putString(USERNAME, username);
     editor.putString(BACKEND_RESPONSE_TOKEN, backendResponseToken);
     editor.apply();
-    this.finish();
   }
 }
