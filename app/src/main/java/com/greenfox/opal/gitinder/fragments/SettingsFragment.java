@@ -39,9 +39,11 @@ public class SettingsFragment extends Fragment {
         if(switchNotifications.isChecked()) {
           editor.putBoolean("SwitchNotifications", true);
           editor.apply();
+          Toast.makeText(getContext(), "Notifications On", Toast.LENGTH_SHORT).show();
         } else {
           editor.putBoolean("SwitchNotifications", false);
           editor.apply();
+          Toast.makeText(getContext(), "Notifications Off", Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -53,14 +55,16 @@ public class SettingsFragment extends Fragment {
         if(switchSync.isChecked()) {
           editor.putBoolean("SwitchSync", true);
           editor.apply();
+          Toast.makeText(getContext(), "Background Sync On", Toast.LENGTH_SHORT).show();
         } else {
           editor.putBoolean("SwitchSync", false);
           editor.apply();
+          Toast.makeText(getContext(), "Background Sync Off", Toast.LENGTH_SHORT).show();
         }
       }
     });
 
-    preferences = getActivity().getSharedPreferences("SwitchStates", Context.MODE_PRIVATE);
+    preferences = getActivity().getSharedPreferences("SwitchState", Context.MODE_PRIVATE);
     switchNotifications.setChecked(preferences.getBoolean("SwitchNotifications", false));
     switchSync.setChecked(preferences.getBoolean("SwitchSync", false));
     return view;
