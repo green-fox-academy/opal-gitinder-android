@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
 
@@ -18,8 +19,8 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class)
 public class SettingsFragmentTest {
 
-  SettingsFragment settingsFragment;
-  SharedPreferences sharedPreferences;
+  private SettingsFragment settingsFragment;
+  private SharedPreferences sharedPreferences;
 
   @Before
   public void setup() throws Exception {
@@ -35,6 +36,14 @@ public class SettingsFragmentTest {
 
     switchNotification.performClick();
     assertTrue(sharedPreferences.contains("Enable Notifications"));
+  }
+
+  @Test
+  public void secondClickOnNotificationSwitchStateInSharedPreferences() {
+    Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
+
+    switchNotification.performLongClick();
+    assertFalse(sharedPreferences.contains("Enable Notifications"));
   }
 
   @Test
