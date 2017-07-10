@@ -31,6 +31,12 @@ public class SettingsFragmentTest {
   }
 
   @Test
+  public void defaultNotificationSwitchState() {
+    Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
+    assertFalse(switchNotification.isChecked());
+  }
+
+  @Test
   public void saveNotificationSwitchStateInSharedPreferences() {
     Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
 
