@@ -36,4 +36,12 @@ public class SettingsFragmentTest {
     switchNotification.performClick();
     assertTrue(sharedPreferences.contains("Enable Notifications"));
   }
+
+  @Test
+  public void saveBackgroundSyncSwitchStateInSharedPreferences() {
+    Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
+
+    switchBackgroundSync.performClick();
+    assertTrue(sharedPreferences.contains("Enable Background Sync"));
+  }
 }
