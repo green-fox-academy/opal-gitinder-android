@@ -45,14 +45,14 @@ public class SwipingFragment extends Fragment {
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
+                           @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Swiping tab");
     final View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
 
     final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view
-        .findViewById(R.id.swipeView);
+      .findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -66,14 +66,14 @@ public class SwipingFragment extends Fragment {
       @Override
       public void onLeftCardExit(Object o) {
         Log.d("dev", Direction.LEFT.toString());
-        Profile currentProfile = (Profile)o;
+        Profile currentProfile = (Profile) o;
         onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
         Log.d("dev", Direction.RIGHT.toString());
-        Profile currentProfile = (Profile)o;
+        Profile currentProfile = (Profile) o;
         onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.RIGHT);
       }
 
@@ -81,7 +81,7 @@ public class SwipingFragment extends Fragment {
       public void onAdapterAboutToEmpty(int i) {
         TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
-        if(i <= 3) {
+        if (i <= 3) {
           onListRequest(preferences.getString(TOKEN, "abcd1234"), 0);
         }
         if (i <= 0) {
@@ -130,14 +130,14 @@ public class SwipingFragment extends Fragment {
     service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
       @Override
       public void onResponse(Call<ProfileListResponse> call,
-          Response<ProfileListResponse> response) {
+                             Response<ProfileListResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
-                .getLanguages());
+              .getLanguages());
             adapter.addAll(p);
             adapter.notifyDataSetChanged();
           }
