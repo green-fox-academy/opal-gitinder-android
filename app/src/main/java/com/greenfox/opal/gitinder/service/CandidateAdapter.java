@@ -31,7 +31,7 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
 
     ImageView avatar = (ImageView) convertView.findViewById(R.id.imageView);
     int id = getContext().getResources()
-        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+        .getIdentifier(current.getAvatar_url(), "drawable", getContext().getPackageName());
     avatar.setImageResource(id);
 
     return convertView;

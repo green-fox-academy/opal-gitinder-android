@@ -9,6 +9,9 @@ public class ProfileListResponse extends BaseResponse {
     int count;
     int all;
 
+    public ProfileListResponse() {
+    }
+
     public ProfileListResponse(String message) {
         super("error", message);
     }

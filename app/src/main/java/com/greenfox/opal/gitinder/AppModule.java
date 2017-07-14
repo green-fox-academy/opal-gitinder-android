@@ -9,9 +9,11 @@ import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
@@ -54,8 +56,12 @@ public class AppModule {
     @Singleton @Provides
     public ApiService provideApiService() {
         if (CONNECT_TO_BACKEND) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS).build();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(SERVER_URL)
+                    .client(client)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
             ApiService service = retrofit.create(ApiService.class);

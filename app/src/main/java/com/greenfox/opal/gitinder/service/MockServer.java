@@ -25,25 +25,25 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
-
   @Override
-  public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
+  public Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body final LoginRequest loginRequest) {
     return new MockCall<LoginResponse>() {
       @Override
       public void enqueue(Callback<LoginResponse> callback) {
         LoginResponse response;
-        if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
+        if (loginRequest.getUser_name().isEmpty() || loginRequest.getAccess_token().isEmpty()) {
           String message = "Missing parameter(s):";
-          if (loginRequest.getUsername().isEmpty()) {
+          if (loginRequest.getUser_name().isEmpty()) {
             message += " username";
           }
-          if (loginRequest.getAccessToken().isEmpty()) {
+          if (loginRequest.getAccess_token().isEmpty()) {
             message += " accessToken";
           }
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUsername(), loginRequest.getAccessToken());
+          response = new LoginResponse("ok");
+//          response = new LoginResponse(loginRequest.getUser_name(), loginRequest.getAccess_token());
         }
         callback.onResponse(null, Response.success(response));
       }

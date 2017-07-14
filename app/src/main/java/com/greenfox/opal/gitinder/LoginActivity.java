@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    Log.d(TAG, "starting LoginActivity");
+    Log.d("dev", "starting LoginActivity");
 
     GitinderApp.app().basicComponent().inject(this);
 
@@ -189,12 +189,11 @@ public class LoginActivity extends AppCompatActivity {
 
   public void onLogin(final String username, final String token) {
     LoginRequest testLogin = new LoginRequest(username, token);
-      service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+      service.login("application/json", testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
-          saveLoginData(username, token);
-          editor.putString("X-GiTinder-token", response.body().getToken());
+          saveLoginData(username, token, response.body().getToken());
         } else {
           Log.d("dev", response.body().getMessage());
         }
@@ -203,14 +202,15 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<LoginResponse> call, Throwable t) {
         Toast.makeText(LoginActivity.this, "login error", Toast.LENGTH_SHORT).show();
-        Log.d("login", "FAIL! =(");
+        Log.d("dev", "FAIL! =(");
       }
     });
   }
 
-  protected void saveLoginData(String username, String token) {
+  protected void saveLoginData(String username, String token, String serverToken) {
     editor.putString(TOKEN, token);
     editor.putString(USERNAME, username);
+    editor.putString("X-GiTinder-token", serverToken);
     editor.apply();
     this.finish();
   }

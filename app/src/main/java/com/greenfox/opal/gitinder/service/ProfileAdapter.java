@@ -32,7 +32,7 @@ public class ProfileAdapter extends ArrayAdapter<Profile> {
 
     CircleImageView avatar = (CircleImageView) convertView.findViewById(R.id.imageView);
     int id = getContext().getResources()
-        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+        .getIdentifier(current.getAvatar_url(), "drawable", getContext().getPackageName());
     avatar.setImageResource(id);
 
     return convertView;

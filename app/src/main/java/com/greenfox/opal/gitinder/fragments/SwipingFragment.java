@@ -100,7 +100,7 @@ public class SwipingFragment extends Fragment {
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
-            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
+            Log.d("dev", p.getLogin() + ":" + p.getAvatar_url() + ":" + p.getRepos() + ":" + p.getLanguages());
             adapter.addAll(p);
             adapter.notifyDataSetChanged();
           }
