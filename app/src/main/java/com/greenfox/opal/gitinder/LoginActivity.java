@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
   private final String USERNAME = "Username";
   private final String GITHUB_ACCESS_TOKEN = "Github Access Token";
-  private final String BACKEND_RESPONSE_TOKEN = "Backend Response Token";
+  private final String X_GITINDER_TOKEN = "X-GiTinder-token";
   private static final String TAG = "LoginActivity";
 
   Retrofit githubRetrofit;
@@ -212,10 +212,10 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData(String username, String githubAccessToken, String backendResponseToken) {
+  protected void saveLoginData(String username, String githubAccessToken, String xGitinderToken) {
     editor.putString(GITHUB_ACCESS_TOKEN, githubAccessToken);
     editor.putString(USERNAME, username);
-    editor.putString(BACKEND_RESPONSE_TOKEN, backendResponseToken);
+    editor.putString(X_GITINDER_TOKEN, xGitinderToken);
     editor.apply();
   }
 }
