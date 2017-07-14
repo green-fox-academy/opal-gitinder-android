@@ -51,9 +51,22 @@ public class SettingsFragmentTest {
   }
 
   @Test
+  public void defaultBackgroundSyncSwitchState() {
+    Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
+    assertFalse(switchBackgroundSync.isChecked());
+  }
+
+  @Test
   public void saveBackgroundSyncSwitchStateInSharedPreferences() {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performClick();
     assertTrue(sharedPreferences.contains("Enable Background Sync"));
+  }
+
+  @Test
+  public void secondClickOnBackgroundSyncSwitchStateInSharedPreferences() {
+    Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
+    switchBackgroundSync.performLongClick();
+    assertFalse(sharedPreferences.contains("Enable Background Sync"));
   }
 }
