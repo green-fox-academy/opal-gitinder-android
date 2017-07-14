@@ -1,8 +1,14 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -43,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     GitinderApp.app().basicComponent().inject(this);
 
-    if (checkLogin()) {
+    checkConnection();
+    if(checkLogin()) {
       ActionBar actionBar = getSupportActionBar();
       actionBar.setDisplayShowHomeEnabled(true);
 
@@ -57,6 +64,25 @@ public class MainActivity extends AppCompatActivity {
 
       TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
       tabLayout.setupWithViewPager(mViewPager);
+    }
+  }
+
+  private void checkConnection() {
+    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+    if (!isConnected) {
+      AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+      alertDialog.setTitle(getString(R.string.no_connection_title));
+      alertDialog.setMessage(getString(R.string.no_connection_message));
+      alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+      alertDialog.setButton("Check Settings", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
+        }
+      });
+      alertDialog.show();
     }
   }
 
