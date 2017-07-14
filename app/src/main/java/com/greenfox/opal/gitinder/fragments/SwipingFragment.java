@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class SwipingFragment extends Fragment {
 
   private static final String TAG = "SwipingFragment";
-  private static final String TOKEN = "X-GiTinder-token";
+  private static final String TOKEN = "Backend Response Token";
 
   @Inject
   ApiService service;
@@ -82,7 +82,7 @@ public class SwipingFragment extends Fragment {
         TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
         if(i <= 3) {
-          onListRequest(preferences.getString(TOKEN, "abcd1234"), 0);
+          onListRequest(preferences.getString(TOKEN, null), 0);
         }
         if (i <= 0) {
           text.setVisibility(View.VISIBLE);
