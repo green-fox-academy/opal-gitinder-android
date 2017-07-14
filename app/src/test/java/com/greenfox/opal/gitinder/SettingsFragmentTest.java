@@ -40,6 +40,7 @@ public class SettingsFragmentTest {
   public void saveNotificationSwitchStateInSharedPreferences() {
     Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
     switchNotification.performClick();
+    assertTrue(switchNotification.isChecked());
     assertTrue(sharedPreferences.contains("Enable Notifications"));
   }
 
@@ -47,6 +48,7 @@ public class SettingsFragmentTest {
   public void secondClickOnNotificationSwitchStateInSharedPreferences() {
     Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
     switchNotification.performLongClick();
+    assertFalse(switchNotification.isChecked());
     assertFalse(sharedPreferences.contains("Enable Notifications"));
   }
 
@@ -60,6 +62,7 @@ public class SettingsFragmentTest {
   public void saveBackgroundSyncSwitchStateInSharedPreferences() {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performClick();
+    assertTrue(switchBackgroundSync.isChecked());
     assertTrue(sharedPreferences.contains("Enable Background Sync"));
   }
 
@@ -67,6 +70,7 @@ public class SettingsFragmentTest {
   public void secondClickOnBackgroundSyncSwitchStateInSharedPreferences() {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performLongClick();
+    assertFalse(switchBackgroundSync.isChecked());
     assertFalse(sharedPreferences.contains("Enable Background Sync"));
   }
 }
