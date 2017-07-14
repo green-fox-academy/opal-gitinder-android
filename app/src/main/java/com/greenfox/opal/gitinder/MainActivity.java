@@ -94,6 +94,12 @@ public class MainActivity extends AppCompatActivity {
       alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
     }
   }
+  
+   @Override
+  protected void onStop() {
+    super.onStop();
+    saveOnPause();
+  }
 
   @Override
   protected void onResume() {
@@ -102,14 +108,8 @@ public class MainActivity extends AppCompatActivity {
       alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
     }
   }
-
-  @Override
-  protected void onStop() {
-    super.onStop();
-    saveOnPause();
-  }
-
-  public void saveOnPause() {
+  
+   public void saveOnPause() {
     editor = preferences.edit();
     timestamp = String.valueOf(System.currentTimeMillis());
     editor.putString(APP_STATE, timestamp);

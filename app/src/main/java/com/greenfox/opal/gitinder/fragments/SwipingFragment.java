@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class SwipingFragment extends Fragment {
 
   private static final String TAG = "SwipingFragment";
-  private static final String TOKEN = "Backend Response Token";
+  private static final String TOKEN = "X-GiTinder-token";
 
   @Inject
   ApiService service;
