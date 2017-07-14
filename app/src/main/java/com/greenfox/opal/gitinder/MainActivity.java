@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void checkConnection() {
-    ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
     boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
     if (!isConnected) {
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         }
       });
       alertDialog.show();
+    }
+  }
 
   @Override
   protected void onPause() {
