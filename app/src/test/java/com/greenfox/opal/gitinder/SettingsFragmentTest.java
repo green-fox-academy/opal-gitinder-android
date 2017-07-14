@@ -1,5 +1,8 @@
 package com.greenfox.opal.gitinder;
 
+import static com.greenfox.opal.gitinder.fragments.SettingsFragment.BACKGROUNDSYNC;
+import static com.greenfox.opal.gitinder.fragments.SettingsFragment.NOTIFICATIONS;
+import static com.greenfox.opal.gitinder.fragments.SettingsFragment.SWITCHSTATE;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
@@ -25,7 +28,7 @@ public class SettingsFragmentTest {
   @Before
   public void setup() throws Exception {
     settingsFragment = new SettingsFragment();
-    sharedPreferences = RuntimeEnvironment.application.getSharedPreferences("Switch State",
+    sharedPreferences = RuntimeEnvironment.application.getSharedPreferences(SWITCHSTATE,
         Context.MODE_PRIVATE);
     startFragment(settingsFragment);
   }
@@ -41,7 +44,7 @@ public class SettingsFragmentTest {
     Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
     switchNotification.performClick();
     assertTrue(switchNotification.isChecked());
-    assertTrue(sharedPreferences.contains("Enable Notifications"));
+    assertTrue(sharedPreferences.contains(NOTIFICATIONS));
   }
 
   @Test
@@ -49,7 +52,7 @@ public class SettingsFragmentTest {
     Switch switchNotification = (Switch) settingsFragment.getView().findViewById(R.id.switch_notifications);
     switchNotification.performLongClick();
     assertFalse(switchNotification.isChecked());
-    assertFalse(sharedPreferences.contains("Enable Notifications"));
+    assertFalse(sharedPreferences.contains(NOTIFICATIONS));
   }
 
   @Test
@@ -63,7 +66,7 @@ public class SettingsFragmentTest {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performClick();
     assertTrue(switchBackgroundSync.isChecked());
-    assertTrue(sharedPreferences.contains("Enable Background Sync"));
+    assertTrue(sharedPreferences.contains(BACKGROUNDSYNC));
   }
 
   @Test
@@ -71,6 +74,6 @@ public class SettingsFragmentTest {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performLongClick();
     assertFalse(switchBackgroundSync.isChecked());
-    assertFalse(sharedPreferences.contains("Enable Background Sync"));
+    assertFalse(sharedPreferences.contains(BACKGROUNDSYNC));
   }
 }
