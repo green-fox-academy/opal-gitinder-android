@@ -1,5 +1,7 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,7 @@ import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
-
+import com.greenfox.opal.gitinder.service.MatchesBroadcast;
 import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
 import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
   SharedPreferences preferences;
   @Inject
   ApiService service;
+  AlarmManager alarmManager;
+  PendingIntent pendingIntent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,28 @@ public class MainActivity extends AppCompatActivity {
       mViewPager = (NonSwipeableViewPager) findViewById(R.id.container);
       setupViewPager(mViewPager);
 
+      Intent intent = new Intent(this, MatchesBroadcast.class);
+      pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 0, intent, 0);
+      alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
       TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
       tabLayout.setupWithViewPager(mViewPager);
+    }
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    if (alarmManager != null) {
+      alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
+    }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (alarmManager != null) {
+      alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
     }
   }
 
