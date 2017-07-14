@@ -41,8 +41,6 @@ public class SwipingFragment extends Fragment {
   @Inject
   SharedPreferences preferences;
   CandidateAdapter adapter;
-  Button buttonNope;
-  Button buttonLike;
 
   @Nullable
   @Override
@@ -97,7 +95,7 @@ public class SwipingFragment extends Fragment {
       }
     });
 
-    buttonNope = (Button) view.findViewById(R.id.button_nope);
+    Button buttonNope = (Button) view.findViewById(R.id.button_nope);
     buttonNope.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -111,7 +109,7 @@ public class SwipingFragment extends Fragment {
       }
     });
 
-    buttonLike = (Button) view.findViewById(R.id.button_like);
+    Button buttonLike = (Button) view.findViewById(R.id.button_like);
     buttonLike.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
