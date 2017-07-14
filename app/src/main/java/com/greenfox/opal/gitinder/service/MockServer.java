@@ -1,23 +1,19 @@
 package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.model.response.Profile;
-
 import com.greenfox.opal.gitinder.Direction;
-
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
-
-import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
-import retrofit2.Call;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -25,6 +21,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
+  public final static String mockToken = "abcd1234";
 
   @Override
   public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
@@ -43,7 +40,7 @@ public class MockServer implements ApiService {
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUsername(), loginRequest.getAccessToken());
+          response = new LoginResponse(loginRequest.getUsername(), mockToken);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -56,7 +53,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<ProfileListResponse> callback) {
         ProfileListResponse response;
-        if (token == null || "".equals(token)) {
+        if (token == null || !mockToken.equals(token)) {
           response = new ProfileListResponse("Unauthorized request!");
         } else {
           ArrayList<Profile> list = new ArrayList<>();
@@ -80,7 +77,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<Profile> callback) {
         Profile response;
-        if (token == null || "".equals(token)) {
+        if (token == null || mockToken.equals(token)) {
           response = new Profile("Unauthorized request!");
         } else {
           List<String> repos = new ArrayList<>();

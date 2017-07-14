@@ -23,4 +23,6 @@
   <string name="button_back">Keep Swiping</string>
   <string name="button_chat">Start Chatting</string>
   <string name="no_more_profiles">No more profiles available :(</string>
+  <string name="no_connection_message">Internet not available, check your internet connectivity and try again</string>
+  <string name="no_connection_title">Info</string>
 </resources>
