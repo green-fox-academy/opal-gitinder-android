@@ -26,7 +26,7 @@ public class MatchesBroadcast extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     GitinderApp.app().basicComponent().inject(this);
-    service.getMatches(preferences.getString("TOKEN", null)).enqueue(new Callback<MatchesResponse>() {
+    service.getMatches(preferences.getString("Backend Response Token", null)).enqueue(new Callback<MatchesResponse>() {
       @Override
       public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
         List<Match> matches = response.body().getMatches();
