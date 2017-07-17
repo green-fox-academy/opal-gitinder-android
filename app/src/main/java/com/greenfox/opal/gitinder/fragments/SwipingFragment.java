@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -156,6 +157,10 @@ public class SwipingFragment extends Fragment {
       public void onResponse(Call<SwipingResponse> call, Response<SwipingResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
+          if (response.body().getMatch() != null) {
+            MatchDialogFragment dialog = new MatchDialogFragment();
+            dialog.show(getFragmentManager(), "dialog");
+          }
         } else {
           Log.d("dev", response.body().getMessage());
         }

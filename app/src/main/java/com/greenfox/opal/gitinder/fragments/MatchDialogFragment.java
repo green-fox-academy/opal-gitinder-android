@@ -1,7 +1,7 @@
-package com.greenfox.opal.gitinder.fragment;
+package com.greenfox.opal.gitinder.fragments;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +11,6 @@ import android.widget.Button;
 import android.widget.TabHost;
 
 import com.greenfox.opal.gitinder.R;
-
-/*
-  Use to show this dialog:
-    MatchDialogFragment dialog = new MatchDialogFragment();
-    dialog.show(fragmentManager, "dialog");
- */
 
 public class MatchDialogFragment extends DialogFragment {
   @Override
