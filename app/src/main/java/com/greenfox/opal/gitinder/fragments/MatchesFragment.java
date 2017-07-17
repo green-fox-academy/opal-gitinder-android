@@ -65,8 +65,7 @@ public class MatchesFragment extends Fragment {
           List<Match> members = response.body().getMatches();
           for (Match m : members) {
             Log.d("dev", m.getUsername() + ":" + m.getMatched_at() + ":" + m.getMessages());
-            adapter.addAll(m);
-            adapter.notifyDataSetChanged();
+            adapter.add(m);
           }
         }
       }

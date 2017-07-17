@@ -3,6 +3,7 @@ package com.greenfox.opal.gitinder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     saveOnPause();
     if (alarmManager != null) {
       alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
+      newMatchNotification();
     }
   }
   
@@ -150,9 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
   public void newMatchNotification() {
     NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+    mBuilder.setColor(Color.GRAY);
     mBuilder.setSmallIcon(R.drawable.gitinder_logo);
-    mBuilder.setContentTitle("You have a new match!");
-    mBuilder.setContentText("Touch to view");
+    mBuilder.setContentTitle(getResources().getString(R.string.new_match));
+    mBuilder.setContentText(getResources().getString(R.string.notification_message));
 
     Intent resultIntent = new Intent(this, MainActivity.class);
     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
