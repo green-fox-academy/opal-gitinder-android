@@ -1,6 +1,5 @@
 package com.greenfox.opal.gitinder.fragments;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +13,9 @@ import android.widget.Switch;
 import android.widget.Toast;
 import com.greenfox.opal.gitinder.R;
 import javax.inject.Inject;
+
+import static android.content.Context.MODE_PRIVATE;
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class SettingsFragment extends Fragment {
 
@@ -33,7 +35,7 @@ public class SettingsFragment extends Fragment {
     final View view = inflater.inflate(R.layout.fragment_settings, container, false);
     final Switch switchNotifications = (Switch) view.findViewById(R.id.switch_notifications);
     final Switch switchSync = (Switch) view.findViewById(R.id.switch_sync);
-    editor = getActivity().getSharedPreferences(SWITCHSTATE, Context.MODE_PRIVATE).edit();
+    editor = getActivity().getSharedPreferences(SWITCHSTATE, MODE_PRIVATE).edit();
 
     switchNotifications.setOnClickListener(new OnClickListener() {
       @Override
@@ -41,11 +43,11 @@ public class SettingsFragment extends Fragment {
         if(switchNotifications.isChecked()) {
           editor.putBoolean(NOTIFICATIONS, true);
           editor.apply();
-          Toast.makeText(getContext(), getString(R.string.settings_notifications_on), Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_notifications_on), LENGTH_SHORT).show();
         } else {
           editor.putBoolean(NOTIFICATIONS, false);
           editor.apply();
-          Toast.makeText(getContext(), getString(R.string.settings_notifications_off), Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_notifications_off), LENGTH_SHORT).show();
         }
       }
     });
@@ -56,16 +58,16 @@ public class SettingsFragment extends Fragment {
         if(switchSync.isChecked()) {
           editor.putBoolean(BACKGROUNDSYNC, true);
           editor.apply();
-          Toast.makeText(getContext(), getString(R.string.settings_background_sync_on), Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_background_sync_on), LENGTH_SHORT).show();
         } else {
           editor.putBoolean(BACKGROUNDSYNC, false);
           editor.apply();
-          Toast.makeText(getContext(), getString(R.string.settings_background_sync_off), Toast.LENGTH_SHORT).show();
+          Toast.makeText(getContext(), getString(R.string.settings_background_sync_off), LENGTH_SHORT).show();
         }
       }
     });
 
-    preferences = getActivity().getSharedPreferences(SWITCHSTATE, Context.MODE_PRIVATE);
+    preferences = getActivity().getSharedPreferences(SWITCHSTATE, MODE_PRIVATE);
     switchNotifications.setChecked(preferences.getBoolean(NOTIFICATIONS, false));
     switchSync.setChecked(preferences.getBoolean(BACKGROUNDSYNC, false));
     return view;
