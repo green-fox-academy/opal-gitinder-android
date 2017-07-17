@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,9 +31,12 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
     languages.setText(current.getLanguages().toString());
 
     ImageView avatar = (ImageView) convertView.findViewById(R.id.imageView);
-    int id = getContext().getResources()
-        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
-    avatar.setImageResource(id);
+    Picasso.with(getContext())
+        .load(current.getAvatarUrl())
+        .into(avatar);
+//    int id = getContext().getResources()
+//        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+//    avatar.setImageResource(id);
 
     return convertView;
   }

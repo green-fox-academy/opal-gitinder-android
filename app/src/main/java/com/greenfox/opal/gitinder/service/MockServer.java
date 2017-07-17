@@ -22,6 +22,9 @@ import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
   public final static String mockToken = "abcd1234";
+  public final static String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
+  public final static String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
+  public final static String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
 
   @Override
   public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
@@ -61,9 +64,9 @@ public class MockServer implements ApiService {
           ArrayList<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          list.add(new Profile("garlyle", "thinker", repos, languages));
-          list.add(new Profile("balintvecsey", "creepy", repos, languages));
-          list.add(new Profile("dorinagy", "hungry", repos, languages));
+          list.add(new Profile("garlyle", THINKER_URL, repos, languages));
+          list.add(new Profile("balintvecsey", CREEPY_URL, repos, languages));
+          list.add(new Profile("dorinagy", HUNGRY_URL, repos, languages));
           response = new ProfileListResponse(list, list.size(), 42);
         }
         callback.onResponse(null, Response.success(response));
