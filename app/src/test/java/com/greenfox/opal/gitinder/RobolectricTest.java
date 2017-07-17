@@ -2,8 +2,6 @@ package com.greenfox.opal.gitinder;
 
 import android.content.Intent;
 
-import com.greenfox.opal.gitinder.fragments.SwipingFragment;
-
 import org.junit.Before;
 
 import org.junit.Test;
