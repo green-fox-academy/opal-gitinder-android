@@ -27,6 +27,11 @@ import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
 
 import javax.inject.Inject;
 
+import static android.provider.Settings.ACTION_WIFI_SETTINGS;
+import static com.greenfox.opal.gitinder.LoginActivity.GITHUB_ACCESS_TOKEN;
+import static com.greenfox.opal.gitinder.LoginActivity.USERNAME;
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class MainActivity extends AppCompatActivity {
 
   SectionsPagerAdapter mSectionsPagerAdapter;
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void checkConnection() {
-    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
     boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
     if (!isConnected) {
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
       alertDialog.setButton(CHECK_SETTINGS, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-          startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
+          startActivityForResult(new Intent(ACTION_WIFI_SETTINGS), 0);
         }
       });
       alertDialog.show();
@@ -108,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public boolean checkLogin() {
-    String username = preferences.getString(LoginActivity.USERNAME, null);
-    String githubAccessToken = preferences.getString(LoginActivity.GITHUB_ACCESS_TOKEN, null);
-    String backendResponseToken = preferences.getString(LoginActivity.X_GITINDER_TOKEN, null);
+    String username = preferences.getString(USERNAME, null);
+    String githubAccessToken = preferences.getString(GITHUB_ACCESS_TOKEN, null);
+    String backendResponseToken = preferences.getString(X_GITINDER_TOKEN, null);
 
     if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);
