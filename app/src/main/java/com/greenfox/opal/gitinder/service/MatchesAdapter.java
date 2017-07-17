@@ -9,11 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.R;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import com.greenfox.opal.gitinder.model.response.Match;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MatchesAdapter extends ArrayAdapter<Match> {
 
@@ -32,10 +33,11 @@ public class MatchesAdapter extends ArrayAdapter<Match> {
     TextView latestMessage = (TextView) convertView.findViewById(R.id.textMessage);
     latestMessage.setText(current.getLatestMessage());
 
+
     CircleImageView avatar = (CircleImageView) convertView.findViewById(R.id.imageView);
-    int id = getContext().getResources()
-      .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
-    avatar.setImageResource(id);
+    Picasso.with(getContext())
+        .load(current.getAvatarUrl())
+        .into(avatar);
 
     return convertView;
   }

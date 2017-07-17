@@ -1,6 +1,5 @@
 package com.greenfox.opal.gitinder;
 
-
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.service.MatchesBroadcast;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
