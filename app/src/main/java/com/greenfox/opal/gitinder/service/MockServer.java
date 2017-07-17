@@ -21,6 +21,8 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
+import static com.greenfox.opal.gitinder.Direction.RIGHT;
+
 public class MockServer implements ApiService {
   public final static String mockToken = "abcd1234";
 
@@ -95,7 +97,7 @@ public class MockServer implements ApiService {
   @Override
   public MockCall<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") final String token,
                                            @Path("username") String username,
-                                           @Path("direction") Enum<Direction> direction) {
+                                           @Path("direction") final Enum<Direction> direction) {
     return new MockCall<SwipingResponse>() {
       @Override
       public void enqueue(Callback callback) {

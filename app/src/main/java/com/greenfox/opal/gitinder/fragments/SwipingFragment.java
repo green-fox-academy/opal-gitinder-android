@@ -59,6 +59,9 @@ public class SwipingFragment extends Fragment {
       .findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
+
+    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
       @Override
       public void removeFirstObjectInAdapter() {
@@ -160,10 +163,6 @@ public class SwipingFragment extends Fragment {
       public void onResponse(Call<SwipingResponse> call, Response<SwipingResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
-          if (response.body().getMatch() != null) {
-            MatchDialogFragment dialog = new MatchDialogFragment();
-            dialog.show(getFragmentManager(), "dialog");
-          }
         } else {
           Log.d("dev", response.body().getMessage());
         }
