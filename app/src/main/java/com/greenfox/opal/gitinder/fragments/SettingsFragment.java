@@ -23,6 +23,7 @@ public class SettingsFragment extends Fragment {
   public static final String SWITCH_STATE = "Switch State";
   public static final String NOTIFICATIONS = "Enable Notifications";
   public static final String BACKGROUND_SYNC = "Enable Background Sync";
+  public static final String LANGUAGES = "Preferred languages";
 
   @Inject
   SharedPreferences preferences;

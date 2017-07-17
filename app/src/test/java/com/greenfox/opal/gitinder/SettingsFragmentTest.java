@@ -1,8 +1,8 @@
 package com.greenfox.opal.gitinder;
 
-import static com.greenfox.opal.gitinder.fragments.SettingsFragment.BACKGROUNDSYNC;
+import static com.greenfox.opal.gitinder.fragments.SettingsFragment.BACKGROUND_SYNC;
 import static com.greenfox.opal.gitinder.fragments.SettingsFragment.NOTIFICATIONS;
-import static com.greenfox.opal.gitinder.fragments.SettingsFragment.SWITCHSTATE;
+import static com.greenfox.opal.gitinder.fragments.SettingsFragment.SWITCH_STATE;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
@@ -28,7 +28,7 @@ public class SettingsFragmentTest {
   @Before
   public void setup() throws Exception {
     settingsFragment = new SettingsFragment();
-    sharedPreferences = RuntimeEnvironment.application.getSharedPreferences(SWITCHSTATE,
+    sharedPreferences = RuntimeEnvironment.application.getSharedPreferences(SWITCH_STATE,
         Context.MODE_PRIVATE);
     startFragment(settingsFragment);
   }
@@ -66,7 +66,7 @@ public class SettingsFragmentTest {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performClick();
     assertTrue(switchBackgroundSync.isChecked());
-    assertTrue(sharedPreferences.contains(BACKGROUNDSYNC));
+    assertTrue(sharedPreferences.contains(BACKGROUND_SYNC));
   }
 
   @Test
@@ -74,6 +74,6 @@ public class SettingsFragmentTest {
     Switch switchBackgroundSync = (Switch) settingsFragment.getView().findViewById(R.id.switch_sync);
     switchBackgroundSync.performLongClick();
     assertFalse(switchBackgroundSync.isChecked());
-    assertFalse(sharedPreferences.contains(BACKGROUNDSYNC));
+    assertFalse(sharedPreferences.contains(BACKGROUND_SYNC));
   }
 }
