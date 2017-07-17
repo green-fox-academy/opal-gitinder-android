@@ -25,9 +25,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class MatchesFragment extends Fragment {
   private static final String TAG = "MatchesFragment";
-  private static final String TOKEN = "Backend Response Token";
 
   @Inject
   ApiService service;
@@ -49,7 +50,7 @@ public class MatchesFragment extends Fragment {
     ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
 
-    onMatchesRequest(preferences.getString(TOKEN, ""));
+    onMatchesRequest(preferences.getString(X_GITINDER_TOKEN, null));
     return view;
   }
 
