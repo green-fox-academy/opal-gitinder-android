@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
+import com.squareup.picasso.Picasso;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 
@@ -30,10 +32,14 @@ public class ProfileAdapter extends ArrayAdapter<Profile> {
     TextView languages = (TextView) convertView.findViewById(R.id.textLanguages);
     languages.setText(current.getLanguages().toString());
 
+
     CircleImageView avatar = (CircleImageView) convertView.findViewById(R.id.imageView);
-    int id = getContext().getResources()
-        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
-    avatar.setImageResource(id);
+    Picasso.with(getContext())
+        .load(current.getAvatarUrl())
+        .into(avatar);
+//    int id = getContext().getResources()
+//        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
+//    avatar.setImageResource(id);
 
     return convertView;
   }

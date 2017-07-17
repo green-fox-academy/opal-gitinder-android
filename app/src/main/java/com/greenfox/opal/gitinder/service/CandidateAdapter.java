@@ -34,9 +34,6 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
     Picasso.with(getContext())
         .load(current.getAvatarUrl())
         .into(avatar);
-//    int id = getContext().getResources()
-//        .getIdentifier(current.getAvatarUrl(), "drawable", getContext().getPackageName());
-//    avatar.setImageResource(id);
 
     return convertView;
   }
