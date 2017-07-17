@@ -1,6 +1,6 @@
 package com.greenfox.opal.gitinder.fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MatchesAdapter;
 import com.greenfox.opal.gitinder.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
