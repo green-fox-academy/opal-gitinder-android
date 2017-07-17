@@ -218,10 +218,10 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData(String username, String githubAccessToken, String backendResponseToken) {
+  protected void saveLoginData(String username, String githubAccessToken, String xGitinderToken) {
     editor.putString(GITHUB_ACCESS_TOKEN, githubAccessToken);
     editor.putString(USERNAME, username);
-    editor.putString(X_GITINDER_TOKEN, backendResponseToken);
+    editor.putString(X_GITINDER_TOKEN, xGitinderToken);
     editor.apply();
   }
 }
