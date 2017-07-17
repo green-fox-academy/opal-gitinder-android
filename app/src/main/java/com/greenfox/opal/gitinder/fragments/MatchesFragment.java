@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.greenfox.opal.gitinder.GitinderApp;
+import com.greenfox.opal.gitinder.LoginActivity;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
@@ -49,7 +50,7 @@ public class MatchesFragment extends Fragment {
     ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
 
-    onMatchesRequest(preferences.getString("Backend Response Token", ""));
+    onMatchesRequest(preferences.getString(LoginActivity.X_GITINDER_TOKEN, null));
     return view;
   }
 

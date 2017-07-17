@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
   SectionsPagerAdapter mSectionsPagerAdapter;
   NonSwipeableViewPager mViewPager;
+  private final String CHECK_SETTINGS = "Check Settings";
 
   @Inject
   SharedPreferences preferences;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     GitinderApp.app().basicComponent().inject(this);
 
     checkConnection();
-    if(checkLogin()) {
+    if (checkLogin()) {
       ActionBar actionBar = getSupportActionBar();
       actionBar.setDisplayShowHomeEnabled(true);
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
       alertDialog.setTitle(getString(R.string.no_connection_title));
       alertDialog.setMessage(getString(R.string.no_connection_message));
       alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-      alertDialog.setButton("Check Settings", new DialogInterface.OnClickListener() {
+      alertDialog.setButton(CHECK_SETTINGS, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
           startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
@@ -107,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public boolean checkLogin() {
-    String username = preferences.getString("Username", "");
-    String githubAccessToken = preferences.getString("Github Access Token", "");
-    String backendResponseToken = preferences.getString("Backend Response Token", "");
+    String username = preferences.getString(LoginActivity.USERNAME, null);
+    String githubAccessToken = preferences.getString(LoginActivity.GITHUB_ACCESS_TOKEN, null);
+    String backendResponseToken = preferences.getString(LoginActivity.X_GITINDER_TOKEN, null);
 
     if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);
