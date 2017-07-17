@@ -45,4 +45,10 @@ public class RobolectricTest {
     Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
     assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
   }
+
+  @Test
+  public void saveStatusOnPause() {
+    mainActivity.onPause();
+    assertEquals(mainActivity.timestamp, mainActivity.preferences.getString(mainActivity.APP_STATE, ""));
+  }
 }
