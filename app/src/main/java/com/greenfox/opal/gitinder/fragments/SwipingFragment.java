@@ -89,6 +89,7 @@ public class SwipingFragment extends Fragment {
       public void onAdapterAboutToEmpty(int i) {
         TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
+
         if (i <= 3) {
           onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
         }
@@ -145,8 +146,7 @@ public class SwipingFragment extends Fragment {
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
-            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
-              .getLanguages());
+            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
             adapter.add(p);
           }
         }
