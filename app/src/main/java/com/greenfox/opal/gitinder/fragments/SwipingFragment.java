@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.GitinderApp;
+import com.greenfox.opal.gitinder.LoginActivity;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -32,10 +33,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.VISIBLE;
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class SwipingFragment extends Fragment {
 
   private static final String TAG = "SwipingFragment";
-  private static final String TOKEN = "X-GiTinder-token";
 
   @Inject
   ApiService service;
@@ -67,15 +70,15 @@ public class SwipingFragment extends Fragment {
       @Override
       public void onLeftCardExit(Object o) {
         Log.d("dev", Direction.LEFT.toString());
-        Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString(TOKEN, null), currentProfile.getLogin(), Direction.LEFT);
+        Profile currentProfile = (Profile) o;
+        onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
         Log.d("dev", Direction.RIGHT.toString());
-        Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString(TOKEN, null), currentProfile.getLogin(), Direction.RIGHT);
+        Profile currentProfile = (Profile) o;
+        onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), currentProfile.getLogin(), Direction.RIGHT);
       }
 
       @Override
@@ -83,11 +86,11 @@ public class SwipingFragment extends Fragment {
         TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
 
-        if(i <= 3) {
-          onListRequest(preferences.getString(TOKEN, null), 0);
+        if (i <= 3) {
+          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
         }
         if (i <= 0) {
-          text.setVisibility(View.VISIBLE);
+          text.setVisibility(VISIBLE);
         }
       }
 
@@ -103,7 +106,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.LEFT.toString());
-          onSwipingRequest(preferences.getString(TOKEN, null), adapter.getItem(0).getLogin(), Direction.LEFT);
+          onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), adapter.getItem(0).getLogin(), Direction.LEFT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
@@ -117,7 +120,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.RIGHT.toString());
-          onSwipingRequest(preferences.getString(TOKEN, null), adapter.getItem(0).getLogin(), Direction.RIGHT);
+          onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), adapter.getItem(0).getLogin(), Direction.RIGHT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
