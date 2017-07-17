@@ -67,14 +67,14 @@ public class SwipingFragment extends Fragment {
       public void onLeftCardExit(Object o) {
         Log.d("dev", Direction.LEFT.toString());
         Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.LEFT);
+        onSwipingRequest(preferences.getString(TOKEN, null), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
         Log.d("dev", Direction.RIGHT.toString());
         Profile currentProfile = (Profile)o;
-        onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), currentProfile.getLogin(), Direction.RIGHT);
+        onSwipingRequest(preferences.getString(TOKEN, null), currentProfile.getLogin(), Direction.RIGHT);
       }
 
       @Override
@@ -101,7 +101,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.LEFT.toString());
-          onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), adapter.getItem(0).getLogin(), Direction.LEFT);
+          onSwipingRequest(preferences.getString(TOKEN, null), adapter.getItem(0).getLogin(), Direction.LEFT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
@@ -115,7 +115,7 @@ public class SwipingFragment extends Fragment {
       public void onClick(View v) {
         if (!adapter.isEmpty()) {
           Log.d("dev", Direction.RIGHT.toString());
-          onSwipingRequest(preferences.getString(TOKEN, "abcd1234"), adapter.getItem(0).getLogin(), Direction.RIGHT);
+          onSwipingRequest(preferences.getString(TOKEN, null), adapter.getItem(0).getLogin(), Direction.RIGHT);
           adapter.remove(adapter.getItem(0));
           adapter.notifyDataSetChanged();
           flingAdapterView.removeAllViewsInLayout();
@@ -138,8 +138,7 @@ public class SwipingFragment extends Fragment {
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
                 .getLanguages());
-            adapter.addAll(p);
-            adapter.notifyDataSetChanged();
+            adapter.add(p);
           }
         }
       }
