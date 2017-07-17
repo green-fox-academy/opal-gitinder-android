@@ -18,6 +18,7 @@ import static org.robolectric.Shadows.shadowOf;
 @Config(constants = BuildConfig.class, shadows = {ShadowViewPager.class})
 public class RobolectricTest {
 
+  private final String APP_NAME = "GiTinder";
   private MainActivity mainActivity;
   private LoginActivity loginActivity;
 
@@ -36,12 +37,18 @@ public class RobolectricTest {
   @Test
   public void shouldHaveCorrectAppName() throws Exception {
     String appName = mainActivity.getResources().getString(R.string.app_name);
-    assertEquals(appName, "GiTinder");
+    assertEquals(appName, APP_NAME);
   }
 
   @Test
   public void checkLoginNoUser() throws Exception {
     Intent expectedIntent = new Intent(loginActivity, LoginActivity.class);
     assertEquals(expectedIntent.getClass(), shadowOf(mainActivity).getNextStartedActivity().getClass());
+  }
+
+  @Test
+  public void saveStatusOnPause() {
+    mainActivity.onPause();
+    assertEquals(mainActivity.timestamp, mainActivity.preferences.getString(mainActivity.APP_STATE, ""));
   }
 }

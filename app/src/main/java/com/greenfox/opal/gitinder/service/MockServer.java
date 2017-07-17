@@ -1,25 +1,21 @@
 package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.model.response.Profile;
-
 import com.greenfox.opal.gitinder.Direction;
-
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
-
 import com.greenfox.opal.gitinder.model.response.Settings;
-import java.util.ArrayList;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
 import java.util.Arrays;
-import retrofit2.Call;
-
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.Body;
@@ -27,6 +23,10 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
+  public static final String MOCK_TOKEN = "abcd1234";
+  public static final String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
+  public static final String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
+  public static final String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
 
   @Override
   public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
@@ -45,7 +45,7 @@ public class MockServer implements ApiService {
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUsername(), loginRequest.getAccessToken());
+          response = new LoginResponse(loginRequest.getUsername(), MOCK_TOKEN);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -58,7 +58,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<ProfileListResponse> callback) {
         ProfileListResponse response;
-        if (token == null || "".equals(token)) {
+        if (token == null || !MOCK_TOKEN.equals(token)) {
           response = new ProfileListResponse("Unauthorized request!");
         } else {
           ArrayList<Profile> list = new ArrayList<>();
@@ -66,9 +66,9 @@ public class MockServer implements ApiService {
           ArrayList<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          list.add(new Profile("garlyle", "thinker", repos, languages));
-          list.add(new Profile("balintvecsey", "creepy", repos, languages));
-          list.add(new Profile("dorinagy", "hungry", repos, languages));
+          list.add(new Profile("garlyle", THINKER_URL, repos, languages));
+          list.add(new Profile("balintvecsey", CREEPY_URL, repos, languages));
+          list.add(new Profile("dorinagy", HUNGRY_URL, repos, languages));
           response = new ProfileListResponse(list, list.size(), 42);
         }
         callback.onResponse(null, Response.success(response));
@@ -82,7 +82,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<Profile> callback) {
         Profile response;
-        if (token == null || "".equals(token)) {
+        if (token == null || MOCK_TOKEN.equals(token)) {
           response = new Profile("Unauthorized request!");
         } else {
           List<String> repos = new ArrayList<>();
@@ -99,7 +99,7 @@ public class MockServer implements ApiService {
   @Override
   public MockCall<SwipingResponse> swiping(@Header(value = "X-GiTinder-token") final String token,
                                            @Path("username") String username,
-                                           @Path("direction") Enum<Direction> direction) {
+                                           @Path("direction") final Enum<Direction> direction) {
     return new MockCall<SwipingResponse>() {
       @Override
       public void enqueue(Callback callback) {
@@ -107,7 +107,8 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new SwipingResponse();
         } else {
-          response = new SwipingResponse(new Match("Garlyle2", System.currentTimeMillis()));
+          ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
+          response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis(), messages));
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -123,9 +124,12 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new MatchesResponse("Unauthorized request!");
         } else {
+          ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
           ArrayList<Match> matches = new ArrayList<>();
-          matches.add(new Match("jondoe", System.currentTimeMillis()));
-          matches.add(new Match("jondoe2", System.currentTimeMillis()));
+          matches.add(new Match("Garlyle", THINKER_URL, System.currentTimeMillis(), messages));
+          matches.add(new Match("balintvecsey", CREEPY_URL, System.currentTimeMillis(), messages));
+          matches.add(new Match("dorinagy", HUNGRY_URL, System.currentTimeMillis(), messages));
+
           response = new MatchesResponse(matches);
         }
         callback.onResponse(null, Response.success(response));
