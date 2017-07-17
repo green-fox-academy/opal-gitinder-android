@@ -34,14 +34,19 @@ import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
 
 public class MainActivity extends AppCompatActivity {
 
+  public static final String APP_STATE = "AppState";
+  private final String CHECK_SETTINGS = "Check Settings";
+  
+  String timestamp;
   SectionsPagerAdapter mSectionsPagerAdapter;
   NonSwipeableViewPager mViewPager;
-  private final String CHECK_SETTINGS = "Check Settings";
+  SharedPreferences.Editor editor;
 
   @Inject
   SharedPreferences preferences;
   @Inject
   ApiService service;
+  
   AlarmManager alarmManager;
   PendingIntent pendingIntent;
 
@@ -91,9 +96,16 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onPause() {
     super.onPause();
+    saveOnPause();
     if (alarmManager != null) {
       alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 600000, pendingIntent);
     }
+  }
+  
+   @Override
+  protected void onStop() {
+    super.onStop();
+    saveOnPause();
   }
 
   @Override
@@ -102,6 +114,13 @@ public class MainActivity extends AppCompatActivity {
     if (alarmManager != null) {
       alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME, 0, 60000, pendingIntent);
     }
+  }
+  
+   public void saveOnPause() {
+    editor = preferences.edit();
+    timestamp = String.valueOf(System.currentTimeMillis());
+    editor.putString(APP_STATE, timestamp);
+    editor.apply();
   }
 
   public void setupViewPager(ViewPager viewPager) {
