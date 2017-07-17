@@ -12,8 +12,10 @@
   <string name="settings_tab_title">Settings</string>
   <string name="button_message">Messages</string>
   <string name="button_profile">Profile</string>
+  <string name="settings_notifications">Enable Notifications</string>
   <string name="settings_notifications_on">Notifications On</string>
   <string name="settings_notifications_off">Notifications Off</string>
+  <string name="settings_background_sync">Enable Background Sync</string>
   <string name="settings_background_sync_on">Background Sync On</string>
   <string name="settings_background_sync_off">Background Sync Off</string>
   <string name="settings_distance">Maximum distance</string>

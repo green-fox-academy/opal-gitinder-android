@@ -47,6 +47,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="32dp"
     android:layout_marginEnd="32dp"
+    android:max="100"
     android:layout_marginBottom="16dp" />
   <TextView
     android:id="@+id/languages_view"
