@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.greenfox.opal.gitinder.GitinderApp;
-import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
-import com.greenfox.opal.gitinder.service.ProfileAdapter;
+import com.greenfox.opal.gitinder.model.response.Match;
+import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+import com.greenfox.opal.gitinder.service.MatchesAdapter;
 import com.greenfox.opal.gitinder.R;
-import com.greenfox.opal.gitinder.model.response.Profile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MatchesFragment extends Fragment {
-
   private static final String TAG = "MatchesFragment";
   private static final String TOKEN = "Backend Response Token";
 
@@ -34,44 +33,45 @@ public class MatchesFragment extends Fragment {
   ApiService service;
   @Inject
   SharedPreferences preferences;
-  ProfileAdapter adapter;
+  MatchesAdapter adapter;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Matches tab");
-    View rootView = inflater.inflate(R.layout.fragment_matches, container, false);
-    ListView listView = (ListView) rootView.findViewById(R.id.matchList);
+
+    View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
 
-    adapter = new ProfileAdapter(getActivity(), new ArrayList<Profile>());
+    adapter = new MatchesAdapter(getActivity(), new ArrayList<Match>());
 
+    ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
-    getMatchesList(preferences.getString(TOKEN, null), 0);
-    return rootView;
+
+    onMatchesRequest(preferences.getString(TOKEN, ""));
+    return view;
   }
 
-  private void getMatchesList(String token, int page) {
-    service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
+  public void onMatchesRequest(String token) {
+    service.getMatches(token).enqueue(new Callback<MatchesResponse>() {
       @Override
-      public void onResponse(Call<ProfileListResponse> call,
-                             Response<ProfileListResponse> response) {
+      public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
+        Log.d(TAG, "onResponse");
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
-          List<Profile> members = response.body().getProfiles();
-          for (Profile p : members) {
-            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p
-                .getLanguages());
-            adapter.addAll(p);
+          List<Match> members = response.body().getMatches();
+          for (Match m : members) {
+            Log.d("dev", m.getUsername() + ":" + m.getMatched_at() + ":" + m.getMessages());
+            adapter.addAll(m);
             adapter.notifyDataSetChanged();
           }
         }
       }
 
       @Override
-      public void onFailure(Call<ProfileListResponse> call, Throwable t) {
+      public void onFailure(Call<MatchesResponse> call, Throwable t) {
         Log.d("dev", "FAIL! =(");
       }
     });

@@ -1,8 +1,14 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -10,7 +16,6 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     GitinderApp.app().basicComponent().inject(this);
 
+    checkConnection();
     if(checkLogin()) {
       ActionBar actionBar = getSupportActionBar();
       actionBar.setDisplayShowHomeEnabled(true);
@@ -54,6 +60,25 @@ public class MainActivity extends AppCompatActivity {
 
       TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
       tabLayout.setupWithViewPager(mViewPager);
+    }
+  }
+
+  private void checkConnection() {
+    ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+    boolean isConnected = activeNetwork != null && activeNetwork.isConnected();
+    if (!isConnected) {
+      AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+      alertDialog.setTitle(getString(R.string.no_connection_title));
+      alertDialog.setMessage(getString(R.string.no_connection_message));
+      alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+      alertDialog.setButton("Check Settings", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+          startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 0);
+        }
+      });
+      alertDialog.show();
     }
   }
 
@@ -82,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public boolean checkLogin() {
-    String username = preferences.getString("Username", null);
-    String githubAccessToken = preferences.getString("Github Access Token", null);
-    String backendResponseToken = preferences.getString("Backend Response Token", null);
+    String username = preferences.getString("Username", "");
+    String githubAccessToken = preferences.getString("Github Access Token", "");
+    String backendResponseToken = preferences.getString("Backend Response Token", "");
 
     if (TextUtils.isEmpty(username) || TextUtils.isEmpty(githubAccessToken) || TextUtils.isEmpty(backendResponseToken)) {
       Intent intent = new Intent(this, LoginActivity.class);
