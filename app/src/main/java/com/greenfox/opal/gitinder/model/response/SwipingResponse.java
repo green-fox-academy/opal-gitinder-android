@@ -7,8 +7,8 @@ public class SwipingResponse extends BaseResponse {
 	public SwipingResponse() {
 	}
 
-	public SwipingResponse(String message) {
-		super("error", message);
+	public SwipingResponse(String status, String message) {
+		super(status, message);
 	}
 
 	public SwipingResponse(Match match) {
