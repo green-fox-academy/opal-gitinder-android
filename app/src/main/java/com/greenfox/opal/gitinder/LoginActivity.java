@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
-    Log.d(TAG, "starting LoginActivity");
+    Log.d("dev", "starting LoginActivity");
 
     GitinderApp.app().basicComponent().inject(this);
 
@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
 
   public void onLogin(final String username, final String githubAccessToken) {
     LoginRequest testLogin = new LoginRequest(username, githubAccessToken);
-    service.login(testLogin).enqueue(new Callback<LoginResponse>() {
+    service.login("application/json", testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
@@ -213,7 +213,7 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<LoginResponse> call, Throwable t) {
         Toast.makeText(LoginActivity.this, "login error", Toast.LENGTH_SHORT).show();
-        Log.d("login", "FAIL! =(");
+        Log.d("dev", "FAIL! =(");
       }
     });
   }
