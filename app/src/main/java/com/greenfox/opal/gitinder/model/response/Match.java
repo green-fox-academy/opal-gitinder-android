@@ -38,6 +38,6 @@ public class Match {
     if(messages != null) {
     return messages.get(0);
     }
-    return "Latest Message";
+    return "Latest message";
   }
 }

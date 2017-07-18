@@ -59,7 +59,6 @@ public class MatchesFragment extends Fragment {
       @Override
       public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
         Log.d(TAG, "onResponse");
-        Log.e("", response.body().getStatus() + " " + response.body().getMessage());
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
