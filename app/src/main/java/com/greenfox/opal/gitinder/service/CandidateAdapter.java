@@ -32,7 +32,7 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
 
     ImageView avatar = (ImageView) convertView.findViewById(R.id.imageView);
     Picasso.with(getContext())
-        .load(current.getAvatarUrl())
+        .load(current.getAvatar_url())
         .into(avatar);
 
     return convertView;

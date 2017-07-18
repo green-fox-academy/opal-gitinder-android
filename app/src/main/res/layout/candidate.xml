@@ -30,7 +30,6 @@
       app:riv_corner_radius="10dip"
       app:riv_mutate_background="true"/>
 
-
     <TextView
       android:id="@+id/textview_name"
       android:layout_width="0dp"
@@ -38,6 +37,9 @@
       android:layout_marginBottom="12dp"
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
+      android:shadowColor="#000000"
+      android:shadowDy="5"
+      android:shadowRadius="5"
       android:text="Sloth"
       android:textColor="#FFFFFF"
       android:textSize="32sp"

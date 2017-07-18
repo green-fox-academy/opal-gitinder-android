@@ -30,23 +30,23 @@ public class MockServer implements ApiService {
   public final static String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
 
   @Override
-  public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
+  public Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body final LoginRequest loginRequest) {
     return new MockCall<LoginResponse>() {
       @Override
       public void enqueue(Callback<LoginResponse> callback) {
         LoginResponse response;
-        if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
+        if (loginRequest.getUser_name().isEmpty() || loginRequest.getAccess_token().isEmpty()) {
           String message = "Missing parameter(s):";
-          if (loginRequest.getUsername().isEmpty()) {
+          if (loginRequest.getUser_name().isEmpty()) {
             message += " username";
           }
-          if (loginRequest.getAccessToken().isEmpty()) {
+          if (loginRequest.getAccess_token().isEmpty()) {
             message += " accessToken";
           }
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUsername(), mockToken);
+          response = new LoginResponse(loginRequest.getUser_name(), mockToken);
         }
         callback.onResponse(null, Response.success(response));
       }
