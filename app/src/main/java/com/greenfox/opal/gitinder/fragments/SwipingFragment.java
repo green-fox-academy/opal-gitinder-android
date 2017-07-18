@@ -148,8 +148,6 @@ public class SwipingFragment extends Fragment {
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatar_url() + ":" + p.getRepos() + ":" + p.getLanguages());
             adapter.add(p);
-//            adapter.addAll(p);
-//            adapter.notifyDataSetChanged();
           }
         }
       }

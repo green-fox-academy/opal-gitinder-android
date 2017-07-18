@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
@@ -196,6 +197,7 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   public void onLogin(final String username, final String githubAccessToken) {
+    final ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "Loading", "Please wait");
     LoginRequest testLogin = new LoginRequest(username, githubAccessToken);
     service.login("application/json", testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
@@ -205,6 +207,7 @@ public class LoginActivity extends AppCompatActivity {
           saveLoginData(username, githubAccessToken, backendResponseToken);
           Intent intent = new Intent(LoginActivity.this, MainActivity.class);
           startActivity(intent);
+          dialog.dismiss();
         } else {
           Log.d("dev", response.body().getMessage());
         }
