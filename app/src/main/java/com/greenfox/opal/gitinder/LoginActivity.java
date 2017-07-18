@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
@@ -43,15 +44,22 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-  SharedPreferences.Editor editor;
+  private static final String GENERIC_URL = "https://github.com/login/oauth/access_token";
+  public static final String USERNAME = "Username";
+  public static final String GITHUB_ACCESS_TOKEN = "Github Access Token";
+  public static final String X_GITINDER_TOKEN = "X-Gitinder Token";
+  private static final String TAG = "LoginActivity";
+  private static final String BASE_URL = "https://api.github.com";
+  private static final String USER_ID = "userID";
+  private static final String AUTH_URL = "http://github.com/login/oauth/authorize";
+  private static final String CALLBACK_URL = "http://gitinder.herokuapp.com/callback";
+
   @Inject
   ApiService service;
   @Inject
   SharedPreferences preferences;
 
-  private final String USERNAME = "Username";
-  private final String TOKEN = "Token";
-  private static final String TAG = "LoginActivity";
+  SharedPreferences.Editor editor;
 
   Retrofit githubRetrofit;
   GithubApiService githubService;
@@ -97,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     alert.show();
 
     githubRetrofit = new Retrofit.Builder()
-      .baseUrl("https://api.github.com")
+      .baseUrl(BASE_URL)
       .addConverterFactory(JacksonConverterFactory.create())
       .build();
     githubService = githubRetrofit.create(GithubApiService.class);
@@ -108,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
     AuthorizationDialogController controller = createGitHubControllerHandler();
 
     OAuthManager oAuthManager = new OAuthManager(flow, controller);
-    oAuthManager.authorizeExplicitly("userID", new OAuthCallback<Credential>() {
+    oAuthManager.authorizeExplicitly(USER_ID, new OAuthCallback<Credential>() {
       @Override
       public void run(OAuthFuture<Credential> future) {
         try {
@@ -126,10 +134,10 @@ public class LoginActivity extends AppCompatActivity {
       BearerToken.authorizationHeaderAccessMethod(),
       AndroidHttp.newCompatibleTransport(),
       new JacksonFactory(),
-      new GenericUrl("https://github.com/login/oauth/access_token"),
+      new GenericUrl(GENERIC_URL),
       new ClientParametersAuthentication(getResources().getString(R.string.CLIENT_ID), getResources().getString(R.string.CLIENT_SECRET)),
       getResources().getString(R.string.CLIENT_ID),
-      "http://github.com/login/oauth/authorize");
+      AUTH_URL);
     builder.setRequestInitializer(new HttpRequestInitializer() {
       @Override
       public void initialize(HttpRequest request) throws IOException {
@@ -146,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
       new DialogFragmentController(getFragmentManager()) {
         @Override
         public String getRedirectUri() throws IOException {
-          return "http://gitinder.herokuapp.com/callback";
+          return CALLBACK_URL;
         }
 
         @Override
@@ -187,13 +195,16 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  public void onLogin(final String username, final String token) {
-    LoginRequest testLogin = new LoginRequest(username, token);
-      service.login("application/json", testLogin).enqueue(new Callback<LoginResponse>() {
+  public void onLogin(final String username, final String githubAccessToken) {
+    LoginRequest testLogin = new LoginRequest(username, githubAccessToken);
+    service.login("application/json", testLogin).enqueue(new Callback<LoginResponse>() {
       @Override
       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
         if (response.body().getStatus().equals("ok")) {
-          saveLoginData(username, token, response.body().getToken());
+          String backendResponseToken = response.body().getToken();
+          saveLoginData(username, githubAccessToken, backendResponseToken);
+          Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+          startActivity(intent);
         } else {
           Log.d("dev", response.body().getMessage());
         }
@@ -207,11 +218,10 @@ public class LoginActivity extends AppCompatActivity {
     });
   }
 
-  protected void saveLoginData(String username, String token, String serverToken) {
-    editor.putString(TOKEN, token);
+  protected void saveLoginData(String username, String githubAccessToken, String xGitinderToken) {
+    editor.putString(GITHUB_ACCESS_TOKEN, githubAccessToken);
     editor.putString(USERNAME, username);
-    editor.putString("X-GiTinder-token", serverToken);
+    editor.putString(X_GITINDER_TOKEN, xGitinderToken);
     editor.apply();
-    this.finish();
   }
 }

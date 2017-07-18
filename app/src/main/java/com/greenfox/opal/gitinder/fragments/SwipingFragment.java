@@ -4,19 +4,24 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.GitinderApp;
+import com.greenfox.opal.gitinder.LoginActivity;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
+import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.CandidateAdapter;
-import com.greenfox.opal.gitinder.service.GithubApiService;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -28,7 +33,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.view.View.VISIBLE;
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class SwipingFragment extends Fragment {
+
+  private static final String TAG = "SwipingFragment";
 
   @Inject
   ApiService service;
@@ -36,21 +46,22 @@ public class SwipingFragment extends Fragment {
   SharedPreferences preferences;
   CandidateAdapter adapter;
 
-  GithubApiService githubApiService;
-
-  private static final String TAG = "SwipingFragment";
-
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
+  public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Swiping tab");
-    View view = inflater.inflate(R.layout.fragment_swiping, container, false);
+    final View view = inflater.inflate(R.layout.fragment_swiping, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
 
-    SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view.findViewById(R.id.swipeView);
+    final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) view
+      .findViewById(R.id.swipeView);
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
+
+    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
       @Override
       public void removeFirstObjectInAdapter() {
@@ -61,20 +72,28 @@ public class SwipingFragment extends Fragment {
 
       @Override
       public void onLeftCardExit(Object o) {
-        Log.d("dev", "LEFT");
+        Log.d("dev", Direction.LEFT.toString());
+        Profile currentProfile = (Profile) o;
+        onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), currentProfile.getLogin(), Direction.LEFT);
       }
 
       @Override
       public void onRightCardExit(Object o) {
-        Log.d("dev", "RIGHT");
+        Log.d("dev", Direction.RIGHT.toString());
+        Profile currentProfile = (Profile) o;
+        onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), currentProfile.getLogin(), Direction.RIGHT);
       }
 
       @Override
       public void onAdapterAboutToEmpty(int i) {
-        TextView text = (TextView)container.findViewById(R.id.noMoreProfiles);
+        TextView text = (TextView) container.findViewById(R.id.noMoreProfiles);
         Log.d("dev", "EMPTY");
+
+        if (i <= 3) {
+          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+        }
         if (i <= 0) {
-          text.setVisibility(View.VISIBLE);
+          text.setVisibility(VISIBLE);
         }
       }
 
@@ -84,9 +103,33 @@ public class SwipingFragment extends Fragment {
       }
     });
 
-    if (adapter.getCount() <= 3) {
-      onListRequest(preferences.getString("X-GiTinder-token", null), 0);
-    }
+    Button buttonNope = (Button) view.findViewById(R.id.button_nope);
+    buttonNope.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (!adapter.isEmpty()) {
+          Log.d("dev", Direction.LEFT.toString());
+          onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), adapter.getItem(0).getLogin(), Direction.LEFT);
+          adapter.remove(adapter.getItem(0));
+          adapter.notifyDataSetChanged();
+          flingAdapterView.removeAllViewsInLayout();
+        }
+      }
+    });
+
+    Button buttonLike = (Button) view.findViewById(R.id.button_like);
+    buttonLike.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if (!adapter.isEmpty()) {
+          Log.d("dev", Direction.RIGHT.toString());
+          onSwipingRequest(preferences.getString(X_GITINDER_TOKEN, null), adapter.getItem(0).getLogin(), Direction.RIGHT);
+          adapter.remove(adapter.getItem(0));
+          adapter.notifyDataSetChanged();
+          flingAdapterView.removeAllViewsInLayout();
+        }
+      }
+    });
 
     return view;
   }
@@ -94,21 +137,41 @@ public class SwipingFragment extends Fragment {
   public void onListRequest(String token, Integer page) {
     service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
       @Override
-      public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
+      public void onResponse(Call<ProfileListResponse> call,
+                             Response<ProfileListResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatar_url() + ":" + p.getRepos() + ":" + p.getLanguages());
-            adapter.addAll(p);
-            adapter.notifyDataSetChanged();
+            adapter.add(p);
+//            adapter.addAll(p);
+//            adapter.notifyDataSetChanged();
           }
         }
       }
 
       @Override
       public void onFailure(Call<ProfileListResponse> call, Throwable t) {
+        Log.d("dev", "FAIL! =(");
+      }
+    });
+  }
+
+  public void onSwipingRequest(String token, String username, Direction direction) {
+    service.swiping(token, username, direction).enqueue(new Callback<SwipingResponse>() {
+      @Override
+      public void onResponse(Call<SwipingResponse> call, Response<SwipingResponse> response) {
+        if (response.body().getStatus() != null) {
+          Log.d("dev", response.body().getMessage());
+        } else {
+          Log.d("dev", response.body().getMessage());
+        }
+      }
+
+      @Override
+      public void onFailure(Call<SwipingResponse> call, Throwable t) {
         Log.d("dev", "FAIL! =(");
       }
     });

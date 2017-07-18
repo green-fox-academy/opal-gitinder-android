@@ -19,7 +19,7 @@ import retrofit2.http.Path;
 
 public interface ApiService {
   @GET("/matches")
-  MockCall<MatchesResponse> getMatches(@Header("X-GiTinder-token") String token);
+  Call<MatchesResponse> getMatches(@Header("X-GiTinder-token") String token);
 
   @POST("/login")
   Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body LoginRequest loginRequest);
