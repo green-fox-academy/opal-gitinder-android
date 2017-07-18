@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder.fragments;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -135,10 +136,11 @@ public class SwipingFragment extends Fragment {
   }
 
   public void onListRequest(String token, Integer page) {
+    final ProgressDialog dialog = ProgressDialog.show(getActivity(), "Loading", "Please wait");
     service.getListOfTinders(token, page).enqueue(new Callback<ProfileListResponse>() {
       @Override
-      public void onResponse(Call<ProfileListResponse> call,
-                             Response<ProfileListResponse> response) {
+      public void onResponse(Call<ProfileListResponse> call, Response<ProfileListResponse> response) {
+        dialog.dismiss();
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
         } else {
