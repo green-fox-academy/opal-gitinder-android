@@ -165,6 +165,10 @@ public class SwipingFragment extends Fragment {
       public void onResponse(Call<SwipingResponse> call, Response<SwipingResponse> response) {
         if (response.body().getStatus() != null) {
           Log.d("dev", response.body().getMessage());
+          if(response.body().getMatch() != null) {
+            MatchDialogFragment dialog = new MatchDialogFragment();
+            dialog.show(getFragmentManager(), "dialog");
+          }
         } else {
           Log.d("dev", response.body().getMessage());
         }
