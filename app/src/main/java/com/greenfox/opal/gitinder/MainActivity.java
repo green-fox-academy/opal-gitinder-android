@@ -1,12 +1,14 @@
 package com.greenfox.opal.gitinder;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
@@ -14,28 +16,23 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
-
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
-import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
-
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MatchesBroadcast;
 import com.greenfox.opal.gitinder.service.NonSwipeableViewPager;
+import com.greenfox.opal.gitinder.service.SectionsPagerAdapter;
+
+import javax.inject.Inject;
 
 import static android.provider.Settings.ACTION_WIFI_SETTINGS;
 import static com.greenfox.opal.gitinder.LoginActivity.GITHUB_ACCESS_TOKEN;
 import static com.greenfox.opal.gitinder.LoginActivity.USERNAME;
 import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
 
-import javax.inject.Inject;
-
 public class MainActivity extends AppCompatActivity {
-
-  private static final String TAG = "MainActivity";
 
   public static final String APP_STATE = "AppState";
   private final String CHECK_SETTINGS = "Check Settings";
@@ -57,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Log.d(TAG, "starting MainActivity");
-
     GitinderApp.app().basicComponent().inject(this);
 
     checkConnection();
