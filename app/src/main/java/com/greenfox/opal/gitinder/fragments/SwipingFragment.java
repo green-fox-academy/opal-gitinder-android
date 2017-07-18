@@ -60,7 +60,7 @@ public class SwipingFragment extends Fragment {
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
 
-    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 1);
 
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
       @Override
@@ -90,7 +90,7 @@ public class SwipingFragment extends Fragment {
         Log.d("dev", "EMPTY");
 
         if (i <= 3) {
-          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 1);
         }
         if (i <= 0) {
           text.setVisibility(VISIBLE);
