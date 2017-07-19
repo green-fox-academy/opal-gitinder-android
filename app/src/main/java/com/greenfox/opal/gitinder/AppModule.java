@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MockServer;
 
@@ -49,6 +50,12 @@ public class AppModule {
   @Provides
   public ObjectManager provideObjectManager(SharedPreferences sharedPreferences, Gson gson) {
     return new ObjectManager(sharedPreferences, gson);
+  }
+
+  @Singleton
+  @Provides
+  public MatchesFragment provideMatchesFragment() {
+    return new MatchesFragment();
   }
 
   @Singleton

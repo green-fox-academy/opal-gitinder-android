@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import com.greenfox.opal.gitinder.fragments.MatchDialogFragment;
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.service.MatchesBroadcast;
 import com.greenfox.opal.gitinder.fragments.SwipingFragment;
@@ -16,4 +17,5 @@ public interface BasicComponent {
   void inject(MatchesBroadcast matchesBroadcast);
   void inject(SwipingFragment swipingFragment);
   void inject(MatchesFragment matchesFragment);
+  void inject(MatchDialogFragment matchesFragment);
 }

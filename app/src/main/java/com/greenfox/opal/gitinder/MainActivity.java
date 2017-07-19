@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
   SharedPreferences preferences;
   @Inject
   ApiService service;
+  @Inject
+  MatchesFragment matchesFragment;
   
   AlarmManager alarmManager;
   PendingIntent pendingIntent;
@@ -124,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
   public void setupViewPager(ViewPager viewPager) {
     SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
     adapter.addFragment(new SwipingFragment(), getString(R.string.swiping_tab_title));
-    adapter.addFragment(new MatchesFragment(), getString(R.string.matches_tab_title));
+    adapter.addFragment(matchesFragment, getString(R.string.matches_tab_title));
     adapter.addFragment(new SettingsFragment(), getString(R.string.settings_tab_title));
     viewPager.setAdapter(adapter);
   }
