@@ -28,7 +28,7 @@ public class MessageAdapter extends ArrayAdapter<Message> {
     }
 
     TextView text = (TextView) convertView.findViewById(R.id.text);
-    text.setText(current.getText());
+    text.setText(current.getMessage());
 
     return convertView;
   }
