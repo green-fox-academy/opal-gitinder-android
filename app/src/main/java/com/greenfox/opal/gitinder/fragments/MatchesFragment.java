@@ -55,6 +55,7 @@ public class MatchesFragment extends Fragment {
   }
 
   public void onMatchesRequest(String token) {
+    adapter.clear();
     service.getMatches(token).enqueue(new Callback<MatchesResponse>() {
       @Override
       public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
