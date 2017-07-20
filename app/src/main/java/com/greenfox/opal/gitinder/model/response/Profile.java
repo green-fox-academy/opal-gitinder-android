@@ -5,9 +5,10 @@ import java.util.List;
 public class Profile extends BaseResponse {
 
   String login;
-  String avatarUrl;
+  String avatar_url;
   List<String> repos;
   List<String> languages;
+  List<String> snippets;
 
   public Profile() {
   }
@@ -19,7 +20,7 @@ public class Profile extends BaseResponse {
   public Profile(String login, String avatarUrl, List<String> repos,
                  List<String> languages) {
     this.login = login;
-    this.avatarUrl = avatarUrl;
+    this.avatar_url = avatarUrl;
     this.repos = repos;
     this.languages = languages;
   }
@@ -28,8 +29,8 @@ public class Profile extends BaseResponse {
     return login;
   }
 
-  public String getAvatarUrl() {
-    return avatarUrl;
+  public String getAvatar_url() {
+    return avatar_url;
   }
 
   public List<String> getRepos() {
@@ -38,5 +39,9 @@ public class Profile extends BaseResponse {
 
   public List<String> getLanguages() {
     return languages;
+  }
+
+  public void setSnippets(List<String> snippets) {
+    this.snippets = snippets;
   }
 }

@@ -23,12 +23,12 @@ public class MessageAdapter extends ArrayAdapter<Message> {
   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
     Message current = getItem(position);
 
-    if(convertView == null){
+    if (convertView == null) {
       convertView = LayoutInflater.from(getContext()).inflate(R.layout.message, parent, false);
     }
 
-    TextView text = (TextView) convertView.findViewById(R.id.text);
-    text.setText(current.getText());
+    TextView message = (TextView) convertView.findViewById(R.id.message);
+    message.setText(current.getMessage());
 
     return convertView;
   }

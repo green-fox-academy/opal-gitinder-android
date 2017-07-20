@@ -1,4 +1,5 @@
 package com.greenfox.opal.gitinder.service;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -25,15 +26,15 @@ public class CandidateAdapter extends ArrayAdapter<Profile> {
     Profile current = getItem(position);
     convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidate, parent, false);
 
-    TextView username = (TextView)convertView.findViewById(R.id.textview_name);
+    TextView username = (TextView) convertView.findViewById(R.id.textview_name);
     username.setText(current.getLogin());
-    TextView languages = (TextView)convertView.findViewById(R.id.textview_language);
+    TextView languages = (TextView) convertView.findViewById(R.id.textview_language);
     languages.setText(current.getLanguages().toString());
 
     ImageView avatar = (ImageView) convertView.findViewById(R.id.imageView);
     Picasso.with(getContext())
-        .load(current.getAvatarUrl())
-        .into(avatar);
+      .load(current.getAvatar_url())
+      .into(avatar);
 
     return convertView;
   }

@@ -22,7 +22,7 @@ public interface ApiService {
   Call<MatchesResponse> getMatches(@Header("X-GiTinder-token") String token);
 
   @POST("/login")
-  Call<LoginResponse> login(@Body LoginRequest loginRequest);
+  Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body LoginRequest loginRequest);
 
   @GET("/profile")
   Call<Profile> getProfileInfos(@Header("X-GiTinder-token") String token);
