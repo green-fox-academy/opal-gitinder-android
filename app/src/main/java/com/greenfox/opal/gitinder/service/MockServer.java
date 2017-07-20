@@ -11,6 +11,7 @@ import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+import com.greenfox.opal.gitinder.model.response.StatusResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
@@ -174,6 +175,22 @@ public class MockServer implements ApiService {
           Message message = new Message("dorinagy", "first message");
 
           response = new PostMessageResponse(message);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<StatusResponse> deletMessage(@Header(value = "X-GiTinder-token") final String token, @Path("id") Long id) {
+    return new MockCall<StatusResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        StatusResponse response;
+        if (token.isEmpty()) {
+          response = new BaseResponse("error", "Unauthorized request!");
+        } else {
+          response = new StatusResponse("ok");
         }
         callback.onResponse(null, Response.success(response));
       }

@@ -3,10 +3,12 @@ package com.greenfox.opal.gitinder.service;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
 import com.greenfox.opal.gitinder.model.Message;
+import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 import com.greenfox.opal.gitinder.model.response.MessageResponse;
 import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
+import com.greenfox.opal.gitinder.model.response.StatusResponse;
 import com.greenfox.opal.gitinder.service.MockCall;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
@@ -14,6 +16,7 @@ import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -41,4 +44,7 @@ public interface ApiService {
 
   @POST("/messages")
   Call<PostMessageResponse> postMessage(@Header(value = "X-GiTinder-token") String token, @Body Message message);
+
+  @DELETE("/messages/{id}")
+  Call<StatusResponse> deletMessage(@Header(value = "X-GiTinder-token") String token, @Path("id") Long id);
 }
