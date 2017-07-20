@@ -90,7 +90,7 @@ public class MockServer implements ApiService {
           List<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          response = new Profile("happysloth", "happysloth.png", repos, languages);
+          response = new Profile("happysloth", "selfie.jpg", repos, languages);
         }
         callback.onResponse(null, Response.success(response));
       }
