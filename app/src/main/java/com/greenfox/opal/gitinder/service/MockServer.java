@@ -25,8 +25,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-import static com.greenfox.opal.gitinder.Direction.RIGHT;
-
 public class MockServer implements ApiService {
   public final static String mockToken = "abcd1234";
   public final static String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
@@ -63,7 +61,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<ProfileListResponse> callback) {
         ProfileListResponse response;
-        if (token == null || !mockToken.equals(token)) {
+        if (token == null) {
           response = new ProfileListResponse("Unauthorized request!");
         } else {
           ArrayList<Profile> list = new ArrayList<>();
@@ -87,7 +85,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<Profile> callback) {
         Profile response;
-        if (token == null || mockToken.equals(token)) {
+        if (token == null) {
           response = new Profile("Unauthorized request!");
         } else {
           List<String> repos = new ArrayList<>();
