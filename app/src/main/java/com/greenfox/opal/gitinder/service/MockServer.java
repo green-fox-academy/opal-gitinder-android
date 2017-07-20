@@ -1,5 +1,7 @@
 package com.greenfox.opal.gitinder.service;
 
+import com.greenfox.opal.gitinder.model.ExtendedMessage;
+import com.greenfox.opal.gitinder.model.response.MessageResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
@@ -132,6 +134,28 @@ public class MockServer implements ApiService {
           matches.add(new Match("dorinagy", HUNGRY_URL, System.currentTimeMillis(), messages));
 
           response = new MatchesResponse(matches);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+
+  @Override
+  public Call<MessageResponse> getMessages(@Header(value = "X-GiTinder-token") final String token, @Path("username") final String username) {
+    return new MockCall<MessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        MessageResponse response;
+        if (token.isEmpty()) {
+          response = new MessageResponse("Unauthorized request!");
+        } else {
+          ArrayList<ExtendedMessage> messages = new ArrayList<>();
+          messages.add(new ExtendedMessage(username, "first message", 1738, "dorinagy", System.currentTimeMillis()));
+          messages.add(new ExtendedMessage(username, "second message", 49820, "dorinagy", System.currentTimeMillis()));
+          messages.add(new ExtendedMessage(username, "last message", 495809, "dorinagy", System.currentTimeMillis()));
+
+          response = new MessageResponse(messages);
         }
         callback.onResponse(null, Response.success(response));
       }

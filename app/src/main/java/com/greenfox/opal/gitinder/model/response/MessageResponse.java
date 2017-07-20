@@ -1,25 +1,29 @@
 package com.greenfox.opal.gitinder.model.response;
 
-import com.greenfox.opal.gitinder.model.Message;
+import com.greenfox.opal.gitinder.model.ExtendedMessage;
 
 import java.util.List;
 
 public class MessageResponse extends BaseResponse{
-  private List<Message> messages;
+  private List<ExtendedMessage> messages;
 
   public MessageResponse() {
   }
 
-  public MessageResponse(List<Message> messages) {
+  public MessageResponse(List<ExtendedMessage> messages) {
     this.messages = messages;
   }
 
-  public void setMessages(List<Message> messages) {
+  public MessageResponse(String message) {
+    super("error", message);
+  }
+
+  public void setMessages(List<ExtendedMessage> messages) {
 
     this.messages = messages;
   }
 
-  public List<Message> getMessages() {
+  public List<ExtendedMessage> getMessages() {
 
     return messages;
   }
