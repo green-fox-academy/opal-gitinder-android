@@ -173,7 +173,7 @@ public class MockServer implements ApiService {
         if (token.isEmpty()) {
           response = new PostMessageResponse("Unauthorized request!");
         } else {
-          Message message = new Message("dorinagy", "first message");
+          ExtendedMessage message = new ExtendedMessage("dorinagy", "new message", 495809, "balintvecsey", System.currentTimeMillis());
 
           response = new PostMessageResponse(message);
         }

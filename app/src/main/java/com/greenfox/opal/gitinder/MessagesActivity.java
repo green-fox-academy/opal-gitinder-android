@@ -6,12 +6,15 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import com.greenfox.opal.gitinder.model.ExtendedMessage;
 import com.greenfox.opal.gitinder.model.Message;
 import com.greenfox.opal.gitinder.model.response.MessageResponse;
+import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MessageAdapter;
 
@@ -44,13 +47,21 @@ public class MessagesActivity extends AppCompatActivity {
     listMessages = (ListView) findViewById(R.id.message_list);
     messageEditText = (EditText) findViewById(R.id.message_edit_text);
     messageAdapter = new MessageAdapter(this, new ArrayList<Message>());
-    Bundle bundle = getIntent().getExtras();
+    final Bundle bundle = getIntent().getExtras();
     String value = "";
     if (bundle != null) {
       value = bundle.getString("username");
     }
     listAllMessages(preferences.getString(X_GITINDER_TOKEN, null), value);
     listMessages.setAdapter(messageAdapter);
+
+    buttonSend.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Message message = new Message(bundle.getString("username"), messageEditText.getText().toString());
+        sendMessage(preferences.getString(X_GITINDER_TOKEN, null), message);
+      }
+    });
   }
 
   public void listAllMessages(String token, String username) {
@@ -73,6 +84,26 @@ public class MessagesActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<MessageResponse> call, Throwable t) {
         Log.d("dev", "FAIL! =(");
+      }
+    });
+  }
+
+  public void sendMessage(String token, Message message) {
+    service.postMessage(token, message).enqueue(new Callback<PostMessageResponse>() {
+      @Override
+      public void onResponse(Call<PostMessageResponse> call,
+          Response<PostMessageResponse> response) {
+        if (response.body().getStatus().equals("ok")) {
+          messageAdapter.add(response.body().getNewMessage());
+          messageAdapter.notifyDataSetChanged();
+        } else {
+          Log.d("dev", response.body().getMessage());
+        }
+      }
+
+      @Override
+      public void onFailure(Call<PostMessageResponse> call, Throwable t) {
+
       }
     });
   }

@@ -1,10 +1,11 @@
 package com.greenfox.opal.gitinder.model.response;
 
+import com.greenfox.opal.gitinder.model.ExtendedMessage;
 import com.greenfox.opal.gitinder.model.Message;
 
 public class PostMessageResponse extends BaseResponse {
 
-  private Message message;
+  private ExtendedMessage newMessage;
 
   public PostMessageResponse() {
   }
@@ -13,8 +14,12 @@ public class PostMessageResponse extends BaseResponse {
     super("error", message);
   }
 
-  public PostMessageResponse(Message message) {
+  public PostMessageResponse(ExtendedMessage newMessage) {
     this.status = "ok";
-    this.message = message;
+    this.newMessage = newMessage;
+  }
+
+  public ExtendedMessage getNewMessage() {
+    return newMessage;
   }
 }
