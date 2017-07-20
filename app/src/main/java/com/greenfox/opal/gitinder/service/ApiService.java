@@ -2,9 +2,11 @@ package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
+import com.greenfox.opal.gitinder.model.Message;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
 import com.greenfox.opal.gitinder.model.response.MessageResponse;
+import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
 import com.greenfox.opal.gitinder.service.MockCall;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
@@ -36,4 +38,7 @@ public interface ApiService {
 
   @GET("/messages/{username}")
   Call<MessageResponse> getMessages(@Header(value = "X-GiTinder-token") String token, @Path("username") String username);
+
+  @POST("/messages")
+  Call<PostMessageResponse> postMessage(@Header(value = "X-GiTinder-token") String token, @Body Message message);
 }

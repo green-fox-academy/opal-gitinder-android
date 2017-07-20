@@ -1,7 +1,9 @@
 package com.greenfox.opal.gitinder.service;
 
 import com.greenfox.opal.gitinder.model.ExtendedMessage;
+import com.greenfox.opal.gitinder.model.Message;
 import com.greenfox.opal.gitinder.model.response.MessageResponse;
+import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
@@ -156,6 +158,24 @@ public class MockServer implements ApiService {
           messages.add(new ExtendedMessage("dorinagy", "last message", 495809, username, System.currentTimeMillis()));
 
           response = new MessageResponse(messages);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<PostMessageResponse> postMessage(@Header(value = "X-GiTinder-token") final String token, @Body Message message) {
+    return new MockCall<PostMessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        PostMessageResponse response;
+        if (token.isEmpty()) {
+          response = new PostMessageResponse("Unauthorized request!");
+        } else {
+          Message message = new Message("dorinagy", "first message");
+
+          response = new PostMessageResponse(message);
         }
         callback.onResponse(null, Response.success(response));
       }
