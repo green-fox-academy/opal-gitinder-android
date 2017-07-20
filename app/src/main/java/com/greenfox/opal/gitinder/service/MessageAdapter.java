@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.Message;
 
+import java.util.ArrayList;
+
 public class MessageAdapter extends ArrayAdapter<Message> {
 
-  public MessageAdapter(Context context) {
-    super(context, 0);
+  public MessageAdapter(Context context, ArrayList<Message> message) {
+    super(context, 0, message);
   }
 
   @NonNull

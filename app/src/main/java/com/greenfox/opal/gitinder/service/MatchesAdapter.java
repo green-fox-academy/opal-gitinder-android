@@ -44,9 +44,7 @@ public class MatchesAdapter extends ArrayAdapter<Match> {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getContext(), MessagesActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("username", current.getUsername());
-        intent.putExtras(bundle);
+        intent.putExtra("username", current.getUsername());
         getContext().startActivity(intent);
       }
     });

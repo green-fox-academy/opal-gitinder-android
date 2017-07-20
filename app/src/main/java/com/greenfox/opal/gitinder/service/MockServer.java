@@ -49,7 +49,7 @@ public class MockServer implements ApiService {
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUser_name(), mockToken);
+          response = new LoginResponse("ok", mockToken);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -157,6 +157,7 @@ public class MockServer implements ApiService {
           messages.add(new ExtendedMessage("balintvecsey", "last message", 495809, username, System.currentTimeMillis()));
 
           response = new MessageResponse(messages);
+          response.setStatus("ok");
         }
         callback.onResponse(null, Response.success(response));
       }
