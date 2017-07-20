@@ -151,9 +151,9 @@ public class MockServer implements ApiService {
           response = new MessageResponse("Unauthorized request!");
         } else {
           ArrayList<ExtendedMessage> messages = new ArrayList<>();
-          messages.add(new ExtendedMessage("dorinagy", "first message", 1738, username, System.currentTimeMillis()));
-          messages.add(new ExtendedMessage("dorinagy", "second message", 49820, username, System.currentTimeMillis()));
-          messages.add(new ExtendedMessage("dorinagy", "last message", 495809, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "first message", 1738, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "second message", 49820, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "last message", 495809, username, System.currentTimeMillis()));
 
           response = new MessageResponse(messages);
         }
