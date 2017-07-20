@@ -1,13 +1,18 @@
 package com.greenfox.opal.gitinder.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.greenfox.opal.gitinder.MainActivity;
+import com.greenfox.opal.gitinder.MessagesActivity;
 import com.greenfox.opal.gitinder.R;
 import com.squareup.picasso.Picasso;
 
@@ -33,6 +38,14 @@ public class MatchesAdapter extends ArrayAdapter<Match> {
     TextView latestMessage = (TextView) convertView.findViewById(R.id.textMessage);
     latestMessage.setText(current.getLatestMessage());
 
+    Button messagesButton = (Button) convertView.findViewById(R.id.buttonMessages);
+    messagesButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent messagesActivity = new Intent(getContext(), MessagesActivity.class);
+        getContext().startActivity(messagesActivity);
+      }
+    });
 
     CircleImageView avatar = (CircleImageView) convertView.findViewById(R.id.imageView);
     Picasso.with(getContext())
