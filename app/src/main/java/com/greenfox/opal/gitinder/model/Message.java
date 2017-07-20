@@ -6,11 +6,9 @@ public class Message {
   private String message;
 
   public Message() {
-
   }
 
   public Message(String to, String message) {
-
     this.to = to;
     this.message = message;
   }
