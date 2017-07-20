@@ -4,7 +4,7 @@ import com.greenfox.opal.gitinder.model.Message;
 
 import java.util.List;
 
-public class MessageResponse {
+public class MessageResponse extends BaseResponse{
   private List<Message> messages;
 
   public MessageResponse() {
