@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.GitinderApp;
-import com.greenfox.opal.gitinder.LoginActivity;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -148,8 +146,6 @@ public class SwipingFragment extends Fragment {
           for (Profile p : members) {
             Log.d("dev", p.getLogin() + ":" + p.getAvatar_url() + ":" + p.getRepos() + ":" + p.getLanguages());
             adapter.add(p);
-//            adapter.addAll(p);
-//            adapter.notifyDataSetChanged();
           }
         }
       }

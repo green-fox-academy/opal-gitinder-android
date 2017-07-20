@@ -1,16 +1,29 @@
 package com.greenfox.opal.gitinder.model;
 
-import java.sql.Timestamp;
-
 public class Message {
 
-  private long id;
-  private String from;
   private String to;
-  private Timestamp createdAt = new Timestamp(System.currentTimeMillis());
   private String message;
 
   public Message() {
+  }
+
+  public Message(String to, String message) {
+    this.to = to;
+    this.message = message;
+  }
+
+  public void setTo(String to) {
+    this.to = to;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public String getTo() {
+
+    return to;
   }
 
   public String getMessage() {
