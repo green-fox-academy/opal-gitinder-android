@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.greenfox.opal.gitinder.GitinderApp;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.service.ApiService;
@@ -49,6 +50,9 @@ public class SettingsFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Setting tab");
     final View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+    GitinderApp.app().basicComponent().inject(this);
+
     final Switch switchNotifications = (Switch) view.findViewById(R.id.switch_notifications);
     final Switch switchSync = (Switch) view.findViewById(R.id.switch_sync);
     editor = getActivity().getSharedPreferences(SWITCHSTATE, MODE_PRIVATE).edit();
