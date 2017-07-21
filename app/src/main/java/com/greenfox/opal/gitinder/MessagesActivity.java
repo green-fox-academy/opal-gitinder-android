@@ -68,7 +68,7 @@ public class MessagesActivity extends AppCompatActivity {
     service.getMessages(token, username).enqueue(new Callback<MessageResponse>() {
       @Override
       public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
-        if (response.body().getStatus().equals("ok")) {
+        if (response.body().getMessages() != null) {
           List<ExtendedMessage> allMessages = response.body().getMessages();
           for (ExtendedMessage m : allMessages) {
             try {

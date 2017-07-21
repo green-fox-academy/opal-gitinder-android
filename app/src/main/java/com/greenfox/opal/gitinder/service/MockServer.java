@@ -110,7 +110,7 @@ public class MockServer implements ApiService {
         BaseResponse response;
         if (token.isEmpty()) {
           response = new SwipingResponse("error", "empty token");
-        } else if(direction.equals(RIGHT)){
+        } else if(direction.equals(Direction.RIGHT)){
           ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
           response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis(), messages));
         } else {
