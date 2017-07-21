@@ -46,7 +46,7 @@ public class MessagesActivity extends AppCompatActivity {
     buttonSend = (Button) findViewById(R.id.button_send);
     listMessages = (ListView) findViewById(R.id.message_list);
     messageEditText = (EditText) findViewById(R.id.message_edit_text);
-    messageAdapter = new MessageAdapter(this, new ArrayList<Message>());
+    messageAdapter = new MessageAdapter(this, new ArrayList<ExtendedMessage>());
     final Bundle bundle = getIntent().getExtras();
     String value = "";
     if (bundle != null) {
