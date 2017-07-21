@@ -24,10 +24,11 @@ import retrofit2.http.Path;
 import static com.greenfox.opal.gitinder.Direction.RIGHT;
 
 public class MockServer implements ApiService {
-  public final static String mockToken = "abcd1234";
-  public final static String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
-  public final static String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
-  public final static String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
+  public static final String mockToken = "abcd1234";
+  public static final String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
+  public static final String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
+  public static final String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
+  public static final String SELFIE_URL = "https://s-media-cache-ak0.pinimg.com/originals/aa/21/04/aa21045fcab4461f3b61d8561efcf181.jpg";
 
   @Override
   public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
@@ -59,7 +60,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<ProfileListResponse> callback) {
         ProfileListResponse response;
-        if (token == null || !mockToken.equals(token)) {
+        if (token == null) {
           response = new ProfileListResponse("Unauthorized request!");
         } else {
           ArrayList<Profile> list = new ArrayList<>();
@@ -83,14 +84,14 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<Profile> callback) {
         Profile response;
-        if (token == null || mockToken.equals(token)) {
+        if (token == null) {
           response = new Profile("Unauthorized request!");
         } else {
           List<String> repos = new ArrayList<>();
           List<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          response = new Profile("happysloth", "happysloth.png", repos, languages);
+          response = new Profile("happysloth", SELFIE_URL, repos, languages);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -107,7 +108,7 @@ public class MockServer implements ApiService {
         BaseResponse response;
         if (token.isEmpty()) {
           response = new SwipingResponse("error", "empty token");
-        } else if(direction.equals(RIGHT)){
+        } else if (direction.equals(RIGHT)) {
           ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
           response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis(), messages));
         } else {
