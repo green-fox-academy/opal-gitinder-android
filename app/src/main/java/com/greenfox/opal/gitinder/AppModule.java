@@ -17,51 +17,56 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module
 public class AppModule {
-    private Context context;
-    private static final boolean CONNECT_TO_BACKEND = false;
-    private static final String SERVER_URL = "http://gitinder.herokuapp.com";
+  private Context context;
+  private static final boolean CONNECT_TO_BACKEND = false;
+  private static final String SERVER_URL = "http://gitinder.herokuapp.com";
 
-    public AppModule(Context context) {
-        this.context = context;
-    }
+  public AppModule(Context context) {
+    this.context = context;
+  }
 
-    @Singleton
-    @Provides
-    public Context provideContext(){
-        return context;
-    }
+  @Singleton
+  @Provides
+  public Context provideContext() {
+    return context;
+  }
 
-    @Singleton @Provides
-    public SharedPreferences provideSharedPreferences(Context context){
-        return PreferenceManager.getDefaultSharedPreferences(context);
-    }
+  @Singleton
+  @Provides
+  public SharedPreferences provideSharedPreferences(Context context) {
+    return PreferenceManager.getDefaultSharedPreferences(context);
+  }
 
-    @Singleton @Provides
-    public Gson provideGson(){
-        return new Gson();
-    }
+  @Singleton
+  @Provides
+  public Gson provideGson() {
+    return new Gson();
+  }
 
-    @Singleton @Provides
-    public ObjectManager provideObjectManager(SharedPreferences sharedPreferences, Gson gson){
-        return new ObjectManager(sharedPreferences, gson);
-    }
+  @Singleton
+  @Provides
+  public ObjectManager provideObjectManager(SharedPreferences sharedPreferences, Gson gson) {
+    return new ObjectManager(sharedPreferences, gson);
+  }
 
-    @Singleton @Provides
-    public MockServer provideMockServer() {
-        return new MockServer();
-    }
+  @Singleton
+  @Provides
+  public MockServer provideMockServer() {
+    return new MockServer();
+  }
 
-    @Singleton @Provides
-    public ApiService provideApiService() {
-        if (CONNECT_TO_BACKEND) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(SERVER_URL)
-                    .addConverterFactory(JacksonConverterFactory.create())
-                    .build();
-            ApiService service = retrofit.create(ApiService.class);
-            return service;
-        } else {
-            return provideMockServer();
-        }
+  @Singleton
+  @Provides
+  public ApiService provideApiService() {
+    if (CONNECT_TO_BACKEND) {
+      Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(SERVER_URL)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .build();
+      ApiService service = retrofit.create(ApiService.class);
+      return service;
+    } else {
+      return provideMockServer();
     }
+  }
 }

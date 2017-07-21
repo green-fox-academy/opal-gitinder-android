@@ -11,9 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.greenfox.opal.gitinder.GitinderApp;
+import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
-import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MatchesAdapter;
 import com.greenfox.opal.gitinder.R;
 
@@ -26,21 +26,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class MatchesFragment extends Fragment {
+  private static final String TAG = "MatchesFragment";
 
   @Inject
   ApiService service;
   @Inject
   SharedPreferences preferences;
-
   MatchesAdapter adapter;
-
-  private static final String TAG = "MatchesFragment";
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     Log.d(TAG, "on Matches tab");
+
     View view = inflater.inflate(R.layout.fragment_matches, container, false);
 
     GitinderApp.app().basicComponent().inject(this);
@@ -50,7 +51,7 @@ public class MatchesFragment extends Fragment {
     ListView listView = (ListView) view.findViewById(R.id.matchList);
     listView.setAdapter(adapter);
 
-    onMatchesRequest(preferences.getString("Backend Response Token", ""));
+    onMatchesRequest(preferences.getString(X_GITINDER_TOKEN, null));
     return view;
   }
 

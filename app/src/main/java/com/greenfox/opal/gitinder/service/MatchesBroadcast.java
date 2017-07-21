@@ -17,6 +17,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.greenfox.opal.gitinder.LoginActivity.X_GITINDER_TOKEN;
+
 public class MatchesBroadcast extends BroadcastReceiver {
   @Inject
   ApiService service;
@@ -26,7 +28,8 @@ public class MatchesBroadcast extends BroadcastReceiver {
   @Override
   public void onReceive(Context context, Intent intent) {
     GitinderApp.app().basicComponent().inject(this);
-    service.getMatches(preferences.getString("Backend Response Token", null)).enqueue(new Callback<MatchesResponse>() {
+    service.getMatches(preferences.getString(X_GITINDER_TOKEN, null)).enqueue(new Callback<MatchesResponse>() {
+
       @Override
       public void onResponse(Call<MatchesResponse> call, Response<MatchesResponse> response) {
         List<Match> matches = response.body().getMatches();
