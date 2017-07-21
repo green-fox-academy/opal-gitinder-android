@@ -35,6 +35,9 @@ public class Match {
   }
 
   public String getLatestMessage() {
-    return getMessages().get(0);
+    if(messages != null && !messages.isEmpty()) {
+      return messages.get(0);
+    }
+    return "Latest message";
   }
 }

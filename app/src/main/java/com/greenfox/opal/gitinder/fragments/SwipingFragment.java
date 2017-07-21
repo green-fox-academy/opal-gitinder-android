@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.GitinderApp;
-import com.greenfox.opal.gitinder.LoginActivity;
 import com.greenfox.opal.gitinder.R;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
@@ -61,7 +59,7 @@ public class SwipingFragment extends Fragment {
     adapter = new CandidateAdapter(view.getContext(), new ArrayList<Profile>());
     flingAdapterView.setAdapter(adapter);
 
-    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+    onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 1);
 
     flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
       @Override
@@ -91,7 +89,7 @@ public class SwipingFragment extends Fragment {
         Log.d("dev", "EMPTY");
 
         if (i <= 3) {
-          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 0);
+          onListRequest(preferences.getString(X_GITINDER_TOKEN, null), 1);
         }
         if (i <= 0) {
           text.setVisibility(VISIBLE);
@@ -146,7 +144,7 @@ public class SwipingFragment extends Fragment {
         } else {
           List<Profile> members = response.body().getProfiles();
           for (Profile p : members) {
-            Log.d("dev", p.getLogin() + ":" + p.getAvatarUrl() + ":" + p.getRepos() + ":" + p.getLanguages());
+            Log.d("dev", p.getLogin() + ":" + p.getAvatar_url() + ":" + p.getRepos() + ":" + p.getLanguages());
             adapter.add(p);
           }
         }

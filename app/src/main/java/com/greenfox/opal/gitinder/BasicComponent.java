@@ -1,5 +1,6 @@
 package com.greenfox.opal.gitinder;
 
+import com.greenfox.opal.gitinder.fragments.MatchDialogFragment;
 import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.fragments.SettingsFragment;
 import com.greenfox.opal.gitinder.service.MatchesBroadcast;
@@ -14,8 +15,10 @@ import dagger.Component;
 public interface BasicComponent {
   void inject(LoginActivity loginActivity);
   void inject(MainActivity mainActivity);
+  void inject(MessagesActivity messagesActivity);
   void inject(MatchesBroadcast matchesBroadcast);
   void inject(SwipingFragment swipingFragment);
   void inject(MatchesFragment matchesFragment);
+  void inject(MatchDialogFragment matchesFragment);
   void inject(SettingsFragment settingsFragment);
 }

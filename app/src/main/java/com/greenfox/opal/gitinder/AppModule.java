@@ -5,20 +5,23 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.greenfox.opal.gitinder.fragments.MatchesFragment;
 import com.greenfox.opal.gitinder.service.ApiService;
 import com.greenfox.opal.gitinder.service.MockServer;
 
 import javax.inject.Singleton;
+import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module
 public class AppModule {
   private Context context;
-  private static final boolean CONNECT_TO_BACKEND = false;
+  private static final boolean CONNECT_TO_BACKEND = true;
   private static final String SERVER_URL = "http://gitinder.herokuapp.com";
 
   public AppModule(Context context) {
@@ -51,22 +54,31 @@ public class AppModule {
 
   @Singleton
   @Provides
-  public MockServer provideMockServer() {
-    return new MockServer();
+  public MatchesFragment provideMatchesFragment() {
+    return new MatchesFragment();
   }
 
   @Singleton
   @Provides
+  public MockServer provideMockServer() {
+    return new MockServer();
+  }
+
+  @Singleton @Provides
   public ApiService provideApiService() {
     if (CONNECT_TO_BACKEND) {
+      OkHttpClient client = new OkHttpClient.Builder()
+          .connectTimeout(100, TimeUnit.SECONDS)
+          .readTimeout(100, TimeUnit.SECONDS).build();
       Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(SERVER_URL)
-        .addConverterFactory(JacksonConverterFactory.create())
-        .build();
+          .baseUrl(SERVER_URL)
+          .client(client)
+          .addConverterFactory(JacksonConverterFactory.create())
+          .build();
       ApiService service = retrofit.create(ApiService.class);
       return service;
     } else {
-      return provideMockServer();
+        return provideMockServer();
     }
   }
 }

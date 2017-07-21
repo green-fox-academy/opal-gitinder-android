@@ -1,5 +1,9 @@
 package com.greenfox.opal.gitinder.service;
 
+import com.greenfox.opal.gitinder.model.ExtendedMessage;
+import com.greenfox.opal.gitinder.model.Message;
+import com.greenfox.opal.gitinder.model.response.MessageResponse;
+import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
@@ -7,6 +11,7 @@ import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+import com.greenfox.opal.gitinder.model.response.StatusResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
@@ -21,8 +26,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-import static com.greenfox.opal.gitinder.Direction.RIGHT;
-
 public class MockServer implements ApiService {
   public static final String mockToken = "abcd1234";
   public static final String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
@@ -31,23 +34,23 @@ public class MockServer implements ApiService {
   public static final String SELFIE_URL = "https://s-media-cache-ak0.pinimg.com/originals/aa/21/04/aa21045fcab4461f3b61d8561efcf181.jpg";
 
   @Override
-  public Call<LoginResponse> login(@Body final LoginRequest loginRequest) {
+  public Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body final LoginRequest loginRequest) {
     return new MockCall<LoginResponse>() {
       @Override
       public void enqueue(Callback<LoginResponse> callback) {
         LoginResponse response;
-        if (loginRequest.getUsername().isEmpty() || loginRequest.getAccessToken().isEmpty()) {
+        if (loginRequest.getUser_name().isEmpty() || loginRequest.getAccess_token().isEmpty()) {
           String message = "Missing parameter(s):";
-          if (loginRequest.getUsername().isEmpty()) {
+          if (loginRequest.getUser_name().isEmpty()) {
             message += " username";
           }
-          if (loginRequest.getAccessToken().isEmpty()) {
+          if (loginRequest.getAccess_token().isEmpty()) {
             message += " accessToken";
           }
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUsername(), mockToken);
+          response = new LoginResponse("ok", mockToken);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -108,7 +111,7 @@ public class MockServer implements ApiService {
         BaseResponse response;
         if (token.isEmpty()) {
           response = new SwipingResponse("error", "empty token");
-        } else if (direction.equals(RIGHT)) {
+        } else if(direction.equals(Direction.RIGHT)){
           ArrayList<String> messages = new ArrayList<>(Arrays.asList("Latest Message", "Other Message"));
           response = new SwipingResponse(new Match("Garlyle2", "thinker", System.currentTimeMillis(), messages));
         } else {
@@ -135,6 +138,63 @@ public class MockServer implements ApiService {
           matches.add(new Match("dorinagy", HUNGRY_URL, System.currentTimeMillis(), messages));
 
           response = new MatchesResponse(matches);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+
+  @Override
+  public Call<MessageResponse> getMessages(@Header(value = "X-GiTinder-token") final String token, @Path("username") final String username) {
+    return new MockCall<MessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        MessageResponse response;
+        if (token.isEmpty()) {
+          response = new MessageResponse("Unauthorized request!");
+        } else {
+          ArrayList<ExtendedMessage> messages = new ArrayList<>();
+          messages.add(new ExtendedMessage("balintvecsey", "first message", 1738, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "second message", 49820, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "last message", 495809, username, System.currentTimeMillis()));
+
+          response = new MessageResponse(messages);
+          response.setStatus("ok");
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<PostMessageResponse> postMessage(@Header(value = "X-GiTinder-token") final String token, @Body Message message) {
+    return new MockCall<PostMessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        PostMessageResponse response;
+        if (token.isEmpty()) {
+          response = new PostMessageResponse("Unauthorized request!");
+        } else {
+          ExtendedMessage message = new ExtendedMessage("dorinagy", "new message", 495809, "balintvecsey", System.currentTimeMillis());
+
+          response = new PostMessageResponse(message);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<StatusResponse> deletMessage(@Header(value = "X-GiTinder-token") final String token, @Path("id") Long id) {
+    return new MockCall<StatusResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        StatusResponse response;
+        if (token.isEmpty()) {
+          response = new BaseResponse("error", "Unauthorized request!");
+        } else {
+          response = new StatusResponse("ok");
         }
         callback.onResponse(null, Response.success(response));
       }

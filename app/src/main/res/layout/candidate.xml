@@ -41,6 +41,9 @@
             android:text="Sloth"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
+            android:shadowColor="#000000"
+            android:shadowRadius="5"
+            android:shadowDy="5"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintLeft_toLeftOf="@+id/imageView"
             tools:layout_constraintBottom_creator="1"/>
