@@ -22,8 +22,8 @@ import org.robolectric.annotation.Config;
 @Config(constants = BuildConfig.class)
 public class SettingsFragmentTest {
 
-  private SettingsFragment settingsFragment;
-  private SharedPreferences sharedPreferences;
+  SettingsFragment settingsFragment;
+  SharedPreferences sharedPreferences;
 
   @Before
   public void setup() throws Exception {
