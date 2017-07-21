@@ -1,5 +1,9 @@
 package com.greenfox.opal.gitinder.service;
 
+import com.greenfox.opal.gitinder.model.ExtendedMessage;
+import com.greenfox.opal.gitinder.model.Message;
+import com.greenfox.opal.gitinder.model.response.MessageResponse;
+import com.greenfox.opal.gitinder.model.response.PostMessageResponse;
 import com.greenfox.opal.gitinder.model.response.Profile;
 import com.greenfox.opal.gitinder.Direction;
 import com.greenfox.opal.gitinder.model.LoginRequest;
@@ -7,6 +11,7 @@ import com.greenfox.opal.gitinder.model.response.BaseResponse;
 import com.greenfox.opal.gitinder.model.response.LoginResponse;
 import com.greenfox.opal.gitinder.model.response.Match;
 import com.greenfox.opal.gitinder.model.response.MatchesResponse;
+import com.greenfox.opal.gitinder.model.response.StatusResponse;
 import com.greenfox.opal.gitinder.model.response.SwipingResponse;
 import com.greenfox.opal.gitinder.model.response.ProfileListResponse;
 
@@ -20,8 +25,6 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
-
-import static com.greenfox.opal.gitinder.Direction.RIGHT;
 
 public class MockServer implements ApiService {
   public final static String mockToken = "abcd1234";
@@ -46,7 +49,7 @@ public class MockServer implements ApiService {
           message += "!";
           response = new LoginResponse(message);
         } else {
-          response = new LoginResponse(loginRequest.getUser_name(), mockToken);
+          response = new LoginResponse("ok", mockToken);
         }
         callback.onResponse(null, Response.success(response));
       }
@@ -59,7 +62,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<ProfileListResponse> callback) {
         ProfileListResponse response;
-        if (token == null || !mockToken.equals(token)) {
+        if (token == null) {
           response = new ProfileListResponse("Unauthorized request!");
         } else {
           ArrayList<Profile> list = new ArrayList<>();
@@ -83,7 +86,7 @@ public class MockServer implements ApiService {
       @Override
       public void enqueue(Callback<Profile> callback) {
         Profile response;
-        if (token == null || mockToken.equals(token)) {
+        if (token == null) {
           response = new Profile("Unauthorized request!");
         } else {
           List<String> repos = new ArrayList<>();
@@ -134,6 +137,63 @@ public class MockServer implements ApiService {
           matches.add(new Match("dorinagy", HUNGRY_URL, System.currentTimeMillis(), messages));
 
           response = new MatchesResponse(matches);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+
+  @Override
+  public Call<MessageResponse> getMessages(@Header(value = "X-GiTinder-token") final String token, @Path("username") final String username) {
+    return new MockCall<MessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        MessageResponse response;
+        if (token.isEmpty()) {
+          response = new MessageResponse("Unauthorized request!");
+        } else {
+          ArrayList<ExtendedMessage> messages = new ArrayList<>();
+          messages.add(new ExtendedMessage("balintvecsey", "first message", 1738, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "second message", 49820, username, System.currentTimeMillis()));
+          messages.add(new ExtendedMessage("balintvecsey", "last message", 495809, username, System.currentTimeMillis()));
+
+          response = new MessageResponse(messages);
+          response.setStatus("ok");
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<PostMessageResponse> postMessage(@Header(value = "X-GiTinder-token") final String token, @Body Message message) {
+    return new MockCall<PostMessageResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        PostMessageResponse response;
+        if (token.isEmpty()) {
+          response = new PostMessageResponse("Unauthorized request!");
+        } else {
+          ExtendedMessage message = new ExtendedMessage("dorinagy", "new message", 495809, "balintvecsey", System.currentTimeMillis());
+
+          response = new PostMessageResponse(message);
+        }
+        callback.onResponse(null, Response.success(response));
+      }
+    };
+  }
+
+  @Override
+  public Call<StatusResponse> deletMessage(@Header(value = "X-GiTinder-token") final String token, @Path("id") Long id) {
+    return new MockCall<StatusResponse>() {
+      @Override
+      public void enqueue(Callback callback) {
+        StatusResponse response;
+        if (token.isEmpty()) {
+          response = new BaseResponse("error", "Unauthorized request!");
+        } else {
+          response = new StatusResponse("ok");
         }
         callback.onResponse(null, Response.success(response));
       }

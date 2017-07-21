@@ -14,6 +14,7 @@ import dagger.Component;
 public interface BasicComponent {
   void inject(LoginActivity loginActivity);
   void inject(MainActivity mainActivity);
+  void inject(MessagesActivity messagesActivity);
   void inject(MatchesBroadcast matchesBroadcast);
   void inject(SwipingFragment swipingFragment);
   void inject(MatchesFragment matchesFragment);
