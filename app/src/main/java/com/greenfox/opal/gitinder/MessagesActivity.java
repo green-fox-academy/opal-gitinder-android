@@ -94,16 +94,15 @@ public class MessagesActivity extends AppCompatActivity {
       public void onResponse(Call<PostMessageResponse> call,
           Response<PostMessageResponse> response) {
         if (response.body().getStatus().equals("ok")) {
-          messageAdapter.add(response.body().getNewMessage());
+          messageAdapter.add(response.body().getMessage());
           messageAdapter.notifyDataSetChanged();
         } else {
-          Log.d("dev", response.body().getMessage());
         }
       }
 
       @Override
       public void onFailure(Call<PostMessageResponse> call, Throwable t) {
-
+        Log.d("dev", "FAIL");
       }
     });
   }
