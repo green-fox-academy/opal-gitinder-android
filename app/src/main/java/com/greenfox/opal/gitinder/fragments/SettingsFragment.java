@@ -57,9 +57,10 @@ public class SettingsFragment extends Fragment {
     final Switch switchSync = (Switch) view.findViewById(R.id.switch_sync);
     editor = getActivity().getSharedPreferences(SWITCHSTATE, MODE_PRIVATE).edit();
 
+    avatarUrl = onProfileInfoRequest(preferences.getString(X_GITINDER_TOKEN, null));
     ImageView avatar = (ImageView) view.findViewById(R.id.profile_pic);
     Picasso.with(getContext())
-      .load(onProfileInfoRequest(preferences.getString(X_GITINDER_TOKEN, null)))
+      .load(avatarUrl)
       .into(avatar);
 
     switchNotifications.setOnClickListener(new OnClickListener() {
@@ -99,6 +100,7 @@ public class SettingsFragment extends Fragment {
   }
 
   public String onProfileInfoRequest(String token) {
+    Log.d(TAG, "onProfileInfoRequest: ");
     service.getProfileInfos(token).enqueue(new Callback<Profile>() {
       @Override
       public void onResponse(Call<Profile> call, Response<Profile> response) {
@@ -107,7 +109,6 @@ public class SettingsFragment extends Fragment {
           Log.d("dev", response.body().getMessage());
         } else {
           avatarUrl = response.body().getAvatarUrl();
-          Log.d("dev", response.body().getStatus());
         }
       }
 
