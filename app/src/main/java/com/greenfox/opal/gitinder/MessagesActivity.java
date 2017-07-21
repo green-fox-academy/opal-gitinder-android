@@ -60,6 +60,7 @@ public class MessagesActivity extends AppCompatActivity {
       public void onClick(View v) {
         Message message = new Message(bundle.getString("username"), messageEditText.getText().toString());
         sendMessage(preferences.getString(X_GITINDER_TOKEN, null), message);
+        messageEditText.setText("");
       }
     });
   }
