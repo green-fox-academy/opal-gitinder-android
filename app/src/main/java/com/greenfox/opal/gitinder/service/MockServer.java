@@ -27,10 +27,11 @@ import retrofit2.http.Header;
 import retrofit2.http.Path;
 
 public class MockServer implements ApiService {
-  public final static String mockToken = "abcd1234";
-  public final static String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
-  public final static String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
-  public final static String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
+  public static final String mockToken = "abcd1234";
+  public static final String CREEPY_URL = "https://pbs.twimg.com/profile_images/658567330566414337/xVR-6ohi_400x400.jpg";
+  public static final String THINKER_URL = "https://www.quizz.biz/uploads/quizz/975627/11_7DfU5.jpg";
+  public static final String HUNGRY_URL = "http://www.rainforest-alliance.org/sites/default/files/styles/750w_585h/public/2016-09/three-toed-sloth.jpg";
+  public static final String SELFIE_URL = "https://s-media-cache-ak0.pinimg.com/originals/aa/21/04/aa21045fcab4461f3b61d8561efcf181.jpg";
 
   @Override
   public Call<LoginResponse> login(@Header("Content-Type") String content_type, @Body final LoginRequest loginRequest) {
@@ -93,7 +94,7 @@ public class MockServer implements ApiService {
           List<String> languages = new ArrayList<>();
           repos.add("opal-gitinder-android");
           languages.add("Java");
-          response = new Profile("happysloth", "happysloth.png", repos, languages);
+          response = new Profile("happysloth", SELFIE_URL, repos, languages);
         }
         callback.onResponse(null, Response.success(response));
       }
